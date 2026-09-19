@@ -1,36 +1,31 @@
 import { useContext, useState } from "react";
-
 import Header from "../components/header";
 import Navigation from "../components/navigation";
 import ExperienceSwitcher from "../components/experienceSwitcher";
 import Footer from "../components/footer";
 import Product from "../components/product";
 
+import products from "../data/products";
+
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
 
-import products from "../data/products";
-
 function ProductDetails({ product, navigate }) {
   const { addToCart } = useContext(CartContext);
-
-  const { wishlist, toggleWishlist } =
-    useContext(WishlistContext);
+  const { wishlist, toggleWishlist } = useContext(WishlistContext);
 
   const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
 
+  /* If no product is selected */
   if (!product) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header navigate={navigate} />
 
-        <ExperienceSwitcher />
-
-        <Navigation navigate={navigate} />
-
-        <main className="mx-auto max-w-7xl px-4 py-20 text-center">
-          <h1 className="text-2xl font-black">
-            Product not found
+        <div className="mx-auto max-w-7xl px-4 py-20 text-center">
+          <h1 className="text-2xl font-black text-gray-900">
+            Product Not Found
           </h1>
 
           <button
@@ -39,30 +34,45 @@ function ProductDetails({ product, navigate }) {
           >
             Back to Products
           </button>
-        </main>
+        </div>
 
         <Footer navigate={navigate} />
       </div>
     );
   }
 
+  /* Related products */
+  const relatedProducts = products
+    .filter(
+      (item) =>
+        item.category === product.category &&
+        item.id !== product.id
+    )
+    .slice(0, 4);
+
   const isWishlisted = wishlist.some(
     (item) => item.id === product.id
   );
 
-  <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-  {relatedProducts.map((item) => (
-    <Product
-      key={item.id}
-      product={item}
-      navigate={navigate}
-    />
-  ))}
-</div>
-
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart(product);
+    }
+
+    setAdded(true);
+
+    setTimeout(() => {
+      setAdded(false);
+    }, 1500);
+  };
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
     }
   };
 
@@ -70,83 +80,74 @@ function ProductDetails({ product, navigate }) {
     toggleWishlist(product);
   };
 
-  const handleBuyNow = () => {
-    addToCart(product);
-    navigate("checkout");
-  };
-
-  const handleBackToProducts = () => {
-    navigate("products", {
-      category: product.category,
-    });
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
 
+      {/* Header */}
       <Header navigate={navigate} />
 
-      <ExperienceSwitcher />
+      {/* Experience Switcher */}
+      <ExperienceSwitcher navigate={navigate} />
 
+      {/* Navigation */}
       <Navigation navigate={navigate} />
 
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      {/* Product Details */}
+      <main className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
 
+        {/* Back Button */}
         <button
-          onClick={handleBackToProducts}
-          className="mb-8 text-sm font-bold text-gray-600 hover:text-gray-900"
+          onClick={() => navigate("products")}
+          className="mb-5 text-sm font-bold text-gray-600 hover:text-gray-900"
         >
           ← Back to Products
         </button>
 
-        <section className="grid grid-cols-1 gap-10 rounded-3xl border border-gray-200 bg-white p-5 shadow-sm md:grid-cols-2 md:p-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
 
-          {/* PRODUCT IMAGE */}
-
-          <div className="overflow-hidden rounded-2xl bg-gray-100">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-full max-h-[600px] w-full object-cover"
-            />
+          {/* Product Image */}
+          <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+            <div className="aspect-square overflow-hidden bg-gray-100">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="h-full w-full object-cover"
+              />
+            </div>
           </div>
 
-          {/* PRODUCT DETAILS */}
-
+          {/* Product Information */}
           <div className="flex flex-col justify-center">
 
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
+            {/* Brand */}
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-gray-400">
               {product.brand}
             </p>
 
-            <h1 className="mt-3 text-3xl font-black leading-tight sm:text-4xl">
+            {/* Product Name */}
+            <h1 className="mt-2 text-2xl font-black leading-tight sm:text-4xl">
               {product.name}
             </h1>
 
-            {/* RATING */}
-
-            <div className="mt-5 flex items-center gap-3">
-
-              <span className="rounded-lg bg-gray-100 px-3 py-2 text-sm font-bold">
+            {/* Rating */}
+            <div className="mt-4 flex items-center gap-2">
+              <span className="rounded-lg bg-gray-100 px-3 py-1 text-sm font-bold">
                 ★ {product.rating}
               </span>
 
               <span className="text-sm text-gray-500">
-                {product.reviews} Reviews
+                {product.reviews} reviews
               </span>
-
             </div>
 
-            {/* PRICE */}
-
-            <div className="mt-6 flex items-center gap-3">
-
-              <span className="text-3xl font-black">
+            {/* Price */}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <span className="text-2xl font-black sm:text-3xl">
                 ₹{product.price.toLocaleString("en-IN")}
               </span>
 
               {product.oldPrice && (
-                <span className="text-sm text-gray-400 line-through">
+                <span className="text-sm text-gray-400 line-through sm:text-base">
                   ₹{product.oldPrice.toLocaleString("en-IN")}
                 </span>
               )}
@@ -156,170 +157,96 @@ function ProductDetails({ product, navigate }) {
                   {product.discount}% OFF
                 </span>
               )}
-
             </div>
 
-            {/* DESCRIPTION */}
+            {/* Description */}
+            <div className="mt-6 border-t border-gray-200 pt-6">
+              <h2 className="text-lg font-black">
+                About this product
+              </h2>
 
-            <p className="mt-6 leading-7 text-gray-500">
-              Enjoy this product with great quality, useful features,
-              and a personalized shopping experience.
-            </p>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                This product is a great choice for your everyday needs.
+                Check the product details, price and available offers
+                before adding it to your cart.
+              </p>
+            </div>
 
-            {/* QUANTITY */}
-
-            <div className="mt-7">
-
-              <p className="mb-3 text-sm font-bold">
+            {/* Quantity */}
+            <div className="mt-6">
+              <p className="text-sm font-bold">
                 Quantity
               </p>
 
-              <div className="flex w-fit items-center overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="mt-2 flex w-fit items-center overflow-hidden rounded-xl border border-gray-300 bg-white">
 
                 <button
-                  onClick={() =>
-                    setQuantity(
-                      quantity > 1 ? quantity - 1 : 1
-                    )
-                  }
-                  className="px-5 py-3 text-lg font-bold hover:bg-gray-100"
+                  onClick={decreaseQuantity}
+                  className="flex h-10 w-10 items-center justify-center text-lg font-bold hover:bg-gray-100"
                 >
                   −
                 </button>
 
-                <span className="px-5 py-3 text-sm font-bold">
+                <span className="flex h-10 w-12 items-center justify-center border-x border-gray-300 text-sm font-bold">
                   {quantity}
                 </span>
 
                 <button
-                  onClick={() =>
-                    setQuantity(quantity + 1)
-                  }
-                  className="px-5 py-3 text-lg font-bold hover:bg-gray-100"
+                  onClick={increaseQuantity}
+                  className="flex h-10 w-10 items-center justify-center text-lg font-bold hover:bg-gray-100"
                 >
                   +
                 </button>
 
               </div>
-
             </div>
 
-            {/* CART + BUY */}
-
-            <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {/* Buttons */}
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
 
               <button
                 onClick={handleAddToCart}
-                className="rounded-xl bg-gray-900 px-6 py-3.5 text-sm font-bold text-white hover:bg-gray-700"
+                className="flex-1 rounded-xl bg-red-500 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-600"
               >
-                Add to Cart
+                {added ? "Added ✓" : "Add to Cart"}
               </button>
 
               <button
-                onClick={handleBuyNow}
-                className="rounded-xl bg-red-500 px-6 py-3.5 text-sm font-bold text-white hover:bg-red-600"
+                onClick={handleWishlist}
+                className="rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm font-bold hover:bg-gray-100"
               >
-                Buy Now
+                {isWishlisted ? "♥ Wishlisted" : "♡ Wishlist"}
               </button>
 
             </div>
 
-            {/* WISHLIST */}
-
+            {/* Buy Now */}
             <button
-              onClick={handleWishlist}
-              className="mt-3 w-full rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-sm font-bold text-gray-800 hover:bg-gray-50"
+              onClick={() => {
+                addToCart(product);
+                navigate("cart");
+              }}
+              className="mt-3 w-full rounded-xl bg-gray-900 px-5 py-3.5 text-sm font-bold text-white hover:bg-gray-800"
             >
-              {isWishlisted
-                ? "♥ Added to Wishlist"
-                : "♡ Add to Wishlist"}
+              Buy Now
             </button>
 
-            {/* DELIVERY */}
-
-            <div className="mt-8 rounded-2xl bg-gray-50 p-5">
-
-              <h3 className="font-bold">
-                Delivery Information
-              </h3>
-
-              <p className="mt-2 text-sm text-gray-500">
-                Free delivery on eligible orders.
-              </p>
-
-              <p className="mt-2 text-sm text-gray-500">
-                Easy returns available.
-              </p>
-
-            </div>
-
           </div>
+        </div>
 
-        </section>
-
-        {/* PRODUCT INFORMATION */}
-
-        <section className="mt-10 rounded-3xl border border-gray-200 bg-white p-6 sm:p-8">
-
-          <h2 className="text-2xl font-black">
-            Product Information
-          </h2>
-
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-
-            <div>
-              <p className="text-xs font-bold uppercase text-gray-400">
-                Brand
-              </p>
-
-              <p className="mt-2 font-bold">
-                {product.brand}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-xs font-bold uppercase text-gray-400">
-                Category
-              </p>
-
-              <p className="mt-2 font-bold capitalize">
-                {product.category}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-xs font-bold uppercase text-gray-400">
-                Rating
-              </p>
-
-              <p className="mt-2 font-bold">
-                ★ {product.rating}
-              </p>
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* RELATED PRODUCTS */}
-
+        {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <section className="mt-12">
+          <section className="mt-12 border-t border-gray-200 pt-10 sm:mt-16">
 
-            <div className="mb-7">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-gray-400">
+              You May Also Like
+            </p>
 
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
-                You May Also Like
-              </p>
+            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
+              Related Products
+            </h2>
 
-              <h2 className="mt-2 text-3xl font-black">
-                Related Products
-              </h2>
-
-            </div>
-
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
               {relatedProducts.map((item) => (
                 <Product
                   key={item.id}
@@ -327,7 +254,6 @@ function ProductDetails({ product, navigate }) {
                   navigate={navigate}
                 />
               ))}
-
             </div>
 
           </section>
@@ -335,6 +261,7 @@ function ProductDetails({ product, navigate }) {
 
       </main>
 
+      {/* Footer */}
       <Footer navigate={navigate} />
 
     </div>
