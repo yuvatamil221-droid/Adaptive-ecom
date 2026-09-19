@@ -1,9 +1,19 @@
+import { useContext } from "react";
 import Product from "../components/product";
-
 import products from "../data/products";
 import categories from "../data/categories";
+import { UIConfigContext } from "../context/UIConfigContext";
 
 function AccessibilityHome({ navigate }) {
+  const {
+    highContrast,
+    setHighContrast,
+    largerButtons,
+    setLargerButtons,
+    layout,
+    setLayout,
+  } = useContext(UIConfigContext);
+
   const accessibilityProducts = products.slice(0, 8);
 
   return (
@@ -53,7 +63,6 @@ function AccessibilityHome({ navigate }) {
         <h2 className="mt-2 text-3xl font-black">
           What Would You Like To Do?
         </h2>
-
 
         <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -145,7 +154,6 @@ function AccessibilityHome({ navigate }) {
           Explore Categories
         </h2>
 
-
         <div className="mt-7 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
 
           {categories.map((category) => (
@@ -201,7 +209,6 @@ function AccessibilityHome({ navigate }) {
           Clear product information and easy-to-use actions.
         </p>
 
-
         <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
           {accessibilityProducts.map((product) => (
@@ -221,7 +228,13 @@ function AccessibilityHome({ navigate }) {
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
 
-        <div className="rounded-3xl border-4 border-black bg-gray-100 p-7 sm:p-10">
+        <div
+          className={`rounded-3xl border-4 border-black p-7 sm:p-10 ${
+            highContrast
+              ? "bg-black text-white"
+              : "bg-gray-100 text-black"
+          }`}
+        >
 
           <h2 className="text-2xl font-black">
             Accessible Experience
@@ -229,37 +242,82 @@ function AccessibilityHome({ navigate }) {
 
           <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
 
-            <div className="rounded-2xl border-2 border-black bg-white p-5">
+            {/* High Contrast */}
+
+            <button
+              onClick={() => setHighContrast(!highContrast)}
+              className={`rounded-2xl border-2 border-current p-5 text-left ${
+                highContrast
+                  ? "bg-white text-black"
+                  : "bg-white text-black"
+              }`}
+            >
+
               <h3 className="text-lg font-black">
                 High Contrast
               </h3>
 
               <p className="mt-2 font-medium">
-                Strong contrast makes important content easier to see.
+                {highContrast
+                  ? "High contrast is ON."
+                  : "Strong contrast makes important content easier to see."}
               </p>
-            </div>
+
+            </button>
 
 
-            <div className="rounded-2xl border-2 border-black bg-white p-5">
+            {/* Larger Controls */}
+
+            <button
+              onClick={() => setLargerButtons(!largerButtons)}
+              className={`rounded-2xl border-2 border-current p-5 text-left ${
+                largerButtons
+                  ? "bg-white text-black"
+                  : "bg-white text-black"
+              }`}
+            >
+
               <h3 className="text-lg font-black">
                 Larger Controls
               </h3>
 
               <p className="mt-2 font-medium">
-                Buttons and interactive areas are easy to select.
+                {largerButtons
+                  ? "Larger controls are ON."
+                  : "Buttons and interactive areas are easy to select."}
               </p>
-            </div>
+
+            </button>
 
 
-            <div className="rounded-2xl border-2 border-black bg-white p-5">
+            {/* Simple Layout */}
+
+            <button
+              onClick={() =>
+                setLayout(
+                  layout === "compact"
+                    ? "comfortable"
+                    : "compact"
+                )
+              }
+              className={`rounded-2xl border-2 border-current p-5 text-left ${
+                layout === "compact"
+                  ? "bg-white text-black"
+                  : "bg-white text-black"
+              }`}
+            >
+
               <h3 className="text-lg font-black">
                 Simple Layout
               </h3>
 
               <p className="mt-2 font-medium">
-                Important actions and information are easy to find.
+                {layout === "compact"
+                  ? "Simple layout is ON."
+                  : "Important actions and information are easy to find."}
               </p>
-            </div>
+
+            </button>
 
           </div>
 

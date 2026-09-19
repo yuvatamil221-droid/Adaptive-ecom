@@ -1,116 +1,151 @@
 import { useEffect, useState } from "react";
 
 function Hero() {
-  const [seconds, setSeconds] = useState(6 * 60 * 60 + 42 * 60 + 18);
+  const [time, setTime] = useState({
+    hours: 6,
+    minutes: 42,
+    seconds: 18,
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setSeconds((current) => {
-        if (current <= 0) {
-          return 6 * 60 * 60 + 42 * 60 + 18;
+      setTime((currentTime) => {
+        let { hours, minutes, seconds } = currentTime;
+
+        if (seconds > 0) {
+          seconds--;
+        } else if (minutes > 0) {
+          minutes--;
+          seconds = 59;
+        } else if (hours > 0) {
+          hours--;
+          minutes = 59;
+          seconds = 59;
         }
 
-        return current - 1;
+        return { hours, minutes, seconds };
       });
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const remainingSeconds = seconds % 60;
+  const handleShopNow = () => {
+    const productSection = document.getElementById("products");
+
+    if (productSection) {
+      productSection.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <div className="grid min-h-[480px] overflow-hidden rounded-[28px] bg-[#fff4ef] md:grid-cols-2">
+    <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
 
-        {/* LEFT SIDE */}
-        <div className="flex flex-col justify-center px-8 py-12 sm:px-12 lg:px-16">
+      <div className="relative overflow-hidden rounded-3xl bg-[#fff3ef]">
 
-          <div className="mb-6 w-fit rounded-full bg-red-500 px-4 py-2 text-xs font-bold tracking-wide text-white">
-            DEAL OF THE WEEK
-          </div>
+        {/* HERO CONTENT */}
 
-          <h1 className="text-5xl font-black leading-[1.05] tracking-tight text-slate-900 sm:text-6xl">
-            Big Deals.
-            <br />
+        <div className="relative z-10 px-6 py-10 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
 
-            <span className="font-serif font-normal italic">
-              Bigger Savings.
+          <div className="max-w-2xl">
+
+            {/* LABEL */}
+
+            <span className="inline-block rounded-full bg-red-500 px-4 py-2 text-[10px] font-black uppercase tracking-wide text-white sm:px-5 sm:py-2.5 sm:text-xs">
+              Deal of the Week
             </span>
-          </h1>
 
-          <p className="mt-6 max-w-lg text-base leading-7 text-slate-600 sm:text-lg">
-            Save more on your favourite products this week.
-            Limited-time deals are waiting for you.
-          </p>
+            {/* TITLE */}
 
-          {/* TIMER */}
-          <div className="mt-7 flex gap-3">
+            <h1 className="mt-5 text-4xl font-black leading-[1.05] text-[#111827] sm:text-6xl lg:text-7xl">
 
-            <div className="flex h-20 w-20 flex-col items-center justify-center rounded-2xl bg-white shadow-sm">
-              <span className="text-2xl font-black text-slate-900">
-                {String(hours).padStart(2, "0")}
+              Big Deals.
+              <br />
+
+              <span className="font-serif font-normal italic">
+                Bigger
               </span>
-              <span className="mt-1 text-[10px] font-medium uppercase tracking-wide text-slate-400">
-                Hours
+
+              <br />
+
+              <span className="font-serif font-normal italic">
+                Savings.
               </span>
+
+            </h1>
+
+            {/* DESCRIPTION */}
+
+            <p className="mt-5 max-w-lg text-sm leading-6 text-gray-600 sm:mt-6 sm:text-base sm:leading-7">
+              Save more on your favourite products this week.
+              Limited-time deals are waiting for you.
+            </p>
+
+            {/* BUTTON */}
+
+            <button
+              onClick={handleShopNow}
+              className="mt-6 rounded-xl bg-red-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-red-600 sm:mt-7 sm:px-7 sm:py-3.5"
+            >
+              Shop Deals →
+            </button>
+
+            {/* COUNTDOWN */}
+
+            <div className="mt-7 grid max-w-md grid-cols-3 gap-3 sm:mt-9 sm:gap-4">
+
+              {/* HOURS */}
+
+              <div className="rounded-xl bg-white px-3 py-4 text-center shadow-sm sm:rounded-2xl sm:px-5 sm:py-5">
+
+                <p className="text-2xl font-black text-[#111827] sm:text-4xl">
+                  {String(time.hours).padStart(2, "0")}
+                </p>
+
+                <p className="mt-1 text-[9px] font-medium uppercase tracking-wide text-gray-400 sm:text-xs">
+                  Hours
+                </p>
+
+              </div>
+
+              {/* MINUTES */}
+
+              <div className="rounded-xl bg-white px-3 py-4 text-center shadow-sm sm:rounded-2xl sm:px-5 sm:py-5">
+
+                <p className="text-2xl font-black text-[#111827] sm:text-4xl">
+                  {String(time.minutes).padStart(2, "0")}
+                </p>
+
+                <p className="mt-1 text-[9px] font-medium uppercase tracking-wide text-gray-400 sm:text-xs">
+                  Minutes
+                </p>
+
+              </div>
+
+              {/* SECONDS */}
+
+              <div className="rounded-xl bg-white px-3 py-4 text-center shadow-sm sm:rounded-2xl sm:px-5 sm:py-5">
+
+                <p className="text-2xl font-black text-[#111827] sm:text-4xl">
+                  {String(time.seconds).padStart(2, "0")}
+                </p>
+
+                <p className="mt-1 text-[9px] font-medium uppercase tracking-wide text-gray-400 sm:text-xs">
+                  Seconds
+                </p>
+
+              </div>
+
             </div>
 
-            <div className="flex h-20 w-20 flex-col items-center justify-center rounded-2xl bg-white shadow-sm">
-              <span className="text-2xl font-black text-slate-900">
-                {String(minutes).padStart(2, "0")}
-              </span>
-              <span className="mt-1 text-[10px] font-medium uppercase tracking-wide text-slate-400">
-                Minutes
-              </span>
-            </div>
-
-            <div className="flex h-20 w-20 flex-col items-center justify-center rounded-2xl bg-white shadow-sm">
-              <span className="text-2xl font-black text-slate-900">
-                {String(remainingSeconds).padStart(2, "0")}
-              </span>
-              <span className="mt-1 text-[10px] font-medium uppercase tracking-wide text-slate-400">
-                Seconds
-              </span>
-            </div>
-
-          </div>
-
-          <button
-            onClick={() => {
-              const productSection = document.getElementById("products");
-
-              if (productSection) {
-                productSection.scrollIntoView({
-                  behavior: "smooth",
-                });
-              }
-            }}
-            className="mt-8 w-fit rounded-xl bg-red-500 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-red-600 hover:shadow-lg"
-          >
-            Shop Deals →
-          </button>
-
-        </div>
-
-        {/* RIGHT SIDE */}
-        <div className="relative min-h-[350px] overflow-hidden bg-red-600">
-
-          <img
-            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=90"
-            alt="Featured Deal"
-            className="h-full w-full object-cover"
-          />
-
-          <div className="absolute right-6 top-6 rounded-full bg-white px-5 py-3 text-xs font-black text-slate-900 shadow-lg">
-            SAVE 38%
           </div>
 
         </div>
 
       </div>
+
     </section>
   );
 }

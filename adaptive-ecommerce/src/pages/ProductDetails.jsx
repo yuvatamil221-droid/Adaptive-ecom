@@ -50,13 +50,15 @@ function ProductDetails({ product, navigate }) {
     (item) => item.id === product.id
   );
 
-  const relatedProducts = products
-    .filter(
-      (item) =>
-        item.category === product.category &&
-        item.id !== product.id
-    )
-    .slice(0, 4);
+  <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+  {relatedProducts.map((item) => (
+    <Product
+      key={item.id}
+      product={item}
+      navigate={navigate}
+    />
+  ))}
+</div>
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {

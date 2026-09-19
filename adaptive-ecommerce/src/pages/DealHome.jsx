@@ -1,6 +1,5 @@
 import Product from "../components/product";
 import Hero from "../components/hero";
-
 import products from "../data/products";
 import categories from "../data/categories";
 
@@ -10,81 +9,70 @@ function DealHome({ navigate }) {
     .slice(0, 8);
 
   return (
-    <main>
+    <main className="bg-gray-50 text-gray-900">
 
-      {/* Hero */}
-
+      {/* HERO */}
       <Hero />
 
+      {/* SHOP BY DEALS */}
+      <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
 
-      {/* Deal Categories */}
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
+          Shop By Deals
+        </p>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <h2 className="mt-2 text-2xl font-black sm:text-3xl">
+          Find Your Best Deal
+        </h2>
 
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
-            Shop By Deals
-          </p>
+        <p className="mt-2 text-xs text-gray-500 sm:text-sm">
+          Explore products and save more on every purchase.
+        </p>
 
-          <h2 className="mt-2 text-3xl font-black">
-            Find Your Best Deal
-          </h2>
-
-          <p className="mt-2 text-sm text-gray-500">
-            Explore products and save more on every purchase.
-          </p>
-        </div>
-
-
-        <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        {/* DEAL CARDS */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
 
           <button
             onClick={() =>
               navigate("products", { flashSale: true })
             }
-            className="rounded-2xl border border-gray-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-3xl">
-              ⚡
-            </div>
+            <div className="text-2xl sm:text-3xl">⚡</div>
 
-            <h3 className="mt-4 font-black">
+            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Flash Sale
             </h3>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
               Limited-time offers
             </p>
 
-            <span className="mt-4 block text-xs font-bold text-red-500">
+            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
               Shop Now →
-            </span>
+            </p>
           </button>
-
 
           <button
             onClick={() =>
               navigate("products", { maxPrice: 999 })
             }
-            className="rounded-2xl border border-gray-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-3xl">
-              ₹
-            </div>
+            <div className="text-2xl sm:text-3xl">₹</div>
 
-            <h3 className="mt-4 font-black">
+            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Under ₹999
             </h3>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
               Budget-friendly products
             </p>
 
-            <span className="mt-4 block text-xs font-bold text-red-500">
+            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
               Shop Now →
-            </span>
+            </p>
           </button>
-
 
           <button
             onClick={() =>
@@ -92,25 +80,22 @@ function DealHome({ navigate }) {
                 category: "fashion",
               })
             }
-            className="rounded-2xl border border-gray-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-3xl">
-              ✦
-            </div>
+            <div className="text-2xl sm:text-3xl">✦</div>
 
-            <h3 className="mt-4 font-black">
+            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Fashion Deals
             </h3>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
               Trending styles
             </p>
 
-            <span className="mt-4 block text-xs font-bold text-red-500">
+            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
               Shop Now →
-            </span>
+            </p>
           </button>
-
 
           <button
             onClick={() =>
@@ -118,53 +103,47 @@ function DealHome({ navigate }) {
                 category: "electronics",
               })
             }
-            className="rounded-2xl border border-gray-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-3xl">
-              ◈
-            </div>
+            <div className="text-2xl sm:text-3xl">◈</div>
 
-            <h3 className="mt-4 font-black">
+            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Gadget Deals
             </h3>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
               Smart gadgets & more
             </p>
 
-            <span className="mt-4 block text-xs font-bold text-red-500">
+            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
               Shop Now →
-            </span>
+            </p>
           </button>
 
         </div>
-
       </section>
 
-
-      {/* Top Deals */}
-
+      {/* DEAL PRODUCTS */}
       <section
         id="products"
-        className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
+        className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8"
       >
 
         <div className="flex items-end justify-between">
 
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
               Top Deals
             </p>
 
-            <h2 className="mt-2 text-3xl font-black">
+            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
               Deals You Don't Want To Miss
             </h2>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-xs text-gray-500 sm:text-sm">
               Grab these offers before they are gone.
             </p>
           </div>
-
 
           <button
             onClick={() =>
@@ -177,8 +156,8 @@ function DealHome({ navigate }) {
 
         </div>
 
-
-        <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* PRODUCT GRID */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
 
           {dealProducts.map((product) => (
             <Product
@@ -190,112 +169,99 @@ function DealHome({ navigate }) {
 
         </div>
 
-
         <button
           onClick={() =>
             navigate("products", { deal: true })
           }
-          className="mt-6 w-full rounded-xl border border-gray-200 bg-white py-3 text-sm font-bold text-gray-800 hover:bg-gray-50 sm:hidden"
+          className="mt-5 w-full rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 shadow-sm sm:hidden"
         >
           View All Deals →
         </button>
 
       </section>
 
+      {/* SHOP BY CATEGORY */}
+      <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
 
-      {/* Deal Spotlight */}
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
+          Deal Spotlight
+        </p>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <h2 className="mt-2 text-2xl font-black sm:text-3xl">
+          Shop By Category
+        </h2>
 
-        <div className="rounded-3xl bg-[#fff4ef] p-6 sm:p-8">
+        <p className="mt-2 text-xs text-gray-500 sm:text-sm">
+          Find great offers across your favourite categories.
+        </p>
 
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
-            Deal Spotlight
-          </p>
+        {/* CATEGORY GRID */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
 
-          <h2 className="mt-2 text-3xl font-black">
-            Shop By Category
-          </h2>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() =>
+                navigate("products", {
+                  category: category.id,
+                })
+              }
+              className="group overflow-hidden rounded-xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:rounded-2xl"
+            >
 
-          <p className="mt-2 text-sm text-gray-600">
-            Find great offers across your favourite categories.
-          </p>
+              {/* CATEGORY IMAGE */}
+              <div className="h-24 overflow-hidden sm:h-40">
 
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                />
 
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+              </div>
 
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() =>
-                  navigate("products", {
-                    category: category.id,
-                  })
-                }
-                className="group overflow-hidden rounded-2xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
+              {/* CATEGORY DETAILS */}
+              <div className="p-3 sm:p-4">
 
-                <div className="h-36 overflow-hidden">
+                <h3 className="text-sm font-black sm:text-base">
+                  {category.name}
+                </h3>
 
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                  />
+                <p className="mt-1 text-[11px] font-medium text-red-500 sm:text-sm">
+                  Explore Deals →
+                </p>
 
-                </div>
+              </div>
 
-
-                <div className="p-4">
-
-                  <h3 className="font-black">
-                    {category.name}
-                  </h3>
-
-                  <p className="mt-1 text-xs text-red-500">
-                    Explore Deals →
-                  </p>
-
-                </div>
-
-              </button>
-            ))}
-
-          </div>
+            </button>
+          ))}
 
         </div>
 
       </section>
 
+      {/* FINAL CTA */}
+      <section className="mx-auto max-w-7xl px-3 pb-7 sm:px-6 sm:pb-12 lg:px-8">
 
-      {/* Savings Banner */}
+        <div className="rounded-2xl bg-gray-900 p-6 text-center text-white sm:rounded-3xl sm:p-10">
 
-      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-300 sm:text-xs">
+            Don't Miss Out
+          </p>
 
-        <div className="flex flex-col items-start justify-between gap-5 rounded-3xl bg-gray-900 p-7 text-white sm:flex-row sm:items-center sm:p-10">
+          <h2 className="mt-2 text-2xl font-black sm:text-4xl">
+            Great Deals Are Waiting
+          </h2>
 
-          <div>
-
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
-              Limited Time
-            </p>
-
-            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-              More Savings. More Shopping.
-            </h2>
-
-            <p className="mt-2 text-sm text-gray-400">
-              Don't miss today's best offers.
-            </p>
-
-          </div>
-
+          <p className="mx-auto mt-2 max-w-xl text-xs leading-5 text-gray-400 sm:text-sm sm:leading-6">
+            Explore our collection and find products at great prices.
+          </p>
 
           <button
             onClick={() =>
               navigate("products", { deal: true })
             }
-            className="rounded-xl bg-red-500 px-6 py-3 text-sm font-bold text-white hover:bg-red-600"
+            className="mt-5 rounded-xl bg-red-500 px-6 py-3 text-xs font-bold text-white hover:bg-red-600 sm:px-7 sm:py-3.5 sm:text-sm"
           >
             Explore All Deals →
           </button>

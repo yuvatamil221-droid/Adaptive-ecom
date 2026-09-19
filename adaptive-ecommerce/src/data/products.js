@@ -166,8 +166,7 @@ const products = [
     discount: 25,
     rating: 4.5,
     reviews: 890,
-    image:
-      "https://images.unsplash.com/photo-1609592424915-4f9c0b9e4b7a?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/61TMttNiC+L.jpg",
     newArrival: false,
     trending: true,
     flashSale: true,

@@ -15,12 +15,12 @@ const cta = {
   },
 
   explorer: {
-    product: "View Product",
+    product: "Add to card",
     hero: "Start Exploring",
   },
 
   accessibility: {
-    product: "View Product",
+    product: "Add to card",
     hero: "Explore Products",
   },
 };
