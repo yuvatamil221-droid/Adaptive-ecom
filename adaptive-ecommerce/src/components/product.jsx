@@ -7,8 +7,7 @@ import cta from "../config/cta";
 function Product({ product, navigate }) {
   const { addToCart } = useContext(CartContext);
   const { userProfile } = useContext(UserContext);
-  const { wishlist, toggleWishlist } =
-    useContext(WishlistContext);
+  const { wishlist, toggleWishlist } = useContext(WishlistContext);
 
   const [added, setAdded] = useState(false);
 
@@ -21,22 +20,18 @@ function Product({ product, navigate }) {
       badge: "bg-red-500 text-white",
       button: "bg-red-500 text-white hover:bg-red-600",
     },
-
     premiumShopper: {
       badge: "bg-stone-800 text-white",
       button: "bg-stone-800 text-white hover:bg-stone-700",
     },
-
     frequentShopper: {
       badge: "bg-blue-600 text-white",
       button: "bg-blue-600 text-white hover:bg-blue-700",
     },
-
     explorer: {
       badge: "bg-purple-600 text-white",
       button: "bg-purple-600 text-white hover:bg-purple-700",
     },
-
     accessibility: {
       badge: "bg-yellow-400 text-black",
       button: "bg-yellow-400 text-black hover:bg-yellow-300",
@@ -44,14 +39,12 @@ function Product({ product, navigate }) {
   };
 
   const style =
-    profileStyle[userProfile] ||
-    profileStyle.dealHunter;
+    profileStyle[userProfile] || profileStyle.dealHunter;
 
   const handleAddToCart = (event) => {
     event.stopPropagation();
 
     addToCart(product);
-
     setAdded(true);
 
     setTimeout(() => {
@@ -75,9 +68,8 @@ function Product({ product, navigate }) {
   return (
     <article className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-2xl">
 
-      {/* IMAGE */}
-
-      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 sm:aspect-square">
+      {/* Product Image */}
+      <div className="relative aspect-square overflow-hidden bg-gray-100">
 
         <button
           onClick={handleViewProduct}
@@ -90,9 +82,7 @@ function Product({ product, navigate }) {
           />
         </button>
 
-
-        {/* DISCOUNT */}
-
+        {/* Discount */}
         {product.discount && (
           <span
             className={`absolute left-2 top-2 rounded-full px-2 py-1 text-[9px] font-black sm:left-3 sm:top-3 sm:px-3 sm:text-[10px] ${style.badge}`}
@@ -101,82 +91,67 @@ function Product({ product, navigate }) {
           </span>
         )}
 
-
-        {/* WISHLIST */}
-
+        {/* Wishlist */}
         <button
           onClick={handleWishlist}
-          className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg shadow-sm sm:right-3 sm:top-3 sm:h-9 sm:w-9 sm:text-xl"
+          className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg shadow-sm sm:right-3 sm:top-3 sm:h-9 sm:w-9"
         >
           {isWishlisted ? "♥" : "♡"}
         </button>
-
       </div>
 
+      {/* Product Information */}
+      <div className="p-2.5 sm:p-4">
 
-      {/* PRODUCT DETAILS */}
-
-      <div className="p-3 sm:p-4">
-
-        <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-gray-400 sm:text-[10px] sm:tracking-[0.15em]">
+        {/* Brand */}
+        <p className="text-[8px] font-bold uppercase tracking-wider text-gray-400 sm:text-[10px]">
           {product.brand}
         </p>
 
-
+        {/* Product Name */}
         <button
           onClick={handleViewProduct}
           className="mt-1 block w-full text-left"
         >
-          <h3 className="line-clamp-2 min-h-[32px] text-xs font-bold leading-4 text-gray-900 sm:min-h-[40px] sm:text-sm sm:leading-5">
+          <h3 className="line-clamp-2 min-h-[30px] text-[11px] font-bold leading-4 text-gray-900 sm:min-h-[40px] sm:text-sm sm:leading-5">
             {product.name}
           </h3>
         </button>
 
-
-        {/* RATING */}
-
-        <div className="mt-2 flex items-center gap-1 sm:mt-3 sm:gap-2">
-
-          <span className="text-xs font-bold sm:text-sm">
+        {/* Rating */}
+        <div className="mt-1.5 flex items-center gap-1 sm:mt-3 sm:gap-2">
+          <span className="text-[10px] font-bold sm:text-sm">
             ★ {product.rating}
           </span>
 
-          <span className="text-[10px] text-gray-400 sm:text-xs">
+          <span className="text-[9px] text-gray-400 sm:text-xs">
             ({product.reviews})
           </span>
-
         </div>
 
-
-        {/* PRICE */}
-
-        <div className="mt-2 flex flex-wrap items-center gap-1 sm:mt-3 sm:gap-2">
-
-          <span className="text-base font-black text-gray-900 sm:text-lg">
+        {/* Price */}
+        <div className="mt-1.5 flex flex-wrap items-center gap-1 sm:mt-3 sm:gap-2">
+          <span className="text-sm font-black text-gray-900 sm:text-lg">
             ₹{product.price.toLocaleString("en-IN")}
           </span>
 
           {product.oldPrice && (
-            <span className="text-[10px] text-gray-400 line-through sm:text-xs">
+            <span className="text-[9px] text-gray-400 line-through sm:text-xs">
               ₹{product.oldPrice.toLocaleString("en-IN")}
             </span>
           )}
-
         </div>
 
-
-        {/* ADD TO CART */}
-
+        {/* Add To Cart */}
         <button
           onClick={handleAddToCart}
           disabled={added}
-          className={`mt-3 w-full rounded-lg px-3 py-2.5 text-[11px] font-bold transition hover:-translate-y-0.5 hover:shadow-md sm:mt-4 sm:rounded-xl sm:px-4 sm:py-3 sm:text-xs ${style.button}`}
+          className={`mt-2.5 w-full rounded-lg px-2 py-2 text-[10px] font-bold transition sm:mt-4 sm:rounded-xl sm:px-4 sm:py-3 sm:text-xs ${style.button}`}
         >
           {buttonText}
         </button>
 
       </div>
-
     </article>
   );
 }
