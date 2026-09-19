@@ -1,0 +1,873 @@
+const products = [
+  // =========================
+  // ELECTRONICS - 10
+  // =========================
+
+  {
+    id: 1,
+    name: "JBL Tune 760NC Wireless Headphones",
+    brand: "JBL",
+    category: "electronics",
+    price: 5999,
+    oldPrice: 7999,
+    discount: 25,
+    rating: 4.5,
+    reviews: 1240,
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 2,
+    name: "boAt Stone Bluetooth Speaker",
+    brand: "boAt",
+    category: "electronics",
+    price: 1499,
+    oldPrice: 2499,
+    discount: 40,
+    rating: 4.3,
+    reviews: 980,
+    image:
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 3,
+    name: "Apple Watch Series 9",
+    brand: "Apple",
+    category: "electronics",
+    price: 39999,
+    oldPrice: 44999,
+    discount: 11,
+    rating: 4.8,
+    reviews: 860,
+    image:
+      "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 4,
+    name: "Logitech MX Master Wireless Mouse",
+    brand: "Logitech",
+    category: "electronics",
+    price: 7499,
+    oldPrice: 8999,
+    discount: 17,
+    rating: 4.7,
+    reviews: 720,
+    image:
+      "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 5,
+    name: "Samsung Galaxy Buds2 Pro",
+    brand: "Samsung",
+    category: "electronics",
+    price: 8999,
+    oldPrice: 13999,
+    discount: 36,
+    rating: 4.5,
+    reviews: 1100,
+    image:
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 6,
+    name: "Sony Bravia Smart LED TV",
+    brand: "Sony",
+    category: "electronics",
+    price: 54999,
+    oldPrice: 64999,
+    discount: 15,
+    rating: 4.6,
+    reviews: 540,
+    image:
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: false,
+    flashSale: false,
+  },
+
+  {
+    id: 7,
+    name: "Canon EOS Mirrorless Camera",
+    brand: "Canon",
+    category: "electronics",
+    price: 45999,
+    oldPrice: 52999,
+    discount: 13,
+    rating: 4.7,
+    reviews: 430,
+    image:
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 8,
+    name: "Amazon Echo Smart Speaker",
+    brand: "Amazon",
+    category: "electronics",
+    price: 4499,
+    oldPrice: 5999,
+    discount: 25,
+    rating: 4.4,
+    reviews: 670,
+    image:
+      "https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 9,
+    name: "Apple iPad Air",
+    brand: "Apple",
+    category: "electronics",
+    price: 54900,
+    oldPrice: 59900,
+    discount: 8,
+    rating: 4.8,
+    reviews: 620,
+    image:
+      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 10,
+    name: "Anker Fast Charging Power Bank",
+    brand: "Anker",
+    category: "electronics",
+    price: 2999,
+    oldPrice: 3999,
+    discount: 25,
+    rating: 4.5,
+    reviews: 890,
+    image:
+      "https://images.unsplash.com/photo-1609592424915-4f9c0b9e4b7a?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  // =========================
+  // ACCESSORIES - 10
+  // =========================
+
+  {
+    id: 11,
+    name: "Classic Leather Wallet",
+    brand: "Fossil",
+    category: "accessories",
+    price: 2499,
+    oldPrice: 3499,
+    discount: 29,
+    rating: 4.5,
+    reviews: 540,
+    image:
+      "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 12,
+    name: "Minimal Analog Wrist Watch",
+    brand: "Fastrack",
+    category: "accessories",
+    price: 1899,
+    oldPrice: 2799,
+    discount: 32,
+    rating: 4.4,
+    reviews: 760,
+    image:
+      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 13,
+    name: "Premium Sunglasses",
+    brand: "Ray-Ban",
+    category: "accessories",
+    price: 6999,
+    oldPrice: 8499,
+    discount: 18,
+    rating: 4.7,
+    reviews: 390,
+    image:
+      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 14,
+    name: "Canvas Everyday Backpack",
+    brand: "American Tourister",
+    category: "accessories",
+    price: 2299,
+    oldPrice: 3299,
+    discount: 30,
+    rating: 4.5,
+    reviews: 830,
+    image:
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 15,
+    name: "Women's Crossbody Handbag",
+    brand: "Lavie",
+    category: "accessories",
+    price: 1999,
+    oldPrice: 2999,
+    discount: 33,
+    rating: 4.3,
+    reviews: 610,
+    image:
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 16,
+    name: "Classic Baseball Cap",
+    brand: "Nike",
+    category: "accessories",
+    price: 1299,
+    oldPrice: 1799,
+    discount: 28,
+    rating: 4.4,
+    reviews: 450,
+    image:
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: false,
+    flashSale: true,
+  },
+
+  {
+    id: 17,
+    name: "Stainless Steel Water Bottle",
+    brand: "Milton",
+    category: "accessories",
+    price: 899,
+    oldPrice: 1299,
+    discount: 31,
+    rating: 4.6,
+    reviews: 920,
+    image:
+      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 18,
+    name: "Travel Organizer Pouch",
+    brand: "Wildcraft",
+    category: "accessories",
+    price: 799,
+    oldPrice: 1199,
+    discount: 33,
+    rating: 4.3,
+    reviews: 350,
+    image:
+      "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: false,
+    flashSale: true,
+  },
+
+  {
+    id: 19,
+    name: "Silver Chain Bracelet",
+    brand: "Mia",
+    category: "accessories",
+    price: 3499,
+    oldPrice: 4499,
+    discount: 22,
+    rating: 4.5,
+    reviews: 280,
+    image:
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 20,
+    name: "Classic Leather Belt",
+    brand: "Tommy Hilfiger",
+    category: "accessories",
+    price: 2299,
+    oldPrice: 2999,
+    discount: 23,
+    rating: 4.4,
+    reviews: 510,
+    image:
+      "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: false,
+  },
+
+  // =========================
+  // FASHION - 10
+  // =========================
+
+  {
+    id: 21,
+    name: "Classic Casual Cotton Shirt",
+    brand: "H&M",
+    category: "fashion",
+    price: 1499,
+    oldPrice: 2199,
+    discount: 32,
+    rating: 4.4,
+    reviews: 680,
+    image:
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 22,
+    name: "Minimal Everyday Sneakers",
+    brand: "Puma",
+    category: "fashion",
+    price: 2999,
+    oldPrice: 4499,
+    discount: 33,
+    rating: 4.6,
+    reviews: 920,
+    image:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 23,
+    name: "Oversized Casual T-Shirt",
+    brand: "Uniqlo",
+    category: "fashion",
+    price: 999,
+    oldPrice: 1499,
+    discount: 33,
+    rating: 4.5,
+    reviews: 760,
+    image:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 24,
+    name: "Women's Floral Summer Dress",
+    brand: "Zara",
+    category: "fashion",
+    price: 2499,
+    oldPrice: 3999,
+    discount: 38,
+    rating: 4.5,
+    reviews: 540,
+    image:
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 25,
+    name: "Slim Fit Denim Jeans",
+    brand: "Levi's",
+    category: "fashion",
+    price: 2799,
+    oldPrice: 3999,
+    discount: 30,
+    rating: 4.6,
+    reviews: 810,
+    image:
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 26,
+    name: "Women's Casual Denim Jacket",
+    brand: "ONLY",
+    category: "fashion",
+    price: 2199,
+    oldPrice: 3299,
+    discount: 33,
+    rating: 4.4,
+    reviews: 470,
+    image:
+      "https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: false,
+    flashSale: true,
+  },
+
+  {
+    id: 27,
+    name: "Men's Classic Polo T-Shirt",
+    brand: "U.S. Polo Assn.",
+    category: "fashion",
+    price: 1799,
+    oldPrice: 2499,
+    discount: 28,
+    rating: 4.5,
+    reviews: 630,
+    image:
+      "https://images.unsplash.com/photo-1625910513413-5fc45b2e2f4c?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 28,
+    name: "Comfort Jogger Pants",
+    brand: "Adidas",
+    category: "fashion",
+    price: 1999,
+    oldPrice: 2999,
+    discount: 33,
+    rating: 4.5,
+    reviews: 590,
+    image:
+      "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 29,
+    name: "Women's Running Shoes",
+    brand: "Nike",
+    category: "fashion",
+    price: 4499,
+    oldPrice: 5999,
+    discount: 25,
+    rating: 4.7,
+    reviews: 740,
+    image:
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 30,
+    name: "Classic Knit Hoodie",
+    brand: "Roadster",
+    category: "fashion",
+    price: 1799,
+    oldPrice: 2799,
+    discount: 36,
+    rating: 4.5,
+    reviews: 520,
+    image:
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  // =========================
+  // BEAUTY - 10
+  // =========================
+
+  {
+    id: 31,
+    name: "Hydrating Face Care Set",
+    brand: "Minimalist",
+    category: "beauty",
+    price: 899,
+    oldPrice: 1299,
+    discount: 31,
+    rating: 4.6,
+    reviews: 1200,
+    image:
+      "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 32,
+    name: "Vitamin C Face Serum",
+    brand: "The Derma Co",
+    category: "beauty",
+    price: 599,
+    oldPrice: 799,
+    discount: 25,
+    rating: 4.5,
+    reviews: 1800,
+    image:
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 33,
+    name: "Daily Moisturizing Cream",
+    brand: "Cetaphil",
+    category: "beauty",
+    price: 749,
+    oldPrice: 999,
+    discount: 25,
+    rating: 4.7,
+    reviews: 950,
+    image:
+      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 34,
+    name: "Matte Liquid Lipstick",
+    brand: "Maybelline",
+    category: "beauty",
+    price: 499,
+    oldPrice: 699,
+    discount: 29,
+    rating: 4.4,
+    reviews: 1300,
+    image:
+      "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 35,
+    name: "Long Lasting Perfume",
+    brand: "The Body Shop",
+    category: "beauty",
+    price: 1799,
+    oldPrice: 2499,
+    discount: 28,
+    rating: 4.5,
+    reviews: 610,
+    image:
+      "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 36,
+    name: "Gentle Foaming Face Wash",
+    brand: "CeraVe",
+    category: "beauty",
+    price: 999,
+    oldPrice: 1299,
+    discount: 23,
+    rating: 4.6,
+    reviews: 840,
+    image:
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 37,
+    name: "Nourishing Hair Care Set",
+    brand: "L'Oreal",
+    category: "beauty",
+    price: 1299,
+    oldPrice: 1799,
+    discount: 28,
+    rating: 4.4,
+    reviews: 730,
+    image:
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: false,
+    flashSale: true,
+  },
+
+  {
+    id: 38,
+    name: "Natural Face Mask",
+    brand: "Mamaearth",
+    category: "beauty",
+    price: 449,
+    oldPrice: 599,
+    discount: 25,
+    rating: 4.3,
+    reviews: 1050,
+    image:
+      "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 39,
+    name: "Makeup Brush Set",
+    brand: "Swiss Beauty",
+    category: "beauty",
+    price: 699,
+    oldPrice: 999,
+    discount: 30,
+    rating: 4.5,
+    reviews: 920,
+    image:
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 40,
+    name: "Refreshing Body Lotion",
+    brand: "Nivea",
+    category: "beauty",
+    price: 549,
+    oldPrice: 699,
+    discount: 21,
+    rating: 4.5,
+    reviews: 670,
+    image:
+      "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  // =========================
+  // HOME - 10
+  // =========================
+
+  {
+    id: 41,
+    name: "Modern Table Lamp",
+    brand: "Home Centre",
+    category: "home",
+    price: 1499,
+    oldPrice: 2299,
+    discount: 35,
+    rating: 4.5,
+    reviews: 420,
+    image:
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 42,
+    name: "Soft Cotton Cushion Set",
+    brand: "Wakefit",
+    category: "home",
+    price: 899,
+    oldPrice: 1299,
+    discount: 31,
+    rating: 4.6,
+    reviews: 560,
+    image:
+      "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 43,
+    name: "Ceramic Decorative Vase",
+    brand: "IKEA",
+    category: "home",
+    price: 799,
+    oldPrice: 1199,
+    discount: 33,
+    rating: 4.4,
+    reviews: 350,
+    image:
+      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 44,
+    name: "Minimal Wall Clock",
+    brand: "Ajanta",
+    category: "home",
+    price: 999,
+    oldPrice: 1499,
+    discount: 33,
+    rating: 4.3,
+    reviews: 470,
+    image:
+      "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 45,
+    name: "Premium Cotton Bedsheet",
+    brand: "Spaces",
+    category: "home",
+    price: 1799,
+    oldPrice: 2499,
+    discount: 28,
+    rating: 4.6,
+    reviews: 820,
+    image:
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 46,
+    name: "Wooden Storage Basket",
+    brand: "HomeTown",
+    category: "home",
+    price: 1199,
+    oldPrice: 1699,
+    discount: 29,
+    rating: 4.4,
+    reviews: 290,
+    image:
+      "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: false,
+    flashSale: true,
+  },
+
+  {
+    id: 47,
+    name: "Indoor Green Plant Pot",
+    brand: "Ugaoo",
+    category: "home",
+    price: 649,
+    oldPrice: 899,
+    discount: 28,
+    rating: 4.5,
+    reviews: 610,
+    image:
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 48,
+    name: "Aromatic Scented Candle",
+    brand: "Bath & Body Works",
+    category: "home",
+    price: 1299,
+    oldPrice: 1799,
+    discount: 28,
+    rating: 4.7,
+    reviews: 730,
+    image:
+      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+
+  {
+    id: 49,
+    name: "Modern Kitchen Storage Set",
+    brand: "Milton",
+    category: "home",
+    price: 999,
+    oldPrice: 1499,
+    discount: 33,
+    rating: 4.5,
+    reviews: 540,
+    image:
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+    newArrival: false,
+    trending: true,
+    flashSale: true,
+  },
+
+  {
+    id: 50,
+    name: "Cozy Knitted Throw Blanket",
+    brand: "D'Decor",
+    category: "home",
+    price: 1599,
+    oldPrice: 2299,
+    discount: 30,
+    rating: 4.6,
+    reviews: 390,
+    image:
+      "https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?auto=format&fit=crop&w=800&q=80",
+    newArrival: true,
+    trending: true,
+    flashSale: false,
+  },
+];
+
+export default products;
