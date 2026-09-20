@@ -18,8 +18,12 @@ const navigation = {
   ],
 
   frequentShopper: [
-    { label: "Home", page: "home" },
-    { label: "For You", page: "products", filters: { trending: true } },
+    { label: "Home", page: "home" },{
+      label: "Reorder",
+      page: "products",
+      filters: { reorder: true },
+    },
+    
     { label: "Orders", page: "orders" },
     { label: "Wishlist", page: "wishlist" },
     { label: "Cart", page: "cart" },
@@ -28,16 +32,15 @@ const navigation = {
   explorer: [
     { label: "Home", page: "home" },
     { label: "Trending", page: "products", filters: { trending: true } },
-    { label: "New Arrivals", page: "products", filters: { newArrivals: true } },
-    { label: "Categories", page: "products" },
+   
+    { label: "Categories", page: "products" ,filters: { categories: true }},
     { label: "Wishlist", page: "wishlist" },
     { label: "Cart", page: "cart" },
   ],
 
   accessibility: [
     { label: "Home", page: "home" },
-    { label: "Categories", page: "products" },
-    { label: "Products", page: "products" },
+    
     { label: "Wishlist", page: "wishlist" },
     { label: "Cart", page: "cart" },
     { label: "Profile", page: "profile" },

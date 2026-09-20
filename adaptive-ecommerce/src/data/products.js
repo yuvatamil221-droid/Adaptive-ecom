@@ -463,7 +463,7 @@ const products = [
     rating: 4.5,
     reviews: 630,
     image:
-      "https://images.unsplash.com/photo-1625910513413-5fc45b2e2f4c?auto=format&fit=crop&w=800&q=80",
+      "https://media.landmarkshops.in/cdn-cgi/image/h=730,w=540,q=85,fit=cover/lifestyle-new/1000015860913-Blue-Navy-1000015860913_01-2100.jpg",
     newArrival: false,
     trending: true,
     flashSale: false,

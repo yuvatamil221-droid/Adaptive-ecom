@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Product from "../components/product";
 import products from "../data/products";
-import categories from "../data/categories";
 import { UIConfigContext } from "../context/UIConfigContext";
 
 function AccessibilityHome({ navigate }) {
@@ -12,6 +11,10 @@ function AccessibilityHome({ navigate }) {
     setLargerButtons,
     layout,
     setLayout,
+    largeText,
+    setLargeText,
+    reducedMotion,
+    setReducedMotion,
   } = useContext(UIConfigContext);
 
   const accessibilityProducts = products.slice(0, 8);
@@ -19,7 +22,7 @@ function AccessibilityHome({ navigate }) {
   return (
     <main className="bg-white text-black">
 
-      {/* Accessibility Hero */}
+      {/* Hero */}
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
@@ -52,7 +55,7 @@ function AccessibilityHome({ navigate }) {
       </section>
 
 
-      {/* Quick Actions */}
+      {/* Quick Access */}
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
@@ -142,58 +145,7 @@ function AccessibilityHome({ navigate }) {
       </section>
 
 
-      {/* Categories */}
-
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-
-        <p className="text-sm font-black uppercase tracking-[0.2em]">
-          Categories
-        </p>
-
-        <h2 className="mt-2 text-3xl font-black">
-          Explore Categories
-        </h2>
-
-        <div className="mt-7 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
-
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() =>
-                navigate("products", {
-                  category: category.id,
-                })
-              }
-              className="overflow-hidden rounded-2xl border-4 border-black bg-white text-left hover:bg-gray-100"
-            >
-
-              <img
-                src={category.image}
-                alt={category.name}
-                className="h-40 w-full object-cover"
-              />
-
-              <div className="p-4">
-
-                <h3 className="text-lg font-black">
-                  {category.name}
-                </h3>
-
-                <p className="mt-2 font-bold">
-                  Explore →
-                </p>
-
-              </div>
-
-            </button>
-          ))}
-
-        </div>
-
-      </section>
-
-
-      {/* Products */}
+      {/* Recommended Products */}
 
       <section className="mx-auto max-w-7xl px-4 py-8 pb-12 sm:px-6 lg:px-8">
 
@@ -224,31 +176,41 @@ function AccessibilityHome({ navigate }) {
       </section>
 
 
-      {/* Accessibility Information */}
+      {/* Accessibility Settings */}
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
 
         <div
           className={`rounded-3xl border-4 border-black p-7 sm:p-10 ${
             highContrast
-              ? "bg-black text-white"
+              ? "bg-gray-100 text-black"
               : "bg-gray-100 text-black"
           }`}
         >
 
-          <h2 className="text-2xl font-black">
-            Accessible Experience
+          <p className="text-sm font-black uppercase tracking-[0.2em]">
+            Accessibility
+          </p>
+
+          <h2 className="mt-2 text-3xl font-black">
+            Customize Your Experience
           </h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <p className="mt-2 font-medium text-gray-700">
+            Adjust the interface to make shopping easier and more comfortable.
+          </p>
+
+
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+
 
             {/* High Contrast */}
 
             <button
               onClick={() => setHighContrast(!highContrast)}
-              className={`rounded-2xl border-2 border-current p-5 text-left ${
+              className={`rounded-2xl border-2 border-black p-5 text-left ${
                 highContrast
-                  ? "bg-white text-black"
+                  ? "bg-black text-white"
                   : "bg-white text-black"
               }`}
             >
@@ -260,7 +222,31 @@ function AccessibilityHome({ navigate }) {
               <p className="mt-2 font-medium">
                 {highContrast
                   ? "High contrast is ON."
-                  : "Strong contrast makes important content easier to see."}
+                  : "Make important text and borders easier to see."}
+              </p>
+
+            </button>
+
+
+            {/* Large Text */}
+
+            <button
+              onClick={() => setLargeText(!largeText)}
+              className={`rounded-2xl border-2 border-black p-5 text-left ${
+                largeText
+                  ? "bg-black text-white"
+                  : "bg-white text-black"
+              }`}
+            >
+
+              <h3 className="text-lg font-black">
+                Large Text
+              </h3>
+
+              <p className="mt-2 font-medium">
+                {largeText
+                  ? "Large text is ON."
+                  : "Increase text size across the application."}
               </p>
 
             </button>
@@ -270,9 +256,9 @@ function AccessibilityHome({ navigate }) {
 
             <button
               onClick={() => setLargerButtons(!largerButtons)}
-              className={`rounded-2xl border-2 border-current p-5 text-left ${
+              className={`rounded-2xl border-2 border-black p-5 text-left ${
                 largerButtons
-                  ? "bg-white text-black"
+                  ? "bg-black text-white"
                   : "bg-white text-black"
               }`}
             >
@@ -284,7 +270,31 @@ function AccessibilityHome({ navigate }) {
               <p className="mt-2 font-medium">
                 {largerButtons
                   ? "Larger controls are ON."
-                  : "Buttons and interactive areas are easy to select."}
+                  : "Make buttons and controls easier to select."}
+              </p>
+
+            </button>
+
+
+            {/* Reduced Motion */}
+
+            <button
+              onClick={() => setReducedMotion(!reducedMotion)}
+              className={`rounded-2xl border-2 border-black p-5 text-left ${
+                reducedMotion
+                  ? "bg-black text-white"
+                  : "bg-white text-black"
+              }`}
+            >
+
+              <h3 className="text-lg font-black">
+                Reduced Motion
+              </h3>
+
+              <p className="mt-2 font-medium">
+                {reducedMotion
+                  ? "Reduced motion is ON."
+                  : "Reduce animations and transitions."}
               </p>
 
             </button>
@@ -300,9 +310,9 @@ function AccessibilityHome({ navigate }) {
                     : "compact"
                 )
               }
-              className={`rounded-2xl border-2 border-current p-5 text-left ${
+              className={`rounded-2xl border-2 border-black p-5 text-left ${
                 layout === "compact"
-                  ? "bg-white text-black"
+                  ? "bg-black text-white"
                   : "bg-white text-black"
               }`}
             >
@@ -314,7 +324,7 @@ function AccessibilityHome({ navigate }) {
               <p className="mt-2 font-medium">
                 {layout === "compact"
                   ? "Simple layout is ON."
-                  : "Important actions and information are easy to find."}
+                  : "Use a comfortable layout with more spacing."}
               </p>
 
             </button>

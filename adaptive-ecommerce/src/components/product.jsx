@@ -58,9 +58,10 @@ function Product({ product, navigate }) {
   };
 
   const handleViewProduct = () => {
+  if (navigate) {
     navigate("productDetails", product);
-  };
-
+  }
+};
   const buttonText = added
     ? "Added ✓"
     : cta[userProfile]?.product || "Add to Cart";
@@ -72,9 +73,10 @@ function Product({ product, navigate }) {
       <div className="relative aspect-square overflow-hidden bg-gray-100">
 
         <button
-          onClick={handleViewProduct}
-          className="absolute inset-0 h-full w-full"
-        >
+  type="button"
+  onClick={handleViewProduct}
+  className="absolute inset-0 h-full w-full"
+>
           <img
             src={product.image}
             alt={product.name}

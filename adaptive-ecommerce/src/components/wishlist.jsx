@@ -9,12 +9,12 @@ function Wishlist({ navigate }) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
-      <button
-        onClick={() => navigate("products")}
-        className="mb-6 text-sm font-bold text-gray-600 hover:text-gray-900"
-      >
-        ← Back to Products
-      </button>
+     <button
+  onClick={() => navigate("home")}
+  className="mb-5 text-sm font-bold text-gray-600 hover:text-gray-900"
+>
+  ← Back
+</button>
 
       <h1 className="text-3xl font-black">My Wishlist</h1>
 

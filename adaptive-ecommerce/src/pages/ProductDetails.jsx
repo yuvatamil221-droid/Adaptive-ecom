@@ -10,7 +10,7 @@ import products from "../data/products";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
 
-function ProductDetails({ product, navigate }) {
+function ProductDetails({ product, navigate, goBack }) {
   const { addToCart } = useContext(CartContext);
   const { wishlist, toggleWishlist } = useContext(WishlistContext);
 
@@ -29,10 +29,10 @@ function ProductDetails({ product, navigate }) {
           </h1>
 
           <button
-            onClick={() => navigate("products")}
-            className="mt-6 rounded-xl bg-gray-900 px-6 py-3 text-sm font-bold text-white"
+            onClick={goBack}
+            className="py-4 text-sm font-bold text-gray-600"
           >
-            Back to Products
+            ← Back
           </button>
         </div>
 
@@ -44,15 +44,11 @@ function ProductDetails({ product, navigate }) {
   /* Related products */
   const relatedProducts = products
     .filter(
-      (item) =>
-        item.category === product.category &&
-        item.id !== product.id
+      (item) => item.category === product.category && item.id !== product.id,
     )
     .slice(0, 4);
 
-  const isWishlisted = wishlist.some(
-    (item) => item.id === product.id
-  );
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
@@ -82,7 +78,6 @@ function ProductDetails({ product, navigate }) {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-
       {/* Header */}
       <Header navigate={navigate} />
 
@@ -94,17 +89,15 @@ function ProductDetails({ product, navigate }) {
 
       {/* Product Details */}
       <main className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
-
-        {/* Back Button */}
-        <button
-          onClick={() => navigate("products")}
-          className="mb-5 text-sm font-bold text-gray-600 hover:text-gray-900"
-        >
-          ← Back to Products
-        </button>
+       {/* Back Button */}
+<button
+  onClick={goBack}
+  className="mb-5 text-sm font-bold text-gray-600 hover:text-gray-900"
+>
+  ← Back to Products
+</button>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
-
           {/* Product Image */}
           <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
             <div className="aspect-square overflow-hidden bg-gray-100">
@@ -118,7 +111,6 @@ function ProductDetails({ product, navigate }) {
 
           {/* Product Information */}
           <div className="flex flex-col justify-center">
-
             {/* Brand */}
             <p className="text-xs font-bold uppercase tracking-[0.15em] text-gray-400">
               {product.brand}
@@ -161,25 +153,20 @@ function ProductDetails({ product, navigate }) {
 
             {/* Description */}
             <div className="mt-6 border-t border-gray-200 pt-6">
-              <h2 className="text-lg font-black">
-                About this product
-              </h2>
+              <h2 className="text-lg font-black">About this product</h2>
 
               <p className="mt-2 text-sm leading-6 text-gray-600">
-                This product is a great choice for your everyday needs.
-                Check the product details, price and available offers
-                before adding it to your cart.
+                This product is a great choice for your everyday needs. Check
+                the product details, price and available offers before adding it
+                to your cart.
               </p>
             </div>
 
             {/* Quantity */}
             <div className="mt-6">
-              <p className="text-sm font-bold">
-                Quantity
-              </p>
+              <p className="text-sm font-bold">Quantity</p>
 
               <div className="mt-2 flex w-fit items-center overflow-hidden rounded-xl border border-gray-300 bg-white">
-
                 <button
                   onClick={decreaseQuantity}
                   className="flex h-10 w-10 items-center justify-center text-lg font-bold hover:bg-gray-100"
@@ -197,13 +184,11 @@ function ProductDetails({ product, navigate }) {
                 >
                   +
                 </button>
-
               </div>
             </div>
 
             {/* Buttons */}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-
               <button
                 onClick={handleAddToCart}
                 className="flex-1 rounded-xl bg-red-500 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-600"
@@ -217,7 +202,6 @@ function ProductDetails({ product, navigate }) {
               >
                 {isWishlisted ? "♥ Wishlisted" : "♡ Wishlist"}
               </button>
-
             </div>
 
             {/* Buy Now */}
@@ -230,14 +214,12 @@ function ProductDetails({ product, navigate }) {
             >
               Buy Now
             </button>
-
           </div>
         </div>
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <section className="mt-12 border-t border-gray-200 pt-10 sm:mt-16">
-
             <p className="text-xs font-bold uppercase tracking-[0.15em] text-gray-400">
               You May Also Like
             </p>
@@ -248,22 +230,15 @@ function ProductDetails({ product, navigate }) {
 
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
               {relatedProducts.map((item) => (
-                <Product
-                  key={item.id}
-                  product={item}
-                  navigate={navigate}
-                />
+                <Product key={item.id} product={item} navigate={navigate} />
               ))}
             </div>
-
           </section>
         )}
-
       </main>
 
       {/* Footer */}
       <Footer navigate={navigate} />
-
     </div>
   );
 }

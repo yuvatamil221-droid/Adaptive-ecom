@@ -11,13 +11,13 @@ function Wishlist({ navigate }) {
 
       <ExperienceSwitcher />
 
-      <Navigation navigate={navigate} />
+      
 
       <main>
         <WishlistComponent navigate={navigate} />
       </main>
 
-      <Footer navigate={navigate} />
+      
     </div>
   );
 }

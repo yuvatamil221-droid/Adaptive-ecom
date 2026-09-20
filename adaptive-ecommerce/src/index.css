@@ -27,3 +27,126 @@ img {
   max-width: 100%;
   display: block;
 }
+/* ========================= */
+/* ACCESSIBILITY */
+/* ========================= */
+
+/* High Contrast */
+
+body.high-contrast {
+  background-color: #f3f4f6;
+}
+
+/* Stronger text */
+
+body.high-contrast .text-gray-500,
+body.high-contrast .text-gray-600 {
+  color: #1f2937 !important;
+}
+
+body.high-contrast .text-gray-400 {
+  color: #374151 !important;
+}
+
+/* Stronger borders */
+
+body.high-contrast .border-gray-200 {
+  border-color: #6b7280 !important;
+}
+
+body.high-contrast .border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+
+/* Large Text */
+
+/* ========================= */
+/* LARGE TEXT - GLOBAL */
+/* ========================= */
+
+body.large-text .text-xs {
+  font-size: 0.875rem !important;
+}
+
+body.large-text .text-sm {
+  font-size: 1rem !important;
+}
+
+body.large-text .text-base {
+  font-size: 1.125rem !important;
+}
+
+body.large-text .text-lg {
+  font-size: 1.25rem !important;
+}
+
+body.large-text .text-xl {
+  font-size: 1.375rem !important;
+}
+
+body.large-text .text-2xl {
+  font-size: 1.625rem !important;
+}
+
+body.large-text .text-3xl {
+  font-size: 1.875rem !important;
+}
+
+body.large-text .text-4xl {
+  font-size: 2.25rem !important;
+}
+
+/* Inputs and select */
+
+body.large-text input,
+body.large-text select,
+body.large-text textarea {
+  font-size: 1rem !important;
+}
+
+/* Buttons */
+
+body.large-text button {
+  font-size: 1rem !important;
+}
+
+/* ========================= */
+/* LARGER BUTTONS - GLOBAL */
+/* ========================= */
+
+body.large-buttons button {
+  min-height: 52px !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+/* Make button text easier to read */
+body.large-buttons button.text-xs {
+  font-size: 0.875rem !important;
+}
+
+body.large-buttons button.text-sm {
+  font-size: 1rem !important;
+}
+
+body.large-buttons button.text-base {
+  font-size: 1.05rem !important;
+}
+
+/* Form controls */
+body.large-buttons input,
+body.large-buttons select {
+  min-height: 52px !important;
+}
+
+/* Reduced Motion */
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

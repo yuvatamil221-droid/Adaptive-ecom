@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UIConfigContext } from "./context/UIConfigContext";
 
 import Home from "./pages/home";
@@ -15,60 +14,236 @@ import Search from "./pages/Search";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+
+function AppWrapper({ children }) {
+  const {
+    highContrast,
+    largeText,
+    largerButtons,
+  } = useContext(UIConfigContext);
+
+  return (
+    <div
+      className={`
+        min-h-screen
+        ${highContrast
+          ? "bg-black text-white"
+          : "bg-gray-50 text-gray-900"
+        }
+        ${largeText
+          ? "[&_p]:text-base [&_span]:text-base [&_h1]:text-4xl [&_h2]:text-3xl"
+          : ""
+        }
+        ${largerButtons
+          ? "[&_button]:min-h-12 [&_button]:px-5"
+          : ""
+        }
+      `}
+    >
+      {children}
+    </div>
+  );
+}
+
+
 function App() {
   const [page, setPage] = useState("home");
   const [data, setData] = useState(null);
 
+  // Stores previous pages
+  const [history, setHistory] = useState([]);
+
+
+  // Navigate to another page
   const navigate = (pageName, pageData = null) => {
+    setHistory((currentHistory) => [
+      ...currentHistory,
+      {
+        page,
+        data,
+      },
+    ]);
+
     setPage(pageName);
     setData(pageData);
   };
 
+
+  // Go to the previous page
+  const goBack = () => {
+    if (history.length === 0) {
+      setPage("home");
+      setData(null);
+      return;
+    }
+
+    const previousPage = history[history.length - 1];
+
+    setHistory((currentHistory) =>
+      currentHistory.slice(0, -1)
+    );
+
+    setPage(previousPage.page);
+    setData(previousPage.data);
+  };
+
+
+  // PRODUCTS
   if (page === "products") {
-    return <Products navigate={navigate} filters={data} />;
+    return (
+      <AppWrapper>
+        <Products
+          navigate={navigate}
+          filters={data}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // PRODUCT DETAILS
   if (page === "productDetails") {
-    return <ProductDetails product={data} navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <ProductDetails
+          product={data}
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // WISHLIST
   if (page === "wishlist") {
-  return <Wishlist navigate={navigate} data={data} />;
+  return (
+    <AppWrapper>
+      <Wishlist
+        navigate={navigate}
+        data={data}
+        goBack={goBack}
+      />
+    </AppWrapper>
+  );
 }
 
+  // CART
   if (page === "cart") {
-    return <Cart navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Cart
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // CHECKOUT
   if (page === "checkout") {
-    return <Checkout navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Checkout
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // ORDERS
   if (page === "orders") {
-    return <Orders navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Orders
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // PROFILE
   if (page === "profile") {
-    return <Profile navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Profile
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // CUSTOMIZE
   if (page === "customize") {
-    return <Customize navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Customize
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // SEARCH
   if (page === "search") {
-    return <Search navigate={navigate} search={data} />;
+    return (
+      <AppWrapper>
+        <Search
+          navigate={navigate}
+          search={data}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // LOGIN
   if (page === "login") {
-    return <Login navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Login
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
+
+  // REGISTER
   if (page === "register") {
-    return <Register navigate={navigate} />;
+    return (
+      <AppWrapper>
+        <Register
+          navigate={navigate}
+          goBack={goBack}
+        />
+      </AppWrapper>
+    );
   }
 
-  return <Home navigate={navigate} />;
+
+  // HOME
+  return (
+    <AppWrapper>
+      <Home
+        navigate={navigate}
+        goBack={goBack}
+      />
+    </AppWrapper>
+  );
 }
+
 
 export default App;

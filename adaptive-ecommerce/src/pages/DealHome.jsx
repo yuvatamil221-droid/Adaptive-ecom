@@ -11,34 +11,51 @@ function DealHome({ navigate }) {
   return (
     <main className="bg-gray-50 text-gray-900">
 
-      {/* HERO */}
+      {/* Hero */}
       <Hero />
 
-      {/* SHOP BY DEALS */}
+      {/* Shop By Deals */}
       <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
 
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
-          Shop By Deals
-        </p>
+        <div className="flex items-end justify-between gap-3">
 
-        <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-          Find Your Best Deal
-        </h2>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
+              Shop By Deals
+            </p>
 
-        <p className="mt-2 text-xs text-gray-500 sm:text-sm">
-          Explore products and save more on every purchase.
-        </p>
+            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
+              Find Your Best Deal
+            </h2>
 
-        {/* DEAL CARDS */}
+            <p className="mt-2 text-xs text-gray-500 sm:text-sm">
+              Explore products and save more on every purchase.
+            </p>
+          </div>
+
+          {/* View All - Mobile + Desktop */}
+          <button
+            onClick={() => navigate("products", { deal: true })}
+            className="shrink-0 text-xs font-bold text-red-500 sm:text-sm"
+          >
+            View All →
+          </button>
+
+        </div>
+
+        {/* Deal Cards */}
         <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
 
+          {/* Flash Sale */}
           <button
             onClick={() =>
               navigate("products", { flashSale: true })
             }
             className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-2xl sm:text-3xl">⚡</div>
+            <div className="text-2xl sm:text-3xl">
+              ⚡
+            </div>
 
             <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Flash Sale
@@ -53,13 +70,16 @@ function DealHome({ navigate }) {
             </p>
           </button>
 
+          {/* Under ₹999 */}
           <button
             onClick={() =>
               navigate("products", { maxPrice: 999 })
             }
             className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-2xl sm:text-3xl">₹</div>
+            <div className="text-2xl sm:text-3xl">
+              ₹
+            </div>
 
             <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Under ₹999
@@ -74,15 +94,16 @@ function DealHome({ navigate }) {
             </p>
           </button>
 
+          {/* Fashion Deals */}
           <button
             onClick={() =>
-              navigate("products", {
-                category: "fashion",
-              })
+              navigate("products", { category: "fashion" })
             }
             className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-2xl sm:text-3xl">✦</div>
+            <div className="text-2xl sm:text-3xl">
+              ✦
+            </div>
 
             <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Fashion Deals
@@ -97,15 +118,16 @@ function DealHome({ navigate }) {
             </p>
           </button>
 
+          {/* Gadget Deals */}
           <button
             onClick={() =>
-              navigate("products", {
-                category: "electronics",
-              })
+              navigate("products", { category: "electronics" })
             }
             className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
           >
-            <div className="text-2xl sm:text-3xl">◈</div>
+            <div className="text-2xl sm:text-3xl">
+              ◈
+            </div>
 
             <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
               Gadget Deals
@@ -123,13 +145,13 @@ function DealHome({ navigate }) {
         </div>
       </section>
 
-      {/* DEAL PRODUCTS */}
+      {/* Top Deals */}
       <section
         id="products"
         className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8"
       >
 
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-3">
 
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
@@ -145,18 +167,19 @@ function DealHome({ navigate }) {
             </p>
           </div>
 
+          {/* View All */}
           <button
             onClick={() =>
               navigate("products", { deal: true })
             }
-            className="hidden text-sm font-bold text-red-500 sm:block"
+            className="shrink-0 text-xs font-bold text-red-500 sm:text-sm"
           >
             View All →
           </button>
 
         </div>
 
-        {/* PRODUCT GRID */}
+        {/* Products */}
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
 
           {dealProducts.map((product) => (
@@ -169,18 +192,9 @@ function DealHome({ navigate }) {
 
         </div>
 
-        <button
-          onClick={() =>
-            navigate("products", { deal: true })
-          }
-          className="mt-5 w-full rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 shadow-sm sm:hidden"
-        >
-          View All Deals →
-        </button>
-
       </section>
 
-      {/* SHOP BY CATEGORY */}
+      {/* Shop By Category */}
       <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
 
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
@@ -195,7 +209,6 @@ function DealHome({ navigate }) {
           Find great offers across your favourite categories.
         </p>
 
-        {/* CATEGORY GRID */}
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
 
           {categories.map((category) => (
@@ -209,7 +222,6 @@ function DealHome({ navigate }) {
               className="group overflow-hidden rounded-xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:rounded-2xl"
             >
 
-              {/* CATEGORY IMAGE */}
               <div className="h-24 overflow-hidden sm:h-40">
 
                 <img
@@ -220,7 +232,6 @@ function DealHome({ navigate }) {
 
               </div>
 
-              {/* CATEGORY DETAILS */}
               <div className="p-3 sm:p-4">
 
                 <h3 className="text-sm font-black sm:text-base">
@@ -240,7 +251,7 @@ function DealHome({ navigate }) {
 
       </section>
 
-      {/* FINAL CTA */}
+      {/* Final CTA */}
       <section className="mx-auto max-w-7xl px-3 pb-7 sm:px-6 sm:pb-12 lg:px-8">
 
         <div className="rounded-2xl bg-gray-900 p-6 text-center text-white sm:rounded-3xl sm:p-10">
