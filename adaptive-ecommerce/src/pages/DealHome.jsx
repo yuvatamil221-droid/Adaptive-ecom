@@ -121,7 +121,7 @@ function DealHome({ navigate }) {
         </div>
 
         {flashSaleProducts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-5">
             {flashSaleProducts.map((product) => (
               <Product
   key={product.id}

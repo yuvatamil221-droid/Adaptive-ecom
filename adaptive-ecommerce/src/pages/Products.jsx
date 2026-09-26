@@ -600,7 +600,7 @@ if (filters?.brands) {
             </button>
           </div>
         ) : (
-          <div className="mt-6 grid grid-cols-4 gap-2">
+          <div className="mt-6 grid grid-cols-2 gap-2 lg:grid-cols-4">
             {filteredProducts.map((product) => (
               <Product key={product.id} product={product} navigate={navigate} />
             ))}

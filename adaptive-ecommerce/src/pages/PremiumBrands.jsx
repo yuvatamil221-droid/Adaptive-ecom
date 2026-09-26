@@ -134,92 +134,9 @@ function PremiumBrands({ navigate, goBack, filters }) {
       </section>
 
       {/* =================================
-          BRAND CARDS
+          BRAND CARDS 
       ================================= */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8">
-
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-
-          {brands.map((brand) => {
-
-            const brandProducts = products.filter(
-              (product) => product.brand === brand.name
-            );
-
-            const previewProduct = brandProducts[0];
-
-            return (
-              <button
-                key={brand.name}
-                onClick={() =>
-                  navigate("PremiumBrands", {
-                    brands: true,
-                    brand: brand.name,
-                  })
-                }
-                className={`group relative overflow-hidden rounded-3xl border bg-white text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
-                  selectedBrand === brand.name
-                    ? "border-stone-900"
-                    : "border-stone-200"
-                }`}
-              >
-
-                {/* BRAND LOGO */}
-                <div className="flex h-14 items-center px-4">
-
-                  <img
-  src={brand.logo}
-  alt={brand.name}
-  className="premium-brand-logo h-7 max-w-[90px] object-contain"
-  onError={(e) => {
-    e.currentTarget.style.display = "none";
-    e.currentTarget.nextElementSibling.style.display = "block";
-  }}
-/>
-
-<span className="hidden premium-brand-fallback text-lg font-black text-stone-900">
-  {brand.name}
-</span>
-
-                </div>
-
-                {/* PRODUCT IMAGE */}
-                {previewProduct && (
-                  <div className="h-24 overflow-hidden bg-stone-50">
-
-                    <img
-                      src={previewProduct.image}
-                      alt={brand.name}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-
-                  </div>
-                )}
-
-                {/* BRAND INFO */}
-                <div className="p-3">
-
-                  <h2 className="font-bold">
-                    {brand.name}
-                  </h2>
-
-                  <p className="mt-1 text-xs text-stone-500">
-                    {brandProducts.length} products
-                  </p>
-
-                  <span className="mt-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-stone-900 text-white">
-                    →
-                  </span>
-
-                </div>
-
-              </button>
-            );
-          })}
-
-        </div>
-
-      </section>
+      
 
       {/* =================================
           SELECTED BRAND BANNER

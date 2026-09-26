@@ -112,9 +112,9 @@ function Orders({ navigate, goBack }) {
                     </div>
 
                     {/* PRICE + BUTTONS */}
-                    <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
 
-                      <p className="text-xl font-black">
+                      <p className="w-full text-xl font-black">
                         ₹{Number(order.total || 0).toLocaleString("en-IN")}
                       </p>
 
