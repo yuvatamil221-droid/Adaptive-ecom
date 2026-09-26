@@ -1,111 +1,129 @@
 function CheckoutSummary({
-  cart,
-  productTotal,
-  shipping,
-  finalTotal,
-  paymentMethod,
-  handlePlaceOrder,
+  products = [],
+  subtotal = 0,
+  delivery = "Standard Delivery",
+  deliveryCharge = 0,
+  couponDiscount = 0,
+  appliedCoupon,
+  finalTotal = 0,
+  paymentMethod = "Cash on Delivery",
+  onPlaceOrder,
 }) {
-    console.log("SUMMARY FINAL TOTAL:", finalTotal);
   return (
-    <aside className="h-fit rounded-3xl border border-gray-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
+    <section className="bg-white p-5 shadow-sm sm:p-6">
 
-      <h2 className="text-xl font-black">
+      {/* TITLE */}
+
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
         Order Summary
-      </h2>
+      </p>
 
+      <h2 className="mt-2 text-xl font-black">
+        Your Order
+      </h2>
 
       {/* PRODUCTS */}
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-5 space-y-4">
 
-        {cart.map((item) => (
-
+        {products.map((product) => (
           <div
-            key={item.id}
-            className="flex items-center justify-between gap-3"
+            key={product.id}
+            className="flex gap-3"
           >
 
-            <div className="flex items-center gap-3">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="h-14 w-14 shrink-0 rounded-lg object-cover"
+            />
 
-              <img
-                src={item.image}
-                alt={item.name}
-                className="h-14 w-14 rounded-xl object-cover"
-              />
+            <div className="min-w-0 flex-1">
 
-              <div>
+              <p className="line-clamp-2 text-xs font-bold">
+                {product.name}
+              </p>
 
-                <p className="text-sm font-bold">
-                  {item.name}
-                </p>
-
-                <p className="text-xs text-gray-500">
-                  ₹{item.price.toLocaleString("en-IN")} ×{" "}
-                  {item.quantity}
-                </p>
-
-              </div>
+              <p className="mt-1 text-[11px] text-gray-500">
+                Qty: {product.quantity}
+              </p>
 
             </div>
 
-
-            <p className="text-sm font-bold">
+            <p className="text-sm font-black">
+              ₹
               ₹{(
-                item.price * item.quantity
-              ).toLocaleString("en-IN")}
+  Number(product.price || 0) *
+  Number(product.quantity || 1)
+).toLocaleString("en-IN")}
             </p>
 
           </div>
-
         ))}
 
       </div>
-
 
       {/* PRICE DETAILS */}
 
       <div className="mt-6 border-t border-gray-200 pt-5">
 
         <div className="flex justify-between text-sm">
-
           <span className="text-gray-500">
             Product Total
           </span>
 
           <span className="font-bold">
-            ₹{productTotal.toLocaleString("en-IN")}
+            ₹{subtotal.toLocaleString("en-IN")}
           </span>
-
         </div>
 
+        {/* DELIVERY */}
 
-        <div className="mt-4 flex justify-between text-sm">
+        <div className="mt-3 flex justify-between text-sm">
 
-          <span className="text-gray-500">
-            Delivery
-          </span>
+          <div>
+            <p className="text-gray-500">
+              Delivery
+            </p>
+
+            <p className="mt-1 text-[11px] text-gray-400">
+              {delivery}
+            </p>
+          </div>
 
           <span className="font-bold">
-
-            {shipping === 0
+            {deliveryCharge === 0
               ? "FREE"
-              : `₹${shipping}`}
-
+              : `₹${deliveryCharge.toLocaleString("en-IN")}`}
           </span>
 
         </div>
 
+        {/* COUPON */}
+
+        {appliedCoupon && couponDiscount > 0 && (
+          <div className="mt-3 flex justify-between text-sm">
+
+            <span className="text-green-600">
+              Coupon ({appliedCoupon.code})
+            </span>
+
+            <span className="font-bold text-green-600">
+              -₹{couponDiscount.toLocaleString("en-IN")}
+            </span>
+
+          </div>
+        )}
 
         {/* TOTAL */}
 
-        <div className="mt-4 flex justify-between border-t border-gray-200 pt-4">
+        <div className="mt-5 flex justify-between border-t border-gray-200 pt-5">
 
           <span className="text-base font-black">
             Total
           </span>
 
-          <span className="text-2xl font-black">
+          <span className="text-xl font-black">
             ₹{finalTotal.toLocaleString("en-IN")}
           </span>
 
@@ -113,43 +131,30 @@ function CheckoutSummary({
 
       </div>
 
+      {/* PAYMENT */}
 
-      {/* PAYMENT METHOD */}
+      <div className="mt-5 border-t border-gray-100 pt-4">
 
-      <div className="mt-6 rounded-2xl bg-gray-50 p-4">
-
-        <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-          Payment Method
+        <p className="text-xs font-bold uppercase tracking-wider text-gray-400">
+          Payment
         </p>
 
-        <p className="mt-2 text-sm font-bold">
-          {paymentMethod || "Select a payment method"}
+        <p className="mt-1 text-sm font-bold">
+          {paymentMethod}
         </p>
 
       </div>
 
-
       {/* PLACE ORDER */}
 
       <button
-        onClick={handlePlaceOrder}
-        disabled={!paymentMethod}
-        className={`mt-6 w-full rounded-xl px-6 py-4 text-sm font-black transition ${
-          paymentMethod
-            ? "bg-red-500 text-white hover:bg-red-600"
-            : "cursor-not-allowed bg-gray-200 text-gray-400"
-        }`}
+        onClick={onPlaceOrder}
+        className="mt-6 w-full bg-black px-5 py-4 text-sm font-black text-white transition hover:bg-gray-800"
       >
-        Place Order →
+        Place Order · ₹{finalTotal.toLocaleString("en-IN")}
       </button>
 
-
-      <p className="mt-4 text-center text-xs text-gray-400">
-        Frontend payment demonstration.
-        No real payment is processed.
-      </p>
-
-    </aside>
+    </section>
   );
 }
 

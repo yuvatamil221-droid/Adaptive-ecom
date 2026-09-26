@@ -1,133 +1,190 @@
-function CheckoutReview({ cart, address, delivery, paymentMethod }) {
+function CheckoutReview({
+  products = [],
+  address,
+  delivery,
+  paymentMethod,
+  subtotal = 0,
+  deliveryCharge = 0,
+  couponDiscount = 0,
+  finalTotal = 0,
+  appliedCoupon,
+}) {
   return (
-    <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+    <section className="bg-white p-5 shadow-sm sm:p-6">
 
-      <div className="flex items-center gap-3">
+      {/* TITLE */}
 
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
-          4
-        </span>
+      <div>
+        <p className="text-xs font-bold uppercase tracking-wider text-gray-400">
+          Final Review
+        </p>
 
-        <div>
-          <h2 className="text-xl font-black">
-            Review Order
-          </h2>
-
-          <p className="text-sm text-gray-500">
-            Check your details before placing the order.
-          </p>
-        </div>
-
+        <h2 className="mt-1 text-xl font-black">
+          Review Your Order
+        </h2>
       </div>
-
 
       {/* PRODUCTS */}
 
-      <div className="mt-6">
+      <div className="mt-5 border-t border-gray-100 pt-5">
 
-        <h3 className="text-sm font-bold">
+        <h3 className="text-sm font-black">
           Products
         </h3>
 
         <div className="mt-4 space-y-4">
 
-          {cart.map((item) => (
-
+          {products.map((product) => (
             <div
-              key={item.id}
-              className="flex gap-4 border-b border-gray-100 pb-4"
+              key={product.id}
+              className="flex items-center gap-3"
             >
 
               <img
-                src={item.image}
-                alt={item.name}
-                className="h-20 w-20 rounded-xl object-cover"
+                src={product.image}
+                alt={product.name}
+                className="h-16 w-16 shrink-0 rounded-lg object-cover"
               />
 
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
 
-                <h4 className="font-bold">
-                  {item.name}
-                </h4>
+                <p className="line-clamp-2 text-sm font-bold">
+                  {product.name}
+                </p>
 
                 <p className="mt-1 text-xs text-gray-500">
-                  {item.brand}
-                </p>
-
-                <p className="mt-2 text-sm text-gray-500">
-                  Quantity: {item.quantity}
-                </p>
-
-                <p className="mt-2 font-bold">
-                  ₹{(
-                    item.price * item.quantity
-                  ).toLocaleString("en-IN")}
+                  Quantity: {product.quantity}
                 </p>
 
               </div>
 
-            </div>
+              <p className="text-sm font-black">
+                ₹
+                {(
+                  product.price * product.quantity
+                ).toLocaleString("en-IN")}
+              </p>
 
+            </div>
           ))}
 
         </div>
 
       </div>
 
+      {/* ADDRESS */}
 
-      {/* DELIVERY DETAILS */}
+      <div className="mt-6 border-t border-gray-100 pt-5">
 
-      <div className="mt-6 rounded-2xl bg-gray-50 p-5">
-
-        <h3 className="font-bold">
-          Delivery Details
+        <h3 className="text-sm font-black">
+          Delivery Address
         </h3>
 
-        <p className="mt-3 text-sm font-bold">
-          {address.name}
-        </p>
-
-        <p className="mt-1 text-sm text-gray-600">
-          {address.address}
-        </p>
-
-        <p className="mt-1 text-sm text-gray-600">
-          {address.city} - {address.pincode}
-        </p>
-
-        <p className="mt-1 text-sm text-gray-600">
-          {address.phone}
+        <p className="mt-2 text-sm leading-6 text-gray-600">
+          {address || "No address entered"}
         </p>
 
       </div>
 
+      {/* DELIVERY */}
 
-      {/* DELIVERY + PAYMENT */}
+      <div className="mt-6 border-t border-gray-100 pt-5">
 
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <h3 className="text-sm font-black">
+          Delivery Method
+        </h3>
 
-        <div className="rounded-2xl border border-gray-200 p-4">
+        <div className="mt-2 flex items-center justify-between">
 
-          <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-            Delivery
+          <p className="text-sm text-gray-600">
+            {delivery}
           </p>
 
-          <p className="mt-2 text-sm font-bold">
-            {delivery}
+          <p className="text-sm font-bold">
+            {deliveryCharge === 0
+              ? "FREE"
+              : `₹${deliveryCharge.toLocaleString("en-IN")}`}
           </p>
 
         </div>
 
+      </div>
 
-        <div className="rounded-2xl border border-gray-200 p-4">
+      {/* PAYMENT */}
 
-          <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-            Payment
-          </p>
+      <div className="mt-6 border-t border-gray-100 pt-5">
 
-          <p className="mt-2 text-sm font-bold">
-            {paymentMethod}
-          </p>
+        <h3 className="text-sm font-black">
+          Payment Method
+        </h3>
+
+        <p className="mt-2 text-sm text-gray-600">
+          {paymentMethod}
+        </p>
+
+      </div>
+
+      {/* PRICE BREAKDOWN */}
+
+      <div className="mt-6 border-t border-gray-100 pt-5">
+
+        <h3 className="text-sm font-black">
+          Price Details
+        </h3>
+
+        <div className="mt-4 space-y-3">
+
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-500">
+              Product Total
+            </span>
+
+            <span className="font-bold">
+              ₹{subtotal.toLocaleString("en-IN")}
+            </span>
+          </div>
+
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-500">
+              Delivery
+            </span>
+
+            <span className="font-bold">
+              {deliveryCharge === 0
+                ? "FREE"
+                : `₹${deliveryCharge.toLocaleString("en-IN")}`}
+            </span>
+          </div>
+
+          {/* COUPON */}
+
+          {appliedCoupon && couponDiscount > 0 && (
+            <div className="flex justify-between text-sm">
+
+              <span className="text-green-600">
+                Coupon ({appliedCoupon.code})
+              </span>
+
+              <span className="font-bold text-green-600">
+                -₹{couponDiscount.toLocaleString("en-IN")}
+              </span>
+
+            </div>
+          )}
+
+          {/* TOTAL */}
+
+          <div className="flex justify-between border-t border-gray-200 pt-4">
+
+            <span className="text-base font-black">
+              Total
+            </span>
+
+            <span className="text-lg font-black">
+              ₹{finalTotal.toLocaleString("en-IN")}
+            </span>
+
+          </div>
 
         </div>
 

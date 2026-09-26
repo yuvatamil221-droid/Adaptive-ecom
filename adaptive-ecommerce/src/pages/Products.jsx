@@ -5,10 +5,11 @@ import ExperienceSwitcher from "../components/experienceSwitcher";
 import Navigation from "../components/navigation";
 import Footer from "../components/footer";
 import Product from "../components/product";
+import PremiumBrands from "./PremiumBrands";
 
 import products from "../data/products";
 
-function Products({ navigate,  goBack, filters }) {
+function Products({ navigate, goBack, filters }) {
   const [sortBy, setSortBy] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -25,6 +26,10 @@ function Products({ navigate,  goBack, filters }) {
   let filteredProducts = products.filter((product) => {
     /* Category */
     if (category !== "all" && product.category !== category) {
+      return false;
+    }
+    /* Brand */
+    if (filters?.brand && product.brand !== filters.brand) {
       return false;
     }
 
@@ -44,51 +49,63 @@ function Products({ navigate,  goBack, filters }) {
     }
 
     /* Deal products */
-    if (filters?.deal && (!product.discount || product.discount < 20)) {
+    if (
+      filters?.deal &&
+      (!product.discount || product.discount < 20 || product.inStock === false)
+    ) {
       return false;
     }
 
-    /* Flash sale */
+    /* Flash Sale */
     if (filters?.flashSale && (!product.discount || product.discount < 30)) {
       return false;
     }
 
     return true;
   });
-   
+
+  /* New Arrivals */
   if (filters?.newArrivals) {
-  filteredProducts = products
-    .filter((product) => product.newArrival === true)
-    .slice(0, 8);
-}
+    filteredProducts = products
+      .filter((product) => product.newArrival === true)
+      .slice(0, 8);
+  }
 
+  /* Brands */
+/* Brands */
 if (filters?.brands) {
-  filteredProducts = products
-    .filter(
+  if (filters?.brand) {
+    // Specific brand clicked
+    filteredProducts = products.filter(
+      (product) => product.brand === filters.brand
+    );
+  } else {
+    // View All Brands
+    filteredProducts = products.filter(
       (product) =>
-        product.newArrival === false &&
-        (
-          product.brand === "Logitech" ||
-          product.brand === "Canon" ||
-          product.brand === "Anker" ||
-          product.brand === "Fossil" ||
-          product.brand === "Nike" ||
-          product.brand === "Milton"
-        )
-    )
-    .slice(0, 8);
+        product.brand === "Apple" ||
+        product.brand === "Nike" ||
+        product.brand === "Samsung" ||
+        product.brand === "Milton" ||
+        product.brand === "boAt" ||
+        product.brand === "Fossil" ||
+        product.brand === "Canon" ||
+        product.brand === "Anker" ||
+        product.brand === "Logitech" ||
+        product.brand === "Sony"
+    );
+  }
 }
+  /* Collections */
+  if (filters?.collections) {
+    filteredProducts = products
+      .filter(
+        (product) => product.category === "fashion" && product.price >= 2000,
+      )
+      .slice(0, 8);
+  }
 
-if (filters?.collections) {
-  filteredProducts = products
-    .filter(
-      (product) =>
-        product.category === "fashion" &&
-        product.price >= 2000
-    )
-    .slice(0, 8);
-}
-  
+  /* Section */
   if (filters?.section) {
     filteredProducts = filteredProducts.filter(
       (product) => product.section === filters.section,
@@ -135,59 +152,288 @@ if (filters?.collections) {
       <Navigation navigate={navigate} />
 
       <main className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
-       
-        {/* BACK BUTTON */}
-  <button
-    onClick={goBack}
-    className="mb-5 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 hover:bg-gray-100"
-  >
-    ← Back
-  </button>
-  
-        {/* PAGE HEADING */}
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
-            Shop
-          </p>
+        {/* =================================
+            DEALS PAGE
+        ================================= */}
 
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
-  Premium Shop
-</p>
+        {filters?.deal ? (
+          <section className="mb-7">
+            {/* BACK ARROW */}
+            <button
+              onClick={goBack}
+              className="mb-4 text-2xl font-bold text-gray-700 transition hover:text-black"
+              aria-label="Go back"
+            >
+              ←
+            </button>
 
-<h1 className="mt-2 text-3xl font-black sm:text-4xl">
-  {filters?.newArrivals
-    ? "New Arrivals"
-    : filters?.brands
-    ? "Featured Brands"
-    : filters?.collections
-    ? "Premium Collections"
-    : filters?.deal
-    ? "Best Deals"
-    : filters?.maxPrice === 999
-    ? "Under ₹999"
-    : filters?.flashSale
-    ? "Flash Sale"
-    : "All Products"}
-</h1>
+            {/* DEALS IMAGE */}
+            <div className="mt-3 w-full overflow-hidden">
+              <img
+                src={`${import.meta.env.BASE_URL}deals.png`}
+                alt="Deals and Big Savings"
+                className="block h-auto w-full scale-[1.03] rounded-none"
+              />
+            </div>
+          </section>
+        ) : filters?.maxPrice === 999 ? (
+          /* =================================
+             UNDER ₹999 PAGE TOP
+          ================================= */
 
-<p className="mt-2 text-sm text-gray-500">
-  {filters?.newArrivals
-    ? "Discover the latest products selected for you."
-    : filters?.brands
-    ? "Explore products from popular brands."
-    : filters?.collections
-    ? "Explore our carefully selected premium collections."
-    : filters?.deal
-    ? "Grab amazing deals and save more."
-    : filters?.maxPrice === 999
-    ? "Shop smart with great products under ₹999."
-    : filters?.flashSale
-    ? "Limited-time offers are waiting for you."
-    : "Explore products selected for your shopping experience."}
-</p>
-        </div>
+          <>
+            {/* BACK */}
+            <button
+              onClick={goBack}
+              className="mb-4 text-2xl font-bold text-gray-700 transition hover:text-black"
+              aria-label="Go back"
+            >
+              ←
+            </button>
 
-        {/* PRODUCT COUNT + DESKTOP CONTROLS */}
+            {/* UNDER ₹999 IMAGE */}
+            <div className="w-full overflow-hidden rounded-2xl">
+              <img
+                src={`${import.meta.env.BASE_URL}uder900.png`}
+                alt="Smart Picks Under ₹999"
+                className="block h-auto w-full"
+              />
+            </div>
+
+            {/* CATEGORY SHORTCUTS */}
+            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+              {/* ELECTRONICS */}
+              <button
+                onClick={() => setCategory("electronics")}
+                className="rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="text-xl">🎧</div>
+
+                <p className="mt-1 text-sm font-black">Electronics</p>
+
+                <p className="text-xs text-gray-500">Under ₹999</p>
+              </button>
+
+              {/* FASHION */}
+              <button
+                onClick={() => setCategory("fashion")}
+                className="rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="text-xl">👕</div>
+
+                <p className="mt-1 text-sm font-black">Fashion</p>
+
+                <p className="text-xs text-gray-500">Under ₹999</p>
+              </button>
+
+              {/* HOME */}
+              <button
+                onClick={() => setCategory("home")}
+                className="rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="text-xl">🏠</div>
+
+                <p className="mt-1 text-sm font-black">Home</p>
+
+                <p className="text-xs text-gray-500">Under ₹999</p>
+              </button>
+
+              {/* BEAUTY */}
+              <button
+                onClick={() => setCategory("beauty")}
+                className="rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="text-xl">💄</div>
+
+                <p className="mt-1 text-sm font-black">Beauty</p>
+
+                <p className="text-xs text-gray-500">Under ₹999</p>
+              </button>
+
+              {/* SPORTS */}
+              <button
+                onClick={() => setCategory("sports")}
+                className="rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="text-xl">🏋️</div>
+
+                <p className="mt-1 text-sm font-black">Sports</p>
+
+                <p className="text-xs text-gray-500">Under ₹999</p>
+              </button>
+
+              {/* ALL PICKS */}
+              <button
+                onClick={() => setCategory("all")}
+                className="rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <div className="text-xl">🛍️</div>
+
+                <p className="mt-1 text-sm font-black">All Picks</p>
+
+                <p className="text-xs text-gray-500">View All</p>
+              </button>
+            </div>
+
+            {/* UNDER ₹999 TITLE */}
+            <div className="mt-7">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
+                Smart Shopping
+              </p>
+
+              <h1 className="mt-1 text-3xl font-black">Under ₹999</h1>
+
+              <p className="mt-1 text-sm text-gray-500">
+                {filteredProducts.length} products
+              </p>
+            </div>
+          </>
+        ) : filters?.flashSale ? (
+          /* =================================
+             FLASH SALE PAGE
+          ================================= */
+
+          <>
+            {/* BACK */}
+            <button
+              onClick={goBack}
+              className="mb-4 text-2xl font-bold text-gray-700 transition hover:text-black"
+              aria-label="Go back"
+            >
+              ←
+            </button>
+
+            {/* FLASH SALE HERO */}
+            <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-50 via-white to-orange-50 p-6 shadow-sm sm:p-8">
+              {/* Decorative shapes */}
+              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-red-100" />
+
+              <div className="absolute -bottom-16 -left-12 h-40 w-40 rounded-full bg-orange-100" />
+
+              <div className="relative">
+                {/* FLASH SALE LABEL */}
+                <div className="inline-flex items-center gap-2 rounded-full bg-red-500 px-4 py-2 text-sm font-black text-white">
+                  ⚡ FLASH SALE
+                </div>
+
+                {/* TITLE */}
+                <h1 className="mt-5 text-4xl font-black tracking-tight text-gray-900 sm:text-5xl">
+                  Big Discounts.
+                  <span className="block text-red-500">Limited Offers.</span>
+                </h1>
+
+                <p className="mt-3 max-w-xl text-sm leading-6 text-gray-600 sm:text-base">
+                  Grab your favourite products with special flash sale
+                  discounts.
+                </p>
+
+                {/* DISCOUNT CARDS */}
+                <div className="mt-7 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
+                  <div className="rounded-2xl border border-red-100 bg-white p-4 shadow-sm">
+                    <p className="text-3xl font-black text-red-500">40%</p>
+
+                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">
+                      OFF
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-red-100 bg-white p-4 shadow-sm">
+                    <p className="text-3xl font-black text-red-500">36%</p>
+
+                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">
+                      OFF
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-red-100 bg-white p-4 shadow-sm">
+                    <p className="text-3xl font-black text-red-500">32%</p>
+
+                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">
+                      OFF
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-red-100 bg-white p-4 shadow-sm">
+                    <p className="text-3xl font-black text-red-500">30%</p>
+
+                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">
+                      OFF
+                    </p>
+                  </div>
+                </div>
+
+                {/* OFFER INFO */}
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <div className="rounded-full bg-white px-4 py-2 text-sm font-bold text-gray-700 shadow-sm">
+                    🔥 30%+ OFF
+                  </div>
+
+                  <div className="rounded-full bg-white px-4 py-2 text-sm font-bold text-gray-700 shadow-sm">
+                    ⚡ Special Prices
+                  </div>
+
+                  <div className="rounded-full bg-white px-4 py-2 text-sm font-bold text-gray-700 shadow-sm">
+                    🛍️ Limited Deals
+                  </div>
+                </div>
+              </div>
+            </section>
+          </>
+        ) : (
+          /* =================================
+             NORMAL PAGE HEADING
+          ================================= */
+
+          <>
+            {/* BACK */}
+            <button
+              onClick={goBack}
+              className="mb-5 text-2xl font-bold text-gray-700 transition hover:text-black"
+              aria-label="Go back"
+            >
+              ←
+            </button>
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
+                Shop
+              </p>
+
+              <h1 className="mt-2 text-3xl font-black sm:text-4xl">
+                {filters?.newArrivals
+                  ? "New Arrivals"
+                  : filters?.brands
+                    ? "Featured Brands"
+                    : filters?.collections
+                      ? "Premium Collections"
+                      : filters?.maxPrice === 999
+                        ? "Under ₹999"
+                        : filters?.flashSale
+                          ? "Flash Sale"
+                          : "All Products"}
+              </h1>
+
+              <p className="mt-2 text-sm text-gray-500">
+                {filters?.newArrivals
+                  ? "Discover the latest products selected for you."
+                  : filters?.brands
+                    ? "Explore products from popular brands."
+                    : filters?.collections
+                      ? "Explore our carefully selected premium collections."
+                      : filters?.maxPrice === 999
+                        ? "Shop smart with great products under ₹999."
+                        : filters?.flashSale
+                          ? "Limited-time offers are waiting for you."
+                          : "Explore products selected for your shopping experience."}
+              </p>
+            </div>
+          </>
+        )}
+
+        {/* =================================
+            PRODUCT COUNT + DESKTOP CONTROLS
+        ================================= */}
+
         <div className="mt-7 flex items-center justify-between border-b border-gray-200 pb-4">
           <p className="text-sm font-bold text-gray-700">
             {filteredProducts.length} products
@@ -221,7 +467,10 @@ if (filters?.collections) {
           </div>
         </div>
 
-        {/* MOBILE CONTROLS */}
+        {/* =================================
+            MOBILE CONTROLS
+        ================================= */}
+
         <div className="mt-4 grid grid-cols-2 gap-3 sm:hidden">
           <select
             value={sortBy}
@@ -247,7 +496,10 @@ if (filters?.collections) {
           </button>
         </div>
 
-        {/* FILTER PANEL */}
+        {/* =================================
+            FILTER PANEL
+        ================================= */}
+
         {showFilters && (
           <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
             <div className="flex items-center justify-between">
@@ -326,7 +578,10 @@ if (filters?.collections) {
           </div>
         )}
 
-        {/* PRODUCTS */}
+        {/* =================================
+            PRODUCTS
+        ================================= */}
+
         {filteredProducts.length === 0 ? (
           <div className="py-20 text-center">
             <div className="text-5xl">🔍</div>
@@ -345,7 +600,7 @@ if (filters?.collections) {
             </button>
           </div>
         ) : (
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+          <div className="mt-6 grid grid-cols-4 gap-2">
             {filteredProducts.map((product) => (
               <Product key={product.id} product={product} navigate={navigate} />
             ))}

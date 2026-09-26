@@ -1,287 +1,217 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import Product from "../components/product";
-import Hero from "../components/hero";
 import products from "../data/products";
-import categories from "../data/categories";
 
 function DealHome({ navigate }) {
+  const { theme } = useContext(ThemeContext);
+
+  // Flash Sale - maximum 10 products
+  const flashSaleProducts = products
+    .filter((product) => product.flashSale)
+    .slice(0, 10);
+
+  // All Deals - maximum 10 products
   const dealProducts = products
     .filter((product) => product.discount >= 20)
-    .slice(0, 8);
+    .slice(0, 10);
 
   return (
-    <main className="bg-gray-50 text-gray-900">
+    <div
+      className={`min-h-screen ${
+        theme === "dark"
+          ? "bg-gray-950 text-white"
+          : "bg-gray-50 text-gray-900"
+      }`}
+    >
+      {/* =========================
+          DEAL HUNTER HERO
+      ========================== */}
 
-      {/* Hero */}
-      <Hero />
+      <section className="px-4 pt-6 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-red-700 shadow-xl">
 
-      {/* Shop By Deals */}
-      <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
+          {/* Banner Image */}
+          <img
+            src={`${import.meta.env.BASE_URL}deal-banner.png`}
+            alt="Exclusive Deals Collection"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
 
-        <div className="flex items-end justify-between gap-3">
+          {/* Text */}
+          <div className="relative z-10 flex min-h-[420px] items-center">
+            <div className="max-w-xl px-6 py-14 sm:px-10 lg:px-16">
 
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
-              Shop By Deals
-            </p>
+              <div className="mb-5 inline-flex rounded-full bg-black/25 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
+                🔥 Deal Hunter
+              </div>
 
-            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-              Find Your Best Deal
-            </h2>
+              <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
+                Exclusive Deals
+                <br />
+                Collection
+              </h1>
 
-            <p className="mt-2 text-xs text-gray-500 sm:text-sm">
-              Explore products and save more on every purchase.
-            </p>
+              <p className="mt-5 max-w-lg text-base leading-7 text-white sm:text-lg">
+                Save more on your favourite products with limited-time offers
+                and top brands.
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <span className="rounded-full bg-black/25 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
+                  ● Big Discounts
+                </span>
+
+                <span className="rounded-full bg-black/25 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
+                  ● Limited Time Offers
+                </span>
+
+                <span className="rounded-full bg-black/25 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
+                  ● Top Brands
+                </span>
+              </div>
+
+            </div>
           </div>
-
-          {/* View All - Mobile + Desktop */}
-          <button
-            onClick={() => navigate("products", { deal: true })}
-            className="shrink-0 text-xs font-bold text-red-500 sm:text-sm"
-          >
-            View All →
-          </button>
-
         </div>
+      </section>
 
-        {/* Deal Cards */}
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
+      {/* =========================
+          FLASH SALE
+      ========================== */}
 
-          {/* Flash Sale */}
-          <button
-            onClick={() =>
-              navigate("products", { flashSale: true })
-            }
-            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
-          >
-            <div className="text-2xl sm:text-3xl">
-              ⚡
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+
+        <div className="mb-7 flex items-end justify-between gap-4">
+          <div>
+            <div className="mb-2 inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-600">
+              ⚡ LIMITED TIME
             </div>
 
-            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
+            <h2 className="text-3xl font-extrabold sm:text-4xl">
               Flash Sale
-            </h3>
-
-            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
-              Limited-time offers
-            </p>
-
-            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
-              Shop Now →
-            </p>
-          </button>
-
-          {/* Under ₹999 */}
-          <button
-            onClick={() =>
-              navigate("products", { maxPrice: 999 })
-            }
-            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
-          >
-            <div className="text-2xl sm:text-3xl">
-              ₹
-            </div>
-
-            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
-              Under ₹999
-            </h3>
-
-            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
-              Budget-friendly products
-            </p>
-
-            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
-              Shop Now →
-            </p>
-          </button>
-
-          {/* Fashion Deals */}
-          <button
-            onClick={() =>
-              navigate("products", { category: "fashion" })
-            }
-            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
-          >
-            <div className="text-2xl sm:text-3xl">
-              ✦
-            </div>
-
-            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
-              Fashion Deals
-            </h3>
-
-            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
-              Trending styles
-            </p>
-
-            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
-              Shop Now →
-            </p>
-          </button>
-
-          {/* Gadget Deals */}
-          <button
-            onClick={() =>
-              navigate("products", { category: "electronics" })
-            }
-            className="rounded-xl bg-white p-3 text-left shadow-sm transition hover:shadow-md sm:rounded-2xl sm:p-6"
-          >
-            <div className="text-2xl sm:text-3xl">
-              ◈
-            </div>
-
-            <h3 className="mt-2 text-sm font-black sm:mt-4 sm:text-lg">
-              Gadget Deals
-            </h3>
-
-            <p className="mt-1 text-[11px] leading-4 text-gray-500 sm:mt-2 sm:text-sm">
-              Smart gadgets & more
-            </p>
-
-            <p className="mt-2 text-[11px] font-bold text-red-500 sm:mt-4 sm:text-sm">
-              Shop Now →
-            </p>
-          </button>
-
-        </div>
-      </section>
-
-      {/* Top Deals */}
-      <section
-        id="products"
-        className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8"
-      >
-
-        <div className="flex items-end justify-between gap-3">
-
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
-              Top Deals
-            </p>
-
-            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-              Deals You Don't Want To Miss
             </h2>
 
-            <p className="mt-2 text-xs text-gray-500 sm:text-sm">
-              Grab these offers before they are gone.
+            <p
+              className={`mt-2 ${
+                theme === "dark"
+                  ? "text-gray-400"
+                  : "text-gray-500"
+              }`}
+            >
+              Grab the best deals before they are gone.
             </p>
           </div>
 
-          {/* View All */}
           <button
-            onClick={() =>
-              navigate("products", { deal: true })
-            }
-            className="shrink-0 text-xs font-bold text-red-500 sm:text-sm"
-          >
-            View All →
-          </button>
+  onClick={() => {
+    sessionStorage.setItem(
+      "activeNavigation",
+      "Flash Sale"
+    );
 
+    navigate("products", {
+      flashSale: true,
+    });
+  }}
+  className="shrink-0 text-sm font-bold text-red-600 hover:text-red-700"
+>
+  View All →
+</button>
         </div>
 
-        {/* Products */}
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
-
-          {dealProducts.map((product) => (
-            <Product
-              key={product.id}
-              product={product}
-              navigate={navigate}
-            />
-          ))}
-
-        </div>
+        {flashSaleProducts.length > 0 ? (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {flashSaleProducts.map((product) => (
+              <Product
+  key={product.id}
+  product={product}
+  navigate={navigate}
+/>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center">
+            <p className="text-gray-500">
+              No flash sale products available.
+            </p>
+          </div>
+        )}
 
       </section>
 
-      {/* Shop By Category */}
-      <section className="mx-auto max-w-7xl px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
+      {/* =========================
+          ALL DEALS COLLECTION
+      ========================== */}
 
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 sm:text-xs">
-          Deal Spotlight
-        </p>
+      <section
+        className={
+          theme === "dark"
+            ? "bg-gray-900"
+            : "bg-white"
+        }
+      >
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
 
-        <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-          Shop By Category
-        </h2>
+          <div className="mb-7 flex items-end justify-between gap-4">
+            <div>
+              <div className="mb-2 inline-flex rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-600">
+                💰 BEST SAVINGS
+              </div>
 
-        <p className="mt-2 text-xs text-gray-500 sm:text-sm">
-          Find great offers across your favourite categories.
-        </p>
+              <h2 className="text-3xl font-extrabold sm:text-4xl">
+                All Deals Collection
+              </h2>
 
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
+              <p
+                className={`mt-2 ${
+                  theme === "dark"
+                    ? "text-gray-400"
+                    : "text-gray-500"
+                }`}
+              >
+                Discover products with great discounts across categories.
+              </p>
+            </div>
 
-          {categories.map((category) => (
             <button
-              key={category.id}
-              onClick={() =>
-                navigate("products", {
-                  category: category.id,
-                })
-              }
-              className="group overflow-hidden rounded-xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:rounded-2xl"
-            >
+  onClick={() => {
+    sessionStorage.setItem(
+      "activeNavigation",
+      "Deals"
+    );
 
-              <div className="h-24 overflow-hidden sm:h-40">
+    navigate("products", {
+      deal: true,
+    });
+  }}
+  className="shrink-0 text-sm font-bold text-red-600 hover:text-red-700"
+>
+  View All →
+</button>
+          </div>
 
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                />
-
-              </div>
-
-              <div className="p-3 sm:p-4">
-
-                <h3 className="text-sm font-black sm:text-base">
-                  {category.name}
-                </h3>
-
-                <p className="mt-1 text-[11px] font-medium text-red-500 sm:text-sm">
-                  Explore Deals →
-                </p>
-
-              </div>
-
-            </button>
-          ))}
-
-        </div>
-
-      </section>
-
-      {/* Final CTA */}
-      <section className="mx-auto max-w-7xl px-3 pb-7 sm:px-6 sm:pb-12 lg:px-8">
-
-        <div className="rounded-2xl bg-gray-900 p-6 text-center text-white sm:rounded-3xl sm:p-10">
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-300 sm:text-xs">
-            Don't Miss Out
-          </p>
-
-          <h2 className="mt-2 text-2xl font-black sm:text-4xl">
-            Great Deals Are Waiting
-          </h2>
-
-          <p className="mx-auto mt-2 max-w-xl text-xs leading-5 text-gray-400 sm:text-sm sm:leading-6">
-            Explore our collection and find products at great prices.
-          </p>
-
-          <button
-            onClick={() =>
-              navigate("products", { deal: true })
-            }
-            className="mt-5 rounded-xl bg-red-500 px-6 py-3 text-xs font-bold text-white hover:bg-red-600 sm:px-7 sm:py-3.5 sm:text-sm"
-          >
-            Explore All Deals →
-          </button>
+          {dealProducts.length > 0 ? (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {dealProducts.map((product) => (
+                <Product
+  key={product.id}
+  product={product}
+  navigate={navigate}
+/>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center">
+              <p className="text-gray-500">
+                No deals available.
+              </p>
+            </div>
+          )}
 
         </div>
-
       </section>
-
-    </main>
+    </div>
   );
 }
 

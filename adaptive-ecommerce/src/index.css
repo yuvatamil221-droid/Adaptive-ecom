@@ -1,152 +1,666 @@
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+/* =========================
+   NORMAL / LIGHT MODE
+========================= */
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
   background: #f9fafb;
+  color: #111827;
 }
 
-button,
-a {
-  cursor: pointer;
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-mode {
+  background: #111827;
+  color: white;
 }
 
-button {
-  font-family: inherit;
+/* Page backgrounds */
+body.dark-mode .bg-white {
+  background-color: #1f2937 !important;
 }
 
-img {
-  max-width: 100%;
-  display: block;
-}
-/* ========================= */
-/* ACCESSIBILITY */
-/* ========================= */
-
-/* High Contrast */
-
-body.high-contrast {
-  background-color: #f3f4f6;
+body.dark-mode .bg-gray-50 {
+  background-color: #111827 !important;
 }
 
-/* Stronger text */
-
-body.high-contrast .text-gray-500,
-body.high-contrast .text-gray-600 {
-  color: #1f2937 !important;
+body.dark-mode .bg-gray-100 {
+  background-color: #1f2937 !important;
 }
 
-body.high-contrast .text-gray-400 {
-  color: #374151 !important;
+body.dark-mode .bg-gray-200 {
+  background-color: #374151 !important;
 }
 
-/* Stronger borders */
-
-body.high-contrast .border-gray-200 {
-  border-color: #6b7280 !important;
+body.dark-mode .bg-gray-300 {
+  background-color: #4b5563 !important;
 }
 
-body.high-contrast .border-gray-300 {
+body.dark-mode .bg-stone-100 {
+  background-color: #111827 !important;
+}
+
+body.dark-mode .bg-stone-200 {
+  background-color: #1f2937 !important;
+}
+
+/* Tinted "-50" / "-100" backgrounds (Profile menu rows, badges, etc.) */
+body.dark-mode .bg-stone-50,
+body.dark-mode .bg-blue-50,
+body.dark-mode .bg-green-50,
+body.dark-mode .bg-red-50,
+body.dark-mode .bg-yellow-50,
+body.dark-mode .bg-pink-50,
+body.dark-mode .bg-cyan-50,
+body.dark-mode .bg-purple-50 {
+  background-color: #1f2937 !important;
+}
+
+body.dark-mode .bg-green-100,
+body.dark-mode .bg-yellow-100 {
+  background-color: #374151 !important;
+}
+
+/* Borders */
+body.dark-mode .border-gray-200 {
+  border-color: #374151 !important;
+}
+
+body.dark-mode .border-gray-300 {
   border-color: #4b5563 !important;
 }
 
-
-/* Large Text */
-
-/* ========================= */
-/* LARGE TEXT - GLOBAL */
-/* ========================= */
-
-body.large-text .text-xs {
-  font-size: 0.875rem !important;
+/* Gray text */
+body.dark-mode .text-gray-400 {
+  color: #d1d5db !important;
 }
 
-body.large-text .text-sm {
-  font-size: 1rem !important;
+body.dark-mode .text-gray-500 {
+  color: #d1d5db !important;
 }
 
-body.large-text .text-base {
-  font-size: 1.125rem !important;
+body.dark-mode .text-gray-600 {
+  color: #e5e7eb !important;
 }
 
-body.large-text .text-lg {
-  font-size: 1.25rem !important;
+body.dark-mode .text-gray-700 {
+  color: #f3f4f6 !important;
 }
 
-body.large-text .text-xl {
-  font-size: 1.375rem !important;
+body.dark-mode .text-gray-800,
+body.dark-mode .text-gray-900,
+body.dark-mode .text-stone-800,
+body.dark-mode .text-stone-900 {
+  color: #f9fafb !important;
 }
 
-body.large-text .text-2xl {
-  font-size: 1.625rem !important;
+body.dark-mode .text-stone-500,
+body.dark-mode .text-stone-600,
+body.dark-mode .text-stone-700 {
+  color: #d1d5db !important;
 }
 
-body.large-text .text-3xl {
-  font-size: 1.875rem !important;
+body.dark-mode .text-blue-600 {
+  color: #93c5fd !important;
 }
 
-body.large-text .text-4xl {
-  font-size: 2.25rem !important;
+body.dark-mode .text-green-600 {
+  color: #86efac !important;
 }
 
-/* Inputs and select */
-
-body.large-text input,
-body.large-text select,
-body.large-text textarea {
-  font-size: 1rem !important;
+body.dark-mode .text-red-600,
+body.dark-mode .text-red-700 {
+  color: #fca5a5 !important;
 }
 
-/* Buttons */
-
-body.large-text button {
-  font-size: 1rem !important;
+body.dark-mode .text-purple-600 {
+  color: #c4b5fd !important;
 }
 
-/* ========================= */
-/* LARGER BUTTONS - GLOBAL */
-/* ========================= */
-
-body.large-buttons button {
-  min-height: 52px !important;
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
+body.dark-mode .text-yellow-700 {
+  color: #fde68a !important;
 }
 
-/* Make button text easier to read */
-body.large-buttons button.text-xs {
-  font-size: 0.875rem !important;
+/* Inputs */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #1f2937;
+  color: white;
+  border-color: #4b5563;
 }
 
-body.large-buttons button.text-sm {
-  font-size: 1rem !important;
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #9ca3af;
 }
 
-body.large-buttons button.text-base {
+body.dark-mode .border-stone-200,
+body.dark-mode .border-stone-300 {
+  border-color: #4b5563 !important;
+}
+
+/* =========================
+   HOVER
+========================= */
+
+body:not(.dark-mode) .hover\:bg-gray-100:hover {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+body:not(.dark-mode) .hover\:bg-white:hover {
+  background-color: white !important;
+  color: #111827 !important;
+}
+
+body.dark-mode .hover\:bg-gray-100:hover {
+  background-color: #374151 !important;
+  color: white !important;
+}
+
+body.dark-mode .hover\:bg-white:hover {
+  background-color: #374151 !important;
+  color: white !important;
+}
+
+/* Hover for tinted backgrounds in dark mode */
+body.dark-mode .hover\:bg-gray-50:hover,
+body.dark-mode .hover\:bg-stone-50:hover,
+body.dark-mode .hover\:bg-blue-50:hover,
+body.dark-mode .hover\:bg-blue-100:hover,
+body.dark-mode .hover\:bg-pink-100:hover,
+body.dark-mode .hover\:bg-yellow-100:hover,
+body.dark-mode .hover\:bg-green-100:hover,
+body.dark-mode .hover\:bg-cyan-100:hover,
+body.dark-mode .hover\:bg-purple-100:hover,
+body.dark-mode .hover\:bg-red-50:hover,
+body.dark-mode .hover\:bg-red-100:hover {
+  background-color: #374151 !important;
+  color: white !important;
+}
+
+
+
+
+/* Larger Buttons */
+body.larger-buttons button {
+  min-height: 56px !important;
+  padding: 14px 24px !important;
   font-size: 1.05rem !important;
+  border-radius: 14px !important;
 }
 
-/* Form controls */
-body.large-buttons input,
-body.large-buttons select {
-  min-height: 52px !important;
+body.larger-buttons button svg {
+  width: 22px;
+  height: 22px;
 }
-
-/* Reduced Motion */
+/* =========================================
+   REDUCED MOTION
+   STOP ALL HOVER EFFECTS
+   ========================================= */
 
 body.reduced-motion *,
 body.reduced-motion *::before,
 body.reduced-motion *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Stop all hover visual changes */
+body.reduced-motion *:hover {
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Stop common Tailwind hover transforms */
+body.reduced-motion .hover\:scale-105:hover,
+body.reduced-motion .hover\:scale-110:hover,
+body.reduced-motion .hover\:-translate-y-1:hover,
+body.reduced-motion .hover\:-translate-y-2:hover,
+body.reduced-motion .hover\:translate-y-1:hover,
+body.reduced-motion .hover\:translate-y-2:hover {
+  transform: none !important;
+}
+
+/* Stop hover shadows */
+body.reduced-motion .hover\:shadow,
+body.reduced-motion .hover\:shadow-sm,
+body.reduced-motion .hover\:shadow-md,
+body.reduced-motion .hover\:shadow-lg,
+body.reduced-motion .hover\:shadow-xl,
+body.reduced-motion .hover\:shadow-2xl {
+  box-shadow: none !important;
+}
+
+/* Stop smooth scrolling */
+body.reduced-motion {
   scroll-behavior: auto !important;
+}
+
+html:has(body.reduced-motion) {
+  scroll-behavior: auto !important;
+}
+/* =========================
+/* =========================
+   GLOBAL DARK MODE
+========================= */
+
+body.dark-mode {
+  background: #111827 !important;
+  color: #f9fafb !important;
+}
+
+/* Main page backgrounds */
+body.dark-mode .bg-white,
+body.dark-mode .bg-gray-50,
+body.dark-mode .bg-gray-100,
+body.dark-mode .bg-stone-50,
+body.dark-mode .bg-stone-100,
+body.dark-mode .bg-purple-50,
+body.dark-mode .bg-pink-50,
+body.dark-mode .bg-blue-50,
+body.dark-mode .bg-green-50,
+body.dark-mode .bg-yellow-50 {
+  background-color: #111827 !important;
+}
+
+/* Cards / surfaces */
+body.dark-mode .bg-gray-200,
+body.dark-mode .bg-stone-200,
+body.dark-mode .bg-gray-300 {
+  background-color: #1f2937 !important;
+}
+
+/* Dark text → light text */
+body.dark-mode .text-black,
+body.dark-mode .text-gray-900,
+body.dark-mode .text-gray-800,
+body.dark-mode .text-gray-700,
+body.dark-mode .text-stone-900,
+body.dark-mode .text-stone-800 {
+  color: #f9fafb !important;
+}
+
+/* Secondary text */
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-500,
+body.dark-mode .text-stone-600,
+body.dark-mode .text-stone-500 {
+  color: #d1d5db !important;
+}
+
+/* Borders */
+body.dark-mode .border-gray-100,
+body.dark-mode .border-gray-200,
+body.dark-mode .border-gray-300,
+body.dark-mode .border-stone-200,
+body.dark-mode .border-stone-300 {
+  border-color: #374151 !important;
+}
+
+/* Gradient page backgrounds */
+body.dark-mode .bg-gradient-to-b,
+body.dark-mode .bg-gradient-to-r,
+body.dark-mode .bg-gradient-to-br {
+  background-image: none !important;
+  background-color: #111827 !important;
+}
+
+/* Inputs */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .bg-white {
+  background-color: #1f2937 !important;
+}
+
+/* =========================
+   COUPON LIGHT BACKGROUNDS
+========================= */
+
+body.dark-mode .bg-pink-50,
+body.dark-mode .bg-pink-100,
+body.dark-mode .bg-rose-50,
+body.dark-mode .bg-rose-100,
+body.dark-mode .bg-orange-50,
+body.dark-mode .bg-orange-100,
+body.dark-mode .bg-blue-50,
+body.dark-mode .bg-blue-100,
+body.dark-mode .bg-indigo-50,
+body.dark-mode .bg-indigo-100,
+body.dark-mode .bg-green-50,
+body.dark-mode .bg-green-100,
+body.dark-mode .bg-cyan-50,
+body.dark-mode .bg-cyan-100,
+body.dark-mode .bg-teal-50,
+body.dark-mode .bg-teal-100 
+
+body.dark-mode .border-gray-200.bg-white,
+body.dark-mode .border-gray-100.bg-gray-50 {
+  background-color: #1f2937 !important;
+}
+body.dark-mode .hero-description {
+  color: black !important;
+}
+/* Dark mode - Hero timer */
+body.dark-mode .hero-timer-number {
+  color: white !important;
+}
+/* Search bar - dark mode */
+body.dark-mode header form div {
+  background-color: #000 !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode header form input {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+body.dark-mode header form input::placeholder {
+  color: white !important;
+  opacity: 1 !important;
+}
+/* Premium Shopper - dark mode */
+body.dark-mode .premium-title,
+body.dark-mode .premium-description {
+  color: black !important;
+}
+/* Premium Selection - dark mode */
+body.dark-mode main > section:nth-of-type(4) > div > div > p:first-child {
+  color: #000000 !important;
+}
+
+
+/* =========================================
+   HIGH CONTRAST MODE
+   TEXT / FONT ONLY
+   NO DARK THEME
+   ========================================= */
+
+body.high-contrast-mode {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* Normal text becomes darker and bolder */
+body.high-contrast-mode p,
+body.high-contrast-mode label,
+body.high-contrast-mode li,
+body.high-contrast-mode a,
+body.high-contrast-mode button,
+body.high-contrast-mode input,
+body.high-contrast-mode textarea,
+body.high-contrast-mode select,
+body.high-contrast-mode span {
+  font-weight: 600;
+}
+
+/* Headings become stronger */
+body.high-contrast-mode h1,
+body.high-contrast-mode h2,
+body.high-contrast-mode h3,
+body.high-contrast-mode h4,
+body.high-contrast-mode h5,
+body.high-contrast-mode h6 {
+  font-weight: 800;
+}
+
+/* Make small gray text darker */
+body.high-contrast-mode .text-gray-400 {
+  color: #1f2937 !important;
+}
+
+body.high-contrast-mode .text-gray-500 {
+  color: #111827 !important;
+}
+
+body.high-contrast-mode .text-gray-600 {
+  color: #111827 !important;
+}
+
+body.high-contrast-mode .text-stone-400 {
+  color: #1f2937 !important;
+}
+
+body.high-contrast-mode .text-stone-500 {
+  color: #111827 !important;
+}
+
+body.high-contrast-mode .text-stone-600 {
+  color: #111827 !important;
+}
+
+/* Stronger borders */
+body.high-contrast-mode .border-gray-100 {
+  border-color: #9ca3af !important;
+}
+
+body.high-contrast-mode .border-gray-200 {
+  border-color: #6b7280 !important;
+}
+
+body.high-contrast-mode .border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+/* Inputs */
+body.high-contrast-mode input,
+body.high-contrast-mode textarea,
+body.high-contrast-mode select {
+  font-weight: 600;
+}
+
+/* Placeholder */
+body.high-contrast-mode input::placeholder,
+body.high-contrast-mode textarea::placeholder {
+  color: #374151 !important;
+  opacity: 1 !important;
+}
+
+/* Better keyboard focus */
+body.high-contrast-mode *:focus-visible {
+  outline: 3px solid #f59e0b !important;
+  outline-offset: 2px;
+}
+
+/* Buttons become slightly stronger */
+body.high-contrast-mode button {
+  font-weight: 700;
+}
+
+/* Navigation links */
+body.high-contrast-mode nav a {
+  font-weight: 700;
+}
+
+/* Product information */
+body.high-contrast-mode .text-xs,
+body.high-contrast-mode .text-sm {
+  font-weight: 600;
+}
+
+body.large-text .text-xs {
+  font-size: 1rem !important;
+}
+
+body.large-text .text-sm {
+  font-size: 1.15rem !important;
+}
+
+body.large-text .text-base {
+  font-size: 1.25rem !important;
+}
+
+body.large-text p,
+body.large-text label,
+body.large-text button,
+body.large-text input,
+body.large-text textarea,
+body.large-text select {
+  font-size: 1.15rem !important;
+}
+
+body.large-text h1 {
+  font-size: 2.5rem !important;
+}
+
+body.large-text h2 {
+  font-size: 2rem !important;
+}
+
+body.large-text h3 {
+  font-size: 1.5rem !important;
+}
+/* Premium Categories - Dark Mode */
+
+body.dark-mode .premium-category-label {
+  color: #000 !important;
+}
+
+body.dark-mode .premium-category-heading {
+  color: #000 !important;
+}
+
+body.dark-mode .premium-category-intro {
+  color: #000 !important;
+}
+
+/* Category card */
+body.dark-mode .premium-category-name {
+  color: #fff !important;
+}
+
+body.dark-mode .premium-category-description {
+  color: #ffffff !important;
+}
+
+body.dark-mode .premium-category-explore {
+  color: #fff !important;
+}
+
+body.dark-mode .premium-featured-brands {
+  color: #000 !important;
+}
+body.dark-mode .premium-brand-card {
+  background-color: #ffffff !important;
+}
+body.dark-mode .premium-selection-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-new-arrivals-title {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-new-arrivals-description {
+  color: #000000 !important;
+}
+body.dark-mode .premium-new-arrivals-button {
+  color: #000000 !important;
+}
+/* New Arrivals - Dark Mode */
+
+body.dark-mode .new-arrivals-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .new-arrivals-title {
+  color: #000000 !important;
+}
+
+body.dark-mode .new-arrivals-description {
+  color: #000000 !important;
+}
+
+body.dark-mode .new-arrivals-button {
+  color: #ffffff !important;
+}
+
+body.dark-mode .new-arrivals-collection-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .new-arrivals-collection-title {
+  color: #000000 !important;
+}
+
+body.dark-mode .new-arrivals-collection-description {
+  color: #000000 !important;
+}
+body.dark-mode .new-season-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .new-season-title {
+  color: #000000 !important;
+}
+body.dark-mode .premium-tech-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-tech-title {
+  color: #000000 !important;
+}
+body.dark-mode .premium-brands-top-section {
+  background-color: #ffffff !important;
+}
+body.dark-mode .premium-brands-back {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-brands-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-brands-title {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-brands-description {
+  color: #000000 !important;
+}
+body.dark-mode .premium-brand-fallback {
+  color: 
+  #000000 !important;
+}
+body.dark-mode .premium-brand-logo {
+  filter: brightness(0);
+}
+body.dark-mode .premium-featured-label {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-featured-title {
+  color: #000000 !important;
+}
+
+body.dark-mode .premium-featured-description {
+  color: #000000 !important;
+}
+body.dark-mode .premium-products-label {
+  color: #000000 !important;
+}
+body.dark-mode .premium-products-label,
+body.dark-mode .premium-products-count {
+  color: #000000 !important;
+}
+body.dark-mode .premium-products-title {
+  color: #000000 !important;
 }

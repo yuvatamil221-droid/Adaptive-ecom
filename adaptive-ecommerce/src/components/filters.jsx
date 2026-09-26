@@ -15,7 +15,7 @@ function Filters({ onApply }) {
   const handleChange = (name, value) => {
     setFilters((current) => ({
       ...current,
-      [name]: value,
+      [name]: value, 
     }));
   };
 

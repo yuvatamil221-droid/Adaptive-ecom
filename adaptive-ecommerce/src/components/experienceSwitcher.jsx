@@ -21,10 +21,7 @@ function ExperienceSwitcher({ navigate }) {
       id: "explorer",
       name: "Explorer",
     },
-    {
-      id: "accessibility",
-      name: "Accessibility",
-    },
+    
   ];
 
   const handleChange = (event) => {

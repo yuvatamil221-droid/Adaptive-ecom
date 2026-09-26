@@ -67,96 +67,104 @@ function ExplorerHome({ navigate }) {
 
       {/* Explore Categories */}
 
-      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+      {/* ================= EXPLORE CATEGORIES ================= */}
+<section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+  <div>
+    
+    <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+      Explore
+    </p>
+ 
+    <h2 className="mt-2 text-2xl font-black text-gray-900 sm:text-3xl">
+      Explore Categories
+    </h2>
 
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-600 sm:text-xs sm:tracking-[0.2em]">
-          Explore
-        </p>
+    <p className="mt-1 text-sm text-gray-500">
+      Discover something new from every category
+    </p>
+  </div>
 
-        <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-          Browse Categories
-        </h2>
+  <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
 
-        <p className="mt-1 text-xs text-gray-500 sm:mt-2 sm:text-sm">
-          Find something interesting across different categories.
-        </p>
+    {[
+      { name: "Electronics", category: "electronics" },
+      { name: "Fashion", category: "fashion" },
+      { name: "Home", category: "home" },
+      { name: "Beauty", category: "beauty" },
+      { name: "Accessories", category: "accessories" },
+    ].map((item) => {
+      const categoryProduct = products.find(
+        (product) => product.category === item.category
+      );
 
+      return (
+        <button
+          key={item.category}
+          onClick={() =>
+            navigate("products", {
+              category: item.category,
+            })
+          }
+          className="group overflow-hidden rounded-2xl border border-gray-200 bg-white text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+        >
+          <div className="h-40 overflow-hidden bg-gray-100">
+            {categoryProduct && (
+              <img
+                src={categoryProduct.image}
+                alt={item.name}
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+            )}
+          </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
+          <div className="flex items-center justify-between p-4">
+            <div>
+              <h3 className="text-sm font-bold text-gray-900">
+                {item.name}
+              </h3>
 
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() =>
-                navigate("products", {
-                  category: category.id,
-                })
-              }
-              className="group overflow-hidden rounded-2xl bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-            >
+              <p className="mt-1 text-xs text-gray-500">
+                Explore collection
+              </p>
+            </div>
 
-              <div className="h-28 overflow-hidden sm:h-40">
+            <span className="text-lg text-gray-700 transition group-hover:translate-x-1">
+              →
+            </span>
+          </div>
+        </button>
+      );
+    })}
 
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                />
-
-              </div>
-
-              <div className="p-3 sm:p-4">
-
-                <h3 className="text-sm font-black sm:text-base">
-                  {category.name}
-                </h3>
-
-                <p className="mt-1 text-[10px] text-gray-500 sm:mt-2 sm:text-xs">
-                  Discover →
-                </p>
-
-              </div>
-
-            </button>
-          ))}
-
-        </div>
-
-      </section>
-
+  </div>
+</section>
 
       {/* Trending Now */}
 
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
 
         <div className="flex items-end justify-between">
+  <div>
+    <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+      Popular Now
+    </p>
 
-          <div>
+    <h2 className="mt-2 text-2xl font-black text-gray-900 sm:text-3xl">
+      Trending For You
+    </h2>
 
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-600 sm:text-xs sm:tracking-[0.2em]">
-              Trending Now
-            </p>
+    <p className="mt-1 text-sm text-gray-500">
+      Products people are discovering right now
+    </p>
+  </div>
 
-            <h2 className="mt-2 text-2xl font-black sm:text-3xl">
-              What's Trending
-            </h2>
-
-            <p className="mt-1 text-xs text-gray-500 sm:mt-2 sm:text-sm">
-              Popular products people are exploring right now.
-            </p>
-
-          </div>
-
-          <button
-            onClick={() =>
-              navigate("products", { trending: true })
-            }
-            className="hidden text-sm font-bold text-purple-600 sm:block"
-          >
-            View All →
-          </button>
-
-        </div>
+  <button
+    onClick={() => navigate("trending")}
+    className="text-sm font-bold text-blue-600 hover:text-blue-800"
+  >
+    View All →
+  </button>
+</div>
 
 
         {/* Mobile: 2 columns | Desktop: 4 columns */}

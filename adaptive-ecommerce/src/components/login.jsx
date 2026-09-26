@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
 function Login({ navigate }) {
-  const { login } = useContext(UserContext);
+  const { registeredUsers, login } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,20 +15,29 @@ function Login({ navigate }) {
       return;
     }
 
-    const success = login(email, password);
+    const existingUser = registeredUsers.find(
+      (user) => user.email === email
+    );
 
-    if (!success) {
-      alert("Invalid email or password.");
+    if (!existingUser) {
+      alert("Account not found.");
       return;
     }
 
+    if (existingUser.password !== password) {
+      alert("Incorrect password.");
+      return;
+    }
+
+    login(existingUser);
+
     alert("Login successful!");
 
-    navigate("checkout");
+    navigate("home");
   };
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center px-4 py-12">
 
       <div className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-7 shadow-sm sm:p-9">
 
@@ -53,6 +62,7 @@ function Login({ navigate }) {
           className="mt-8 space-y-5"
         >
 
+          {/* Email */}
           <div>
             <label className="mb-2 block text-sm font-bold">
               Email
@@ -67,6 +77,7 @@ function Login({ navigate }) {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="mb-2 block text-sm font-bold">
               Password
@@ -100,13 +111,12 @@ function Login({ navigate }) {
             onClick={() => navigate("register")}
             className="mt-2 text-sm font-bold text-red-500 hover:text-red-600"
           >
-            Create an Account
+            Create Account
           </button>
 
         </div>
 
       </div>
-
     </div>
   );
 }

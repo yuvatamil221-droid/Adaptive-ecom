@@ -1,50 +1,26 @@
 import { useContext, useState } from "react";
+
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
-import { WishlistContext } from "../context/WishlistContext";
+
 import cta from "../config/cta";
 
 function Product({ product, navigate }) {
   const { addToCart } = useContext(CartContext);
-  const { userProfile } = useContext(UserContext);
-  const { wishlist, toggleWishlist } = useContext(WishlistContext);
+  const { userProfile, userConfig } = useContext(UserContext);
 
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const isWishlisted = wishlist.some(
-    (item) => item.id === product.id
-  );
-
-  const profileStyle = {
-    dealHunter: {
-      badge: "bg-red-500 text-white",
-      button: "bg-red-500 text-white hover:bg-red-600",
-    },
-    premiumShopper: {
-      badge: "bg-stone-800 text-white",
-      button: "bg-stone-800 text-white hover:bg-stone-700",
-    },
-    frequentShopper: {
-      badge: "bg-blue-600 text-white",
-      button: "bg-blue-600 text-white hover:bg-blue-700",
-    },
-    explorer: {
-      badge: "bg-purple-600 text-white",
-      button: "bg-purple-600 text-white hover:bg-purple-700",
-    },
-    accessibility: {
-      badge: "bg-yellow-400 text-black",
-      button: "bg-yellow-400 text-black hover:bg-yellow-300",
-    },
-  };
-
-  const style =
-    profileStyle[userProfile] || profileStyle.dealHunter;
+  /* --------------------------------
+     ADD TO CART
+  -------------------------------- */
 
   const handleAddToCart = (event) => {
     event.stopPropagation();
 
     addToCart(product);
+
     setAdded(true);
 
     setTimeout(() => {
@@ -52,108 +28,224 @@ function Product({ product, navigate }) {
     }, 1500);
   };
 
+
+  /* --------------------------------
+     WISHLIST
+  -------------------------------- */
+
   const handleWishlist = (event) => {
     event.stopPropagation();
-    toggleWishlist(product);
+
+    setIsWishlisted(!isWishlisted);
   };
 
-  const handleViewProduct = () => {
-  if (navigate) {
-    navigate("productDetails", product);
-  }
-};
-  const buttonText = added
-    ? "Added ✓"
-    : cta[userProfile]?.product || "Add to Cart";
+
+  /* --------------------------------
+     MAIN PRODUCT CLICK
+  -------------------------------- */
+
+  const handleProductClick = () => {
+    if (navigate) {
+      navigate("productDetails", product);
+    }
+  };
+
+
+  /* --------------------------------
+     MAIN CTA
+  -------------------------------- */
+
+  const handleMainAction = (event) => {
+    event.stopPropagation();
+
+    if (userProfile === "frequentShopper") {
+      addToCart(product);
+
+      setAdded(true);
+
+      setTimeout(() => {
+        setAdded(false);
+      }, 1500);
+
+      return;
+    }
+
+    handleProductClick();
+  };
+
+
+  /* --------------------------------
+     CARD TYPE
+  -------------------------------- */
+
+  const cardType = userConfig?.productCard;
+
+
+  const cardStyle =
+    cardType === "premium"
+      ? "rounded-3xl bg-stone-50 border-stone-200"
+      : cardType === "deal"
+      ? "rounded-2xl bg-white border-red-100"
+      : cardType === "reorder"
+      ? "rounded-2xl bg-white border-blue-100"
+      : "rounded-2xl bg-white border-gray-200";
+
+
+  /* --------------------------------
+     BUTTON STYLE
+  -------------------------------- */
+
+  const buttonStyle =
+    userProfile === "dealHunter"
+      ? "bg-red-500 hover:bg-red-600"
+      : userProfile === "premiumShopper"
+      ? "bg-stone-800 hover:bg-stone-700"
+      : userProfile === "accessibility"
+      ? "bg-yellow-400 text-black hover:bg-yellow-300"
+      : "bg-gray-900 hover:bg-gray-700";
+
 
   return (
-    <article className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-2xl">
+    <article
+      className={`group overflow-hidden border shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${cardStyle}`}
+    >
 
-      {/* Product Image */}
-      <div className="relative aspect-square overflow-hidden bg-gray-100">
+      {/* =================================
+          PRODUCT IMAGE
+      ================================= */}
 
-        <button
-  type="button"
-  onClick={handleViewProduct}
-  className="absolute inset-0 h-full w-full"
->
-          <img
-            src={product.image}
-            alt={product.name}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          />
-        </button>
+      <div
+        onClick={handleProductClick}
+        className="relative aspect-square cursor-pointer overflow-hidden bg-gray-100"
+      >
 
-        {/* Discount */}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+
+
+        {/* DISCOUNT */}
+
         {product.discount && (
-          <span
-            className={`absolute left-2 top-2 rounded-full px-2 py-1 text-[9px] font-black sm:left-3 sm:top-3 sm:px-3 sm:text-[10px] ${style.badge}`}
-          >
+          <span className="absolute left-3 top-3 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white">
             {product.discount}% OFF
           </span>
         )}
 
-        {/* Wishlist */}
+
+        {/* WISHLIST */}
+
         <button
           onClick={handleWishlist}
-          className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg shadow-sm sm:right-3 sm:top-3 sm:h-9 sm:w-9"
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-xl shadow-md transition hover:scale-110"
+          aria-label="Wishlist"
         >
           {isWishlisted ? "♥" : "♡"}
         </button>
+
       </div>
 
-      {/* Product Information */}
-      <div className="p-2.5 sm:p-4">
 
-        {/* Brand */}
-        <p className="text-[8px] font-bold uppercase tracking-wider text-gray-400 sm:text-[10px]">
-          {product.brand}
-        </p>
+      {/* =================================
+          PRODUCT INFORMATION
+      ================================= */}
 
-        {/* Product Name */}
-        <button
-          onClick={handleViewProduct}
-          className="mt-1 block w-full text-left"
+      <div className="p-4">
+
+        {/* PRODUCT NAME */}
+
+        <div
+          onClick={handleProductClick}
+          className="cursor-pointer"
         >
-          <h3 className="line-clamp-2 min-h-[30px] text-[11px] font-bold leading-4 text-gray-900 sm:min-h-[40px] sm:text-sm sm:leading-5">
+
+          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+            {product.brand}
+          </p>
+
+          <h3 className="mt-1 line-clamp-2 text-sm font-black text-gray-900">
             {product.name}
           </h3>
-        </button>
 
-        {/* Rating */}
-        <div className="mt-1.5 flex items-center gap-1 sm:mt-3 sm:gap-2">
-          <span className="text-[10px] font-bold sm:text-sm">
-            ★ {product.rating}
-          </span>
-
-          <span className="text-[9px] text-gray-400 sm:text-xs">
-            ({product.reviews})
-          </span>
         </div>
 
-        {/* Price */}
-        <div className="mt-1.5 flex flex-wrap items-center gap-1 sm:mt-3 sm:gap-2">
-          <span className="text-sm font-black text-gray-900 sm:text-lg">
-            ₹{product.price.toLocaleString("en-IN")}
+
+        {/* RATING */}
+
+        <div className="mt-2 flex items-center gap-1">
+
+          <span className="text-sm text-yellow-500">
+            ★
           </span>
 
-          {product.oldPrice && (
-            <span className="text-[9px] text-gray-400 line-through sm:text-xs">
-              ₹{product.oldPrice.toLocaleString("en-IN")}
+          <span className="text-xs font-bold text-gray-700">
+            {product.rating}
+          </span>
+
+          {product.reviews && (
+            <span className="text-xs text-gray-400">
+              ({product.reviews})
             </span>
           )}
+
         </div>
 
-        {/* Add To Cart */}
+
+        {/* PRICE */}
+
+        <div
+          onClick={handleProductClick}
+          className="mt-3 cursor-pointer"
+        >
+
+          <div className="flex items-center gap-2">
+
+            <span className="text-lg font-black text-gray-900">
+              ₹{product.price}
+            </span>
+
+            {product.oldPrice && (
+              <span className="text-xs text-gray-400 line-through">
+                ₹{product.oldPrice}
+              </span>
+            )}
+
+          </div>
+
+        </div>
+
+
+        {/* =================================
+            CTA
+        ================================= */}
+
         <button
           onClick={handleAddToCart}
-          disabled={added}
-          className={`mt-2.5 w-full rounded-lg px-2 py-2 text-[10px] font-bold transition sm:mt-4 sm:rounded-xl sm:px-4 sm:py-3 sm:text-xs ${style.button}`}
+          className={`mt-4 w-full rounded-xl px-4 py-2.5 text-sm font-bold text-white transition ${buttonStyle}`}
         >
-          {buttonText}
+          {added
+            ? "✓ Added"
+            : userProfile === "frequentShopper"
+            ? "Reorder"
+            : cta?.[userProfile]?.primary || "Add to Cart"}
         </button>
 
+
+        {/* MAIN ACTION */}
+
+        {userProfile === "frequentShopper" && (
+          <button
+            onClick={handleMainAction}
+            className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-2 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
+          >
+            View Product
+          </button>
+        )}
+
       </div>
+
     </article>
   );
 }

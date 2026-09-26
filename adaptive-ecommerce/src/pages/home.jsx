@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 import Header from "../components/header";
 import ExperienceSwitcher from "../components/experienceSwitcher";
@@ -13,17 +14,31 @@ import AccessibilityHome from "./AccessibilityHome";
 
 import { UserContext } from "../context/UserContext";
 
-function Home({ navigate }) {
+function Home({ navigate, selectedProfile }) {
   const { userProfile } = useContext(UserContext);
+  const { darkMode } = useContext(ThemeContext);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+   <div
+  className={`min-h-screen ${
+    darkMode
+      ? "bg-gray-950 text-white"
+      : "bg-gray-50 text-gray-900"
+  }`}
+>
 
-      <Header navigate={navigate} />
+      <Header
+  navigate={navigate}
+  selectedProfile={selectedProfile}
+/>
 
       <ExperienceSwitcher navigate={navigate} />
 
-      <Navigation navigate={navigate} />
+     <Navigation
+  navigate={navigate}
+  currentPage="home"
+  currentData={null}
+/>
 
       {userProfile === "dealHunter" && (
         <DealHome navigate={navigate} />

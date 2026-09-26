@@ -1,50 +1,177 @@
 const navigation = {
-  dealHunter: [
-    { label: "Home", page: "home" },
-    { label: "Deals", page: "products", filters: { deal: true } },
-    { label: "Under ₹999", page: "products", filters: { maxPrice: 999 } },
-    { label: "Flash Sale", page: "products", filters: { flashSale: true } },
-    { label: "Wishlist", page: "wishlist" },
-    { label: "Cart", page: "cart" },
-  ],
-
-  premiumShopper: [
-    { label: "Home", page: "home" },
-    { label: "New Arrivals", page: "products", filters: { newArrivals: true } },
-    { label: "Brands", page: "products", filters: { brands: true } },
-    { label: "Collections", page: "products", filters: { collections: true } },
-    { label: "Wishlist", page: "wishlist" },
-    { label: "Cart", page: "cart" },
-  ],
-
-  frequentShopper: [
-    { label: "Home", page: "home" },{
-      label: "Reorder",
-      page: "products",
-      filters: { reorder: true },
+  // --------------------------------
+  // DEFAULT
+  // --------------------------------
+  default: [
+    {
+      label: "Home",
+      page: "home",
+      icon: "⌂",
     },
-    
-    { label: "Orders", page: "orders" },
-    { label: "Wishlist", page: "wishlist" },
-    { label: "Cart", page: "cart" },
+    {
+      label: "Shop",
+      page: "products",
+      icon: "🛍",
+    },
+    {
+      label: "Categories",
+      page: "products",
+      filters: { categories: true },
+      icon: "▦",
+    },
+    {
+      label: "Wishlist",
+      page: "wishlist",
+      icon: "♡",
+    },
+    {
+      label: "Cart",
+      page: "cart",
+      icon: "🛒",
+    },
+    {
+      label: "Profile",
+      page: "profile",
+      icon: "♙",
+    },
   ],
 
-  explorer: [
-    { label: "Home", page: "home" },
-    { label: "Trending", page: "products", filters: { trending: true } },
+  // --------------------------------
+  // DEAL HUNTER
+  // --------------------------------
+  dealHunter: [
+    {
+      label: "Home",
+      page: "home",
+      icon: "⌂",
+    },
+    {
+      label: "Deals",
+      page: "products",
+      filters: { deal: true },
+      icon: "🏷",
+    },
+    {
+      label: "Under ₹999",
+      page: "products",
+      filters: { maxPrice: 999 },
+      icon: "₹",
+    },
+    {
+      label: "Flash Sale",
+      page: "products",
+      filters: { flashSale: true },
+      icon: "⚡",
+    },
+    {
+      label: "Wishlist",
+      page: "wishlist",
+      icon: "♡",
+    },
+    {
+      label: "Cart",
+      page: "cart",
+      icon: "🛒",
+    },
+  ],
+
+  // --------------------------------
+  // PREMIUM SHOPPER
+  // --------------------------------
+  premiumShopper: [
+    {
+      label: "Home",
+      page: "home",
+      icon: "⌂",
+    },
+    {
+  label: "New Arrivals",
+  page: "newArrivals",
+  icon: "✦",
+},
+    {
+      label: "Brands",
+      page: "PremiumBrands",
+      filters: { brands: true },
+      icon: "◇",
+    },
    
-    { label: "Categories", page: "products" ,filters: { categories: true }},
-    { label: "Wishlist", page: "wishlist" },
-    { label: "Cart", page: "cart" },
+    {
+      label: "Wishlist",
+      page: "wishlist",
+      icon: "♡",
+    },
+    {
+      label: "Cart",
+      page: "cart",
+      icon: "🛒",
+    },
   ],
 
-  accessibility: [
-    { label: "Home", page: "home" },
-    
-    { label: "Wishlist", page: "wishlist" },
-    { label: "Cart", page: "cart" },
-    { label: "Profile", page: "profile" },
+  // --------------------------------
+  // FREQUENT SHOPPER
+  // --------------------------------
+  frequentShopper: [
+    {
+      label: "Home",
+      page: "home",
+      icon: "⌂",
+    },
+    {
+      label: "For You",
+      page: "forYou",
+      filters: { personalized: true },
+      icon: "✦",
+    },
+    {
+      label: "Orders",
+      page: "orders",
+      icon: "▤",
+    },
+    {
+      label: "Wishlist",
+      page: "wishlist",
+      icon: "♡",
+    },
+    {
+      label: "Cart",
+      page: "cart",
+      icon: "🛒",
+    },
   ],
+
+  // --------------------------------
+  // EXISTING EXPLORER
+  // --------------------------------
+  explorer: [
+    {
+      label: "Home",
+      page: "home",
+      icon: "⌂",
+    },
+    {
+      label: "Trending",
+      page: "trending",
+      filters: { trending: true },
+      icon: "🔥",
+    },
+   
+    {
+      label: "Wishlist",
+      page: "wishlist",
+      icon: "♡",
+    },
+    {
+      label: "Cart",
+      page: "cart",
+      icon: "🛒",
+    },
+  ],
+
+  // --------------------------------
+  // EXISTING ACCESSIBILITY
+  // --------------------------------
+  
 };
 
 export default navigation;

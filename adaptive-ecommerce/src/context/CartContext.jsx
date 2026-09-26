@@ -6,16 +6,28 @@ function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
 
+  // --------------------------------
+  // CART TOTAL
+  // --------------------------------
+
+  const cartTotal = cart.reduce((total, item) => {
+    const price = Number(item.price) || 0;
+    const quantity = Number(item.quantity) || 1;
+
+    return total + price * quantity;
+  }, 0);
+
+  // --------------------------------
+  // ADD TO CART
+  // --------------------------------
 
   const addToCart = (product) => {
     setCart((currentCart) => {
-
       const existingProduct = currentCart.find(
         (item) => item.id === product.id
       );
 
       if (existingProduct) {
-
         return currentCart.map((item) =>
           item.id === product.id
             ? {
@@ -24,7 +36,6 @@ function CartProvider({ children }) {
               }
             : item
         );
-
       }
 
       return [
@@ -37,15 +48,19 @@ function CartProvider({ children }) {
     });
   };
 
+  // --------------------------------
+  // REMOVE FROM CART
+  // --------------------------------
 
   const removeFromCart = (productId) => {
     setCart((currentCart) =>
-      currentCart.filter(
-        (item) => item.id !== productId
-      )
+      currentCart.filter((item) => item.id !== productId)
     );
   };
 
+  // --------------------------------
+  // INCREASE QUANTITY
+  // --------------------------------
 
   const increaseQuantity = (productId) => {
     setCart((currentCart) =>
@@ -60,6 +75,9 @@ function CartProvider({ children }) {
     );
   };
 
+  // --------------------------------
+  // DECREASE QUANTITY
+  // --------------------------------
 
   const decreaseQuantity = (productId) => {
     setCart((currentCart) =>
@@ -76,92 +94,65 @@ function CartProvider({ children }) {
     );
   };
 
+  // --------------------------------
+  // PLACE ORDER
+  // --------------------------------
 
   const placeOrder = (orderDetails) => {
-
-    if (cart.length === 0) {
-      return null;
-    }
-
-
     const newOrder = {
-      id: "ORD" + Date.now(),
+      id: `ORD${Date.now()}`,
 
-      products: cart,
+      items: [...cart],
 
       total: orderDetails.total,
 
-      status: "Processing",
+      paymentMethod: orderDetails.paymentMethod,
 
-      date: new Date().toLocaleDateString(
-        "en-IN",
-        {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        }
-      ),
+      delivery: orderDetails.delivery,
 
-      paymentMethod:
-        orderDetails.paymentMethod,
+      address: orderDetails.address,
 
-      delivery:
-        orderDetails.delivery,
+      couponCode: orderDetails.couponCode || null,
 
-      address:
-        orderDetails.address,
+      couponDiscount: orderDetails.couponDiscount || 0,
+
+      status: "Placed",
+
+      date: new Date().toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
     };
-
 
     setOrders((currentOrders) => [
       newOrder,
       ...currentOrders,
     ]);
 
-
+    // Clear cart after successful order
     setCart([]);
-
 
     return newOrder;
   };
 
-
-  const clearCart = () => {
-    setCart([]);
-  };
-
-
-  const cartCount = cart.reduce(
-    (total, item) =>
-      total + item.quantity,
-    0
-  );
-
-
-  const cartTotal = cart.reduce(
-    (total, item) =>
-      total + item.price * item.quantity,
-    0
-  );
-
+  // --------------------------------
+  // CONTEXT
+  // --------------------------------
 
   return (
     <CartContext.Provider
       value={{
         cart,
-        orders,
-
-        cartCount,
         cartTotal,
+        orders,
 
         addToCart,
         removeFromCart,
-
         increaseQuantity,
         decreaseQuantity,
 
         placeOrder,
-        clearCart,
       }}
     >
       {children}

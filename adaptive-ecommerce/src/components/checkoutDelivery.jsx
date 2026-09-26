@@ -1,101 +1,77 @@
-function CheckoutDelivery({ delivery, setDelivery, productTotal }) {
+function CheckoutDelivery({
+  delivery,
+  setDelivery,
+  subtotal,
+}) {
+  const standardCharge = subtotal >= 999 ? 0 : 49;
+
   return (
-    <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+    <section className="mt-5 bg-white p-5 shadow-sm sm:p-6">
+      <p className="text-xs font-bold uppercase tracking-wider text-gray-400">
+        2
+      </p>
 
-      <div className="flex items-center gap-3">
+      <h2 className="mt-1 text-xl font-black">
+        Delivery Method
+      </h2>
 
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
-          2
-        </span>
+      <div className="mt-5 space-y-3">
 
-        <div>
-          <h2 className="text-xl font-black">
-            Delivery Method
-          </h2>
-
-          <p className="text-sm text-gray-500">
-            Choose your delivery option.
-          </p>
-        </div>
-
-      </div>
-
-
-      <div className="mt-6 space-y-3">
-
-        {/* STANDARD DELIVERY */}
-
-        <label className="flex cursor-pointer items-center justify-between rounded-2xl border border-gray-200 p-4 hover:bg-gray-50">
-
+        <label className="flex cursor-pointer items-center justify-between border border-gray-200 p-4">
           <div className="flex items-center gap-3">
-
             <input
               type="radio"
               name="delivery"
               value="Standard Delivery"
               checked={delivery === "Standard Delivery"}
-              onChange={(event) =>
-                setDelivery(event.target.value)
-              }
+              onChange={(e) => setDelivery(e.target.value)}
             />
 
             <div>
-              <p className="font-bold">
+              <p className="text-sm font-bold">
                 Standard Delivery
               </p>
 
-              <p className="text-xs text-gray-500">
+              <p className="mt-1 text-xs text-gray-500">
                 3 - 5 business days
               </p>
             </div>
-
           </div>
 
-
-          <span className="text-sm font-bold">
-            {productTotal >= 999 ? "FREE" : "₹49"}
+          <span className="text-sm font-black">
+            {standardCharge === 0
+              ? "FREE"
+              : `₹${standardCharge}`}
           </span>
-
         </label>
 
-
-        {/* EXPRESS DELIVERY */}
-
-        <label className="flex cursor-pointer items-center justify-between rounded-2xl border border-gray-200 p-4 hover:bg-gray-50">
-
+        <label className="flex cursor-pointer items-center justify-between border border-gray-200 p-4">
           <div className="flex items-center gap-3">
-
             <input
               type="radio"
               name="delivery"
               value="Express Delivery"
               checked={delivery === "Express Delivery"}
-              onChange={(event) =>
-                setDelivery(event.target.value)
-              }
+              onChange={(e) => setDelivery(e.target.value)}
             />
 
             <div>
-              <p className="font-bold">
+              <p className="text-sm font-bold">
                 Express Delivery
               </p>
 
-              <p className="text-xs text-gray-500">
+              <p className="mt-1 text-xs text-gray-500">
                 1 - 2 business days
               </p>
             </div>
-
           </div>
 
-
-          <span className="text-sm font-bold">
+          <span className="text-sm font-black">
             ₹99
           </span>
-
         </label>
 
       </div>
-
     </section>
   );
 }

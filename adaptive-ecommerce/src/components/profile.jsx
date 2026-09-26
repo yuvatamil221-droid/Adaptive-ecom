@@ -1,384 +1,354 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import Navigation from "../components/navigation";
+import Footer from "../components/footer";
+
 import { UserContext } from "../context/UserContext";
 
-function Profile({ navigate }) {
-  const { userProfile } = useContext(UserContext);
 
-  const [isEditing, setIsEditing] = useState(false);
+function Profile({
+  navigate,
+  goBack,
+  profiles,
+  selectedProfile,
+  setSelectedProfile,
+}) {
+  const {
+    user,
+    isLoggedIn,
+    logout,
+  } = useContext(UserContext);
 
-  const [user, setUser] = useState({
-    name: "Alex Johnson",
-    email: "alex@example.com",
-    phone: "+91 98765 43210",
-  });
 
-  const [form, setForm] = useState(user);
+  // =========================
+  // CURRENT PROFILE
+  // =========================
 
-  const profileInfo = {
-    dealHunter: {
-      title: "Deal Hunter",
-      description:
-        "Your experience focuses on deals, discounts and saving more.",
-    },
+  const currentProfile =
+    selectedProfile ||
+    profiles.find(
+      (profile) => profile.id === user?.id
+    ) ||
+    profiles[0];
 
-    premiumShopper: {
-      title: "Premium Shopper",
-      description:
-        "Your experience focuses on premium products and curated collections.",
-    },
 
-    frequentShopper: {
-      title: "Frequent Shopper",
-      description:
-        "Your experience focuses on quick shopping, reordering and your purchase history.",
-    },
+  // =========================
+  // LOGOUT
+  // =========================
 
-    explorer: {
-      title: "Explorer",
-      description:
-        "Your experience focuses on discovering trending and new products.",
-    },
+  const handleLogout = () => {
+    logout();
 
-    accessibility: {
-      title: "Accessibility",
-      description:
-        "Your experience focuses on clear layouts, comfortable controls and easy interaction.",
-    },
+    // Clear selected profile
+    setSelectedProfile(null);
+
+    navigate("home");
   };
 
-  const current =
-    profileInfo[userProfile] || profileInfo.dealHunter;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  // =========================
+  // ADD PROFILE
+  // =========================
 
-    setForm((currentForm) => ({
-      ...currentForm,
-      [name]: value,
-    }));
+  const handleAddProfile = () => {
+    navigate("addProfile");
   };
 
-  const handleSave = () => {
-    setUser(form);
-    setIsEditing(false);
-  };
 
-  const handleCancel = () => {
-    setForm(user);
-    setIsEditing(false);
-  };
+  // =========================
+  // MENU ITEMS
+  // =========================
+
+  const menuItems = [
+    {
+      icon: "⌁",
+      title: "My Orders",
+      description: "View your previous orders",
+      page: "orders",
+      iconBg: "bg-blue-100",
+      iconColor: "text-blue-600",
+    },
+
+    {
+      icon: "♡",
+      title: "My Wishlist",
+      description: "View your saved products",
+      page: "wishlist",
+      iconBg: "bg-pink-100",
+      iconColor: "text-pink-500",
+    },
+
+    {
+      icon: "%",
+      title: "Coupons",
+      description: "View your available coupons",
+      page: "coupons",
+      iconBg: "bg-orange-100",
+      iconColor: "text-orange-500",
+    },
+
+    {
+      icon: "✦",
+      title: "Customize Your Experience",
+      description: "Personalize your shopping experience",
+      page: "customize",
+      iconBg: "bg-purple-100",
+      iconColor: "text-purple-600",
+    },
+
+    {
+      icon: "○",
+      title: "Manage Account & Address",
+      description: "Manage account details and addresses",
+      page: "manageAccount",
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
+    },
+
+   
+
+    {
+      icon: "⚙",
+      title: "Settings",
+      description:
+        "Manage your application settings",
+      page: "settings",
+      iconBg: "bg-yellow-100",
+      iconColor: "text-yellow-600",
+    },
+  ];
+
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 text-gray-900">
 
-      {/* Page Header */}
-      <div className="mb-8">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-500">
-          My account
-        </p>
+      {/* Navigation */}
 
-        <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-          Profile
-        </h1>
-
-        <p className="mt-2 text-sm text-gray-500">
-          Manage your account and shopping preferences.
-        </p>
-      </div>
+      <Navigation navigate={navigate} />
 
 
-      <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-10">
 
-        {/* Profile Card */}
-        <aside className="h-fit rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        {/* =========================
+            PROFILE HEADER
+        ========================= */}
 
-          <div className="flex flex-col items-center text-center">
+        <div className="mb-6 text-center">
 
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-900 text-3xl text-white">
-              👤
-            </div>
-
-            <h2 className="mt-4 text-xl font-black">
-              {user.name}
-            </h2>
-
-            <p className="mt-1 text-xs text-gray-400">
-              {user.email}
-            </p>
-
+          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border-2 border-purple-300 bg-white text-lg text-purple-500">
+            ✦
           </div>
 
-
-          {/* Experience */}
-          <div className="mt-6 rounded-2xl bg-gray-50 p-4">
-
-            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              Current experience
-            </p>
-
-            <h3 className="mt-2 text-sm font-black">
-              {current.title}
-            </h3>
-
-            <p className="mt-2 text-xs leading-5 text-gray-500">
-              {current.description}
-            </p>
-
-          </div>
-
-
-          <button
-            onClick={() =>
-              navigate && navigate("customize")
-            }
-            className="mt-4 w-full rounded-xl border border-gray-200 px-4 py-3 text-xs font-bold text-gray-700 transition hover:bg-gray-50"
-          >
-            Customize Experience →
-          </button>
-
-        </aside>
-
-
-        {/* Main Content */}
-        <div className="space-y-6">
-
-          {/* Personal Information */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-7">
-
-            <div className="flex items-center justify-between gap-4">
-
-              <div>
-                <h2 className="text-lg font-black">
-                  Personal Information
-                </h2>
-
-                <p className="mt-1 text-xs text-gray-400">
-                  Keep your account details up to date.
-                </p>
-              </div>
-
-              {!isEditing && (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="rounded-xl border border-gray-200 px-4 py-2.5 text-xs font-bold transition hover:bg-gray-50"
-                >
-                  Edit
-                </button>
-              )}
-
-            </div>
-
-
-            {isEditing ? (
-              <div className="mt-7 space-y-4">
-
-                <Input
-                  label="Full Name"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                />
-
-                <Input
-                  label="Email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                />
-
-                <Input
-                  label="Phone"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                />
-
-
-                <div className="grid grid-cols-2 gap-3 pt-2">
-
-                  <button
-                    onClick={handleCancel}
-                    className="rounded-xl border border-gray-200 px-4 py-3 text-sm font-bold text-gray-700 transition hover:bg-gray-50"
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    onClick={handleSave}
-                    className="rounded-xl bg-gray-900 px-4 py-3 text-sm font-bold text-white transition hover:bg-gray-700"
-                  >
-                    Save Changes
-                  </button>
-
-                </div>
-
-              </div>
-            ) : (
-              <div className="mt-7 grid gap-5 sm:grid-cols-3">
-
-                <Info
-                  label="Full Name"
-                  value={user.name}
-                />
-
-                <Info
-                  label="Email"
-                  value={user.email}
-                />
-
-                <Info
-                  label="Phone"
-                  value={user.phone}
-                />
-
-              </div>
-            )}
-
-          </div>
-
-
-          {/* Quick Actions */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-7">
-
-            <h2 className="text-lg font-black">
-              Quick Actions
-            </h2>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-
-              <ActionButton
-                icon="📦"
-                title="My Orders"
-                description="View your orders"
-                onClick={() =>
-                  navigate && navigate("orders")
-                }
-              />
-
-              <ActionButton
-                icon="♡"
-                title="Wishlist"
-                description="View saved products"
-                onClick={() =>
-                  navigate && navigate("wishlist")
-                }
-              />
-
-              <ActionButton
-                icon="🛒"
-                title="Cart"
-                description="View your shopping cart"
-                onClick={() =>
-                  navigate && navigate("cart")
-                }
-              />
-
-              <ActionButton
-                icon="🔍"
-                title="Browse Products"
-                description="Discover products"
-                onClick={() =>
-                  navigate && navigate("products")
-                }
-              />
-
-              <ActionButton
-                icon="⚙️"
-                title="Customize"
-                description="Change your experience"
-                onClick={() =>
-                  navigate && navigate("customize")
-                }
-              />
-
-              <ActionButton
-                icon="🚚"
-                title="Track Orders"
-                description="Check delivery status"
-                onClick={() =>
-                  navigate && navigate("orders")
-                }
-              />
-
-            </div>
-
-          </div>
+          <h1 className="mt-2 text-xl font-black text-gray-900">
+            {currentProfile?.name || ""}
+          </h1>
 
         </div>
 
-      </div>
 
-    </section>
-  );
-}
+        {/* =========================
+            PROFILE SELECTOR
+        ========================= */}
+
+        {isLoggedIn && (
+
+          <section className="rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
+
+            <div className="flex items-center">
+
+              {/* PROFILES */}
+
+              <div className="flex flex-1 items-center gap-6 overflow-x-auto">
+
+                {(profiles || []).map((profile) => (
+
+                  <div
+                    key={profile.id}
+                    className="flex shrink-0 flex-col items-center"
+                  >
+
+                    {/* Avatar + Name */}
+
+                    <button
+                      onClick={() =>
+                        setSelectedProfile(profile)
+                      }
+                      className="flex flex-col items-center"
+                    >
+
+                      {/* Avatar */}
+
+                      <div
+                        className={`flex h-14 w-14 items-center justify-center rounded-full text-lg font-black ${
+                          currentProfile?.id === profile.id
+                            ? "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 text-white shadow-md"
+                            : "bg-purple-100 text-purple-600"
+                        }`}
+                      >
+                        {profile.name
+                          ? profile.name
+                              .charAt(0)
+                              .toUpperCase()
+                          : ""}
+                      </div>
 
 
-function Input({ label, name, value, onChange }) {
-  return (
-    <div>
+                      {/* Name */}
 
-      <label className="mb-2 block text-xs font-bold text-gray-600">
-        {label}
-      </label>
+                      <p className="mt-1 text-sm font-black text-gray-800">
+                        {profile.name || ""}
+                      </p>
 
-      <input
-        type="text"
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white focus:ring-2 focus:ring-gray-100"
-      />
+                    </button>
+
+
+                    {/* EDIT PROFILE */}
+
+                    {currentProfile?.id === profile.id && (
+
+                      <button
+                        onClick={() =>
+                          navigate(
+                            "editProfile",
+                            profile
+                          )
+                        }
+                        className="mt-1 flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-purple-600"
+                      >
+
+                        <span className="text-sm">
+                          ⚙
+                        </span>
+
+                        <span>
+                          Edit Profile
+                        </span>
+
+                      </button>
+
+                    )}
+
+                  </div>
+
+                ))}
+
+              </div>
+
+
+              {/* DIVIDER */}
+
+              <div className="mx-5 h-14 w-px bg-gray-200" />
+
+
+              {/* ADD PROFILE */}
+
+              <button
+                onClick={handleAddProfile}
+                className="flex shrink-0 flex-col items-center"
+              >
+
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-purple-300 bg-white text-3xl font-light text-purple-500 transition hover:bg-purple-50">
+                  +
+                </div>
+
+                <span className="mt-1 text-xs font-black text-gray-600">
+                  Add
+                </span>
+
+              </button>
+
+            </div>
+
+          </section>
+        )}
+
+
+        {/* =========================
+            PROFILE OPTIONS
+        ========================= */}
+
+        <section className="mt-5 overflow-hidden rounded-2xl bg-white shadow-sm">
+
+          {menuItems.map((item, index) => (
+
+            <button
+              key={item.title}
+              onClick={() =>
+                navigate(item.page)
+              }
+              className={`flex w-full items-center gap-4 px-4 py-5 text-left transition hover:bg-gray-50 sm:px-6 ${
+                index !== menuItems.length - 1
+                  ? "border-b border-gray-100"
+                  : ""
+              }`}
+            >
+
+              {/* ICON */}
+
+              <div
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${item.iconBg} ${item.iconColor} text-xl`}
+              >
+                {item.icon}
+              </div>
+
+
+              {/* TEXT */}
+
+              <div className="min-w-0 flex-1">
+
+                <h2 className="text-sm font-black text-gray-900 sm:text-base">
+                  {item.title}
+                </h2>
+
+                <p className="mt-1 text-xs text-gray-500 sm:text-sm">
+                  {item.description}
+                </p>
+
+              </div>
+
+
+              {/* ARROW */}
+
+              <span className="text-xl font-bold text-gray-400">
+                →
+              </span>
+
+            </button>
+
+          ))}
+
+        </section>
+
+
+        {/* =========================
+            RECENTLY VIEWED
+        ========================= */}
+
+
+        {/* =========================
+            LOGOUT
+        ========================= */}
+
+        {isLoggedIn && (
+
+          <button
+            onClick={handleLogout}
+            className="mt-6 w-full rounded-2xl border-2 border-pink-300 bg-white px-5 py-4 text-sm font-black text-pink-500 transition hover:bg-pink-50"
+          >
+            Logout
+          </button>
+
+        )}
+
+      </main>
+
+
+      {/* Footer */}
+
+    
 
     </div>
   );
 }
 
-
-function Info({ label, value }) {
-  return (
-    <div className="rounded-xl bg-gray-50 p-4">
-
-      <p className="text-[10px] font-bold uppercase tracking-wide text-gray-400">
-        {label}
-      </p>
-
-      <p className="mt-2 break-words text-sm font-semibold text-gray-800">
-        {value}
-      </p>
-
-    </div>
-  );
-}
-
-
-function ActionButton({
-  icon,
-  title,
-  description,
-  onClick,
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-center gap-4 rounded-2xl border border-gray-200 p-4 text-left transition hover:-translate-y-0.5 hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm"
-    >
-
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-xl">
-        {icon}
-      </div>
-
-      <div>
-        <h3 className="text-sm font-bold">
-          {title}
-        </h3>
-
-        <p className="mt-1 text-xs text-gray-400">
-          {description}
-        </p>
-      </div>
-
-    </button>
-  );
-}
 
 export default Profile;

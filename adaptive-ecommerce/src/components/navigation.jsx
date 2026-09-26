@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../context/UserContext";
 import { UIConfigContext } from "../context/UIConfigContext";
@@ -9,17 +9,57 @@ function Navigation({ navigate }) {
   const { userProfile } = useContext(UserContext);
 
   const {
-    layout,
-    highContrast,
-    largeText,
-  } = useContext(UIConfigContext);
+  layout,
+  highContrast,
+  largeText,
+  darkMode,
+} = useContext(UIConfigContext);
+  // --------------------------------
+  // GET CURRENT NAVIGATION
+  // --------------------------------
 
   const currentNavigation =
-    navigation[userProfile] || navigation.dealHunter;
+    navigation[userProfile] ||
+    navigation.default ||
+    navigation.dealHunter;
+
+  // --------------------------------
+  // ACTIVE NAVIGATION
+  // --------------------------------
+
+  const [activeItem, setActiveItem] = useState("Home");
+
+  useEffect(() => {
+    const savedItem = sessionStorage.getItem(
+      "activeNavigation"
+    );
+
+    if (savedItem) {
+      setActiveItem(savedItem);
+    }
+  }, []);
+
+  // --------------------------------
+  // HANDLE NAVIGATION
+  // --------------------------------
 
   const handleClick = (item) => {
-    navigate(item.page, item.filters || null);
+    setActiveItem(item.label);
+
+    sessionStorage.setItem(
+      "activeNavigation",
+      item.label
+    );
+
+    navigate(
+      item.page,
+      item.filters || null
+    );
   };
+
+  // --------------------------------
+  // LAYOUT
+  // --------------------------------
 
   const layoutStyle = {
     compact: {
@@ -39,45 +79,159 @@ function Navigation({ navigate }) {
   };
 
   const style =
-    layoutStyle[layout] || layoutStyle.comfortable;
+    layoutStyle[layout] ||
+    layoutStyle.comfortable;
 
   const textSize = largeText
     ? "text-base"
     : "text-sm";
 
+  // --------------------------------
+  // MOBILE NAVIGATION
+  // --------------------------------
+
+  const mobileNavigation =
+    currentNavigation.slice(0, 5);
+
   return (
-    <nav
-      className={`border-b ${
-        highContrast
-          ? "border-white bg-black"
-          : "border-gray-200 bg-white"
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <>
+      {/* =================================
+          DESKTOP NAVIGATION
+          ================================= */}
 
-        <div
-          className={`flex overflow-x-auto ${style.container}`}
-        >
+      <nav
+        className={`hidden md:block border-b ${
+          highContrast
+            ? "border-white bg-black"
+            : "border-gray-200 bg-white"
+        }`}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-          {currentNavigation.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => handleClick(item)}
-              className={`whitespace-nowrap rounded-xl font-bold transition ${
-                highContrast
-                  ? "text-white hover:bg-white hover:text-black"
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              } ${style.button} ${textSize}`}
-            >
-              {item.label === "Home" ? "⌂ " : ""}
-              {item.label}
-            </button>
-          ))}
+          <div
+            className={`flex overflow-x-auto ${style.container}`}
+          >
+
+            {currentNavigation.map((item) => {
+              const isActive =
+                activeItem === item.label;
+
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => handleClick(item)}
+                  className={`
+                    whitespace-nowrap
+                    rounded-xl
+                    font-bold
+                    transition
+                    flex
+                    items-center
+                    gap-2
+                    border-b-2
+
+                    ${style.button}
+                    ${textSize}
+
+                    ${
+                      isActive
+                        ? highContrast
+                          ? "bg-white text-black border-white"
+                          : "bg-gray-900 text-white border-gray-900"
+                        : highContrast
+                        ? "text-white border-transparent hover:bg-white hover:text-black"
+                        : "text-gray-700 border-transparent hover:bg-gray-100 hover:text-gray-900"
+                    }
+                  `}
+                >
+                  <span>
+                    {item.icon}
+                  </span>
+
+                  <span>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+
+          </div>
+
+        </div>
+      </nav>
+
+      {/* =================================
+          MOBILE BOTTOM NAVIGATION
+          ================================= */}
+
+      <nav
+  className={`
+    fixed
+    bottom-0
+    left-0
+    right-0
+    z-50
+    md:hidden
+    border-t
+    backdrop-blur-md
+    ${
+      darkMode
+        ? "border-gray-700 bg-gray-950"
+        : highContrast
+        ? "border-white bg-black"
+        : "border-gray-200 bg-white/95"
+    }
+  `}
+>
+
+        <div className="flex items-center justify-around px-1 py-2">
+
+          {mobileNavigation.map((item) => {
+            const isActive =
+              activeItem === item.label;
+
+            return (
+              <button
+                key={item.label}
+                onClick={() => handleClick(item)}
+                className={`
+  flex
+  min-w-0
+  flex-1
+  flex-col
+  items-center
+  justify-center
+  gap-1
+  rounded-xl
+  px-1
+  py-2
+  text-xs
+  font-semibold
+  transition
+  ${
+    isActive
+      ? "bg-gray-950 text-white"
+      : "text-gray-300 hover:text-white hover:bg-gray-800"
+  }
+`}
+              >
+
+                <span className="text-lg leading-none">
+                  {item.icon}
+                </span>
+
+                <span className="truncate max-w-full">
+                  {item.label}
+                </span>
+
+              </button>
+            );
+          })}
 
         </div>
 
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
 

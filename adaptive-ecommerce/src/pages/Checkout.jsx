@@ -7,11 +7,7 @@ import Footer from "../components/footer";
 function Checkout({ navigate }) {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <Header navigate={navigate} />
-
-      <ExperienceSwitcher />
-
-      <Navigation navigate={navigate} />
+      
 
       <main>
         <CheckoutComponent navigate={navigate} />

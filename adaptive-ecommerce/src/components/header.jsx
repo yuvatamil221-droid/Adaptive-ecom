@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 
-function Header({ navigate, showSearch = true }) {
+function Header({ navigate, selectedProfile, showSearch = true }) {
   const { cart } = useContext(CartContext);
   const { isLoggedIn, user } = useContext(UserContext);
   const [searchText, setSearchText] = useState("");
@@ -22,7 +22,7 @@ function Header({ navigate, showSearch = true }) {
   };
 
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-[#111827]">
       {/* TOP HEADER */}
 
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 py-4 sm:px-6 lg:px-8">
@@ -46,17 +46,17 @@ function Header({ navigate, showSearch = true }) {
             onSubmit={handleSearch}
             className="ml-auto hidden w-full max-w-lg md:block"
           >
-            <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4">
-              <span className="text-xl">🔍</span>
+         <div className="flex items-center rounded-xl border border-gray-700 bg-black px-4">
+  <span className="text-xl">🔍</span>
 
-              <input
-                type="text"
-                value={searchText}
-                onChange={(event) => setSearchText(event.target.value)}
-                placeholder="Search products, brands..."
-                className="w-full bg-transparent px-3 py-3 text-sm outline-none"
-              />
-            </div>
+  <input
+    type="text"
+    value={searchText}
+    onChange={(event) => setSearchText(event.target.value)}
+    placeholder="Search products..."
+    className="w-full bg-transparent px-3 py-3 text-sm text-white outline-none placeholder:text-gray-400"
+  />
+</div>
           </form>
         )}
 
@@ -93,7 +93,9 @@ function Header({ navigate, showSearch = true }) {
     onClick={() => navigate("profile")}
     className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white"
   >
-   {user?.name?.charAt(0).toUpperCase()}
+   {selectedProfile?.name
+  ? selectedProfile.name.charAt(0).toUpperCase()
+  : user?.name?.charAt(0).toUpperCase()}
   </button>
 ) : (
   <button

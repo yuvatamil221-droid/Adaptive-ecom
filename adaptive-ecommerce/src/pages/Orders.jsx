@@ -1,63 +1,50 @@
 import { useContext } from "react";
 
-import Header from "../components/header";
-import Navigation from "../components/navigation";
-import ExperienceSwitcher from "../components/experienceSwitcher";
-import Footer from "../components/footer";
-
+import { UserContext } from "../context/UserContext";
 import { CartContext } from "../context/CartContext";
 
-function Orders({ navigate }) {
+import Header from "../components/header";
+import ExperienceSwitcher from "../components/experienceSwitcher";
+import Navigation from "../components/navigation";
+import Footer from "../components/footer";
+
+function Orders({ navigate, goBack }) {
+  const { userProfile } = useContext(UserContext);
   const { orders } = useContext(CartContext);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-
       <Header navigate={navigate} />
 
       <ExperienceSwitcher navigate={navigate} />
 
       <Navigation navigate={navigate} />
 
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-6xl px-4 py-8">
+         
+         <button
+  onClick={goBack}
+  className="mb-5 text-sm font-semibold text-gray-600 transition hover:text-blue-600"
+>
+  ← Go Back
+</button>
+        <p className="text-sm font-bold text-blue-600">
+          {userProfile} experience
+        </p>
 
-        {/* HEADER */}
+        <h1 className="mt-1 text-3xl font-black">
+          My Orders
+        </h1>
 
-        <div className="mb-8">
-
-          <button
-            onClick={() => navigate("home")}
-            className="mb-5 text-sm font-bold text-gray-500 hover:text-gray-900"
-          >
-            ← Back to Home
-          </button>
-
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
-            My Account
-          </p>
-
-          <h1 className="mt-2 text-3xl font-black">
-            My Orders
-          </h1>
-
-          <p className="mt-2 text-sm text-gray-500">
-            View your recent purchases and order details.
-          </p>
-
-        </div>
-
-
-        {/* EMPTY ORDERS */}
+        <p className="mt-2 text-sm text-gray-500">
+          View your orders and track your deliveries.
+        </p>
 
         {orders.length === 0 ? (
+          <div className="mt-10 rounded-2xl bg-white p-10 text-center shadow-sm">
+            <div className="text-5xl">📦</div>
 
-          <div className="rounded-3xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-
-            <div className="text-5xl">
-              📦
-            </div>
-
-            <h2 className="mt-5 text-2xl font-black">
+            <h2 className="mt-4 text-xl font-bold">
               No Orders Yet
             </h2>
 
@@ -67,194 +54,100 @@ function Orders({ navigate }) {
 
             <button
               onClick={() => navigate("products")}
-              className="mt-6 rounded-xl bg-gray-900 px-6 py-3 text-sm font-bold text-white hover:bg-gray-700"
+              className="mt-6 rounded-xl bg-gray-900 px-6 py-3 text-sm font-bold text-white"
             >
               Start Shopping
             </button>
-
           </div>
-
         ) : (
+          <div className="mt-8 space-y-5">
 
-          /* ORDERS */
+            {orders.map((order) => {
+              const firstItem = order.items?.[0];
 
-          <div className="space-y-6">
+              return (
+                <div
+                  key={order.id}
+                  className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+                >
+                  <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
 
-            {orders.map((order) => (
+                    {/* ORDER INFO */}
+                    <div className="flex gap-4">
 
-              <section
-                key={order.id}
-                className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm"
-              >
+                      {firstItem?.image && (
+                        <img
+                          src={firstItem.image}
+                          alt={firstItem.name}
+                          className="h-20 w-20 rounded-xl object-cover"
+                        />
+                      )}
 
-                {/* ORDER HEADER */}
+                      <div>
+                        <div className="flex flex-wrap gap-2">
+                          <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold">
+                            {order.id}
+                          </span>
 
-                <div className="flex flex-col gap-4 border-b border-gray-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                          <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">
+                            {order.status || "Processing"}
+                          </span>
+                        </div>
 
-                  <div>
+                        <h2 className="mt-3 text-lg font-bold">
+                          {firstItem?.name || "Order"}
+                        </h2>
 
-                    <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-                      Order ID
-                    </p>
+                        {order.items?.length > 1 && (
+                          <p className="mt-1 text-xs text-gray-500">
+                            + {order.items.length - 1} more item
+                            {order.items.length - 1 > 1 ? "s" : ""}
+                          </p>
+                        )}
 
-                    <p className="mt-1 font-black">
-                      {order.id}
-                    </p>
-
-                    <p className="mt-1 text-sm text-gray-500">
-                      {order.date}
-                    </p>
-
-                  </div>
-
-
-                  <span className="w-fit rounded-full bg-yellow-100 px-4 py-2 text-xs font-bold text-yellow-700">
-                    {order.status}
-                  </span>
-
-                </div>
-
-
-                {/* PRODUCTS */}
-
-                <div className="mt-6 space-y-4">
-
-                  {order.products.map((product) => (
-
-                    <div
-                      key={product.id}
-                      className="flex gap-4 rounded-2xl bg-gray-50 p-4"
-                    >
-
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="h-20 w-20 rounded-xl object-cover"
-                      />
-
-                      <div className="flex-1">
-
-                        <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-                          {product.brand}
+                        <p className="mt-1 text-sm text-gray-500">
+                          Ordered on {order.date || "Recently"}
                         </p>
-
-                        <h3 className="mt-1 font-bold">
-                          {product.name}
-                        </h3>
-
-                        <p className="mt-2 text-sm text-gray-500">
-                          Quantity: {product.quantity}
-                        </p>
-
                       </div>
+                    </div>
 
+                    {/* PRICE + BUTTONS */}
+                    <div className="flex flex-wrap items-center gap-3">
 
-                      <div className="text-right">
+                      <p className="text-xl font-black">
+                        ₹{Number(order.total || 0).toLocaleString("en-IN")}
+                      </p>
 
-                        <p className="font-black">
-                          ₹{(
-                            product.price *
-                            product.quantity
-                          ).toLocaleString("en-IN")}
-                        </p>
+                      <button
+                        onClick={() =>
+                          navigate("orderDetails", order)
+                        }
+                        className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-bold hover:bg-gray-50"
+                      >
+                        View Order
+                      </button>
 
-                      </div>
+                      <button
+                        onClick={() =>
+                          navigate("trackOrder", order)
+                        }
+                        className="rounded-xl bg-gray-900 px-5 py-3 text-sm font-bold text-white hover:bg-gray-700"
+                      >
+                        Track Order
+                      </button>
 
                     </div>
 
-                  ))}
-
+                  </div>
                 </div>
-
-
-                {/* ORDER DETAILS */}
-
-                <div className="mt-6 grid grid-cols-1 gap-4 border-t border-gray-100 pt-6 sm:grid-cols-3">
-
-                  <div>
-
-                    <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-                      Payment
-                    </p>
-
-                    <p className="mt-2 text-sm font-bold">
-                      {order.paymentMethod || "Not available"}
-                    </p>
-
-                  </div>
-
-
-                  <div>
-
-                    <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-                      Delivery
-                    </p>
-
-                    <p className="mt-2 text-sm font-bold">
-                      {order.delivery || "Standard Delivery"}
-                    </p>
-
-                  </div>
-
-
-                  <div>
-
-                    <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-                      Total
-                    </p>
-
-                    <p className="mt-2 text-lg font-black">
-                      ₹{order.total.toLocaleString("en-IN")}
-                    </p>
-
-                  </div>
-
-                </div>
-
-
-                {/* ADDRESS */}
-
-                {order.address && (
-
-                  <div className="mt-5 rounded-2xl bg-gray-50 p-5">
-
-                    <p className="text-xs font-bold uppercase tracking-wide text-gray-400">
-                      Delivered To
-                    </p>
-
-                    <p className="mt-2 font-bold">
-                      {order.address.name}
-                    </p>
-
-                    <p className="mt-1 text-sm text-gray-600">
-                      {order.address.address}
-                    </p>
-
-                    <p className="mt-1 text-sm text-gray-600">
-                      {order.address.city} -{" "}
-                      {order.address.pincode}
-                    </p>
-
-                    <p className="mt-1 text-sm text-gray-600">
-                      {order.address.phone}
-                    </p>
-
-                  </div>
-
-                )}
-
-              </section>
-
-            ))}
+              );
+            })}
 
           </div>
-
         )}
-
       </main>
 
       <Footer navigate={navigate} />
-
     </div>
   );
 }

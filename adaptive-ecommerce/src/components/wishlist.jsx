@@ -2,31 +2,41 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
 
-function Wishlist({ navigate }) {
+function Wishlist({ navigate}) {
   const { wishlist, removeFromWishlist } = useContext(WishlistContext);
-
   const { addToCart } = useContext(CartContext);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
-     <button
-  onClick={() => navigate("home")}
-  className="mb-5 text-sm font-bold text-gray-600 hover:text-gray-900"
+
+      {/* Back Button */}
+      <button
+  onClick={() => navigate("profile")}
+  className="mb-5 font-bold text-gray-700 hover:text-gray-900"
 >
   ← Back
 </button>
 
-      <h1 className="text-3xl font-black">My Wishlist</h1>
+      {/* Heading */}
+      <h1 className="text-3xl font-black">
+        My Wishlist
+      </h1>
 
       <p className="mt-2 text-sm text-gray-500">
         Products you liked will appear here.
       </p>
 
+      {/* Empty Wishlist */}
       {wishlist.length === 0 ? (
         <div className="mt-10 rounded-2xl border border-gray-200 bg-white p-10 text-center">
-          <div className="text-5xl">♡</div>
 
-          <h2 className="mt-4 text-xl font-black">Your wishlist is empty</h2>
+          <div className="text-5xl">
+            ♡
+          </div>
+
+          <h2 className="mt-4 text-xl font-black">
+            Your wishlist is empty
+          </h2>
 
           <p className="mt-2 text-sm text-gray-500">
             Click the ♡ on a product to add it to your wishlist.
@@ -38,16 +48,25 @@ function Wishlist({ navigate }) {
           >
             Continue Shopping
           </button>
+
         </div>
       ) : (
+
+        /* Wishlist Products */
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
           {wishlist.map((product) => (
+
             <div
               key={product.id}
               className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
             >
+
+              {/* Product Image */}
               <button
-                onClick={() => navigate("productDetails", product)}
+                onClick={() =>
+                  navigate("productDetails", product)
+                }
                 className="w-full"
               >
                 <img
@@ -58,21 +77,28 @@ function Wishlist({ navigate }) {
               </button>
 
               <div className="p-4">
+
+                {/* Brand */}
                 <p className="text-xs font-bold text-gray-400">
                   {product.brand}
                 </p>
 
+                {/* Product Name */}
                 <button
-                  onClick={() => navigate("productDetails", product)}
+                  onClick={() =>
+                    navigate("productDetails", product)
+                  }
                   className="mt-1 text-left font-bold hover:underline"
                 >
                   {product.name}
                 </button>
 
+                {/* Price */}
                 <p className="mt-3 text-lg font-black">
                   ₹{product.price.toLocaleString("en-IN")}
                 </p>
 
+                {/* Add To Cart */}
                 <button
                   onClick={() => addToCart(product)}
                   className="mt-4 w-full rounded-xl bg-gray-900 px-4 py-3 text-sm font-bold text-white hover:bg-gray-700"
@@ -80,17 +106,24 @@ function Wishlist({ navigate }) {
                   Add to Cart
                 </button>
 
+                {/* Remove */}
                 <button
-                  onClick={() => removeFromWishlist(product.id)}
+                  onClick={() =>
+                    removeFromWishlist(product.id)
+                  }
                   className="mt-2 w-full rounded-xl border border-red-200 bg-white px-4 py-3 text-sm font-bold text-red-500 hover:bg-red-50"
                 >
                   Remove
                 </button>
+
               </div>
             </div>
+
           ))}
+
         </div>
       )}
+
     </div>
   );
 }

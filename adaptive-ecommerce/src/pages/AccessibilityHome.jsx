@@ -45,7 +45,7 @@ function AccessibilityHome({ navigate }) {
 
           <button
             onClick={() => navigate("products")}
-            className="mt-5 rounded-xl border-4 border-black bg-black px-5 py-3 text-sm font-black text-white hover:bg-gray-800 sm:mt-7 sm:px-7 sm:py-4 sm:text-base"
+           className="mt-5 min-h-14 rounded-xl border-4 border-black bg-black px-6 py-4 text-base font-black text-white hover:bg-gray-800 sm:mt-7 sm:px-8 sm:py-5 sm:text-lg"
           >
             Start Shopping →
           </button>

@@ -74,6 +74,19 @@ const themes = {
     radius: "rounded-xl",
     shadow: "shadow-none",
   },
+  dark: {
+  name: "Dark",
+  background: "bg-gray-950",
+  surface: "bg-gray-900",
+  text: "text-white",
+  mutedText: "text-gray-400",
+  primary: "bg-blue-600",
+  primaryHover: "hover:bg-blue-700",
+  buttonText: "text-white",
+  border: "border-gray-700",
+  radius: "rounded-xl",
+  shadow: "shadow-sm",
+},
 };
 
 export default themes;
