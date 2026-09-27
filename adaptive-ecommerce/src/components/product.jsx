@@ -228,7 +228,7 @@ function Product({ product, navigate }) {
           {added
             ? "✓ Added"
             : userProfile === "frequentShopper"
-            ? "Reorder"
+            ? "Buy Now"
             : cta?.[userProfile]?.primary || "Add to Cart"}
         </button>
 

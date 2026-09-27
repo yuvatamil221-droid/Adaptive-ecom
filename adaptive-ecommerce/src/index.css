@@ -14,10 +14,6 @@ body {
    DARK MODE
 ========================= */
 
-body.dark-mode {
-  background: #111827;
-  color: white;
-}
 
 /* Page backgrounds */
 body.dark-mode .bg-white {
@@ -304,13 +300,7 @@ body.dark-mode .border-stone-300 {
   border-color: #374151 !important;
 }
 
-/* Gradient page backgrounds */
-body.dark-mode .bg-gradient-to-b,
-body.dark-mode .bg-gradient-to-r,
-body.dark-mode .bg-gradient-to-br {
-  background-image: none !important;
-  background-color: #111827 !important;
-}
+
 
 /* Inputs */
 body.dark-mode input,
@@ -326,9 +316,13 @@ body.dark-mode textarea::placeholder {
   color: #9ca3af !important;
 }
 
-body.dark-mode .bg-white {
-  background-color: #1f2937 !important;
+body.dark-mode .bg-gradient-to-b,
+body.dark-mode .bg-gradient-to-r,
+body.dark-mode .bg-gradient-to-br {
+  background-image: none !important;
+  background-color: #111827 !important;
 }
+
 
 /* =========================
    COUPON LIGHT BACKGROUNDS
@@ -663,4 +657,33 @@ body.dark-mode .premium-products-count {
 }
 body.dark-mode .premium-products-title {
   color: #000000 !important;
+}
+
+body.dark-mode .bg-white {
+  background-color: #1f2937 !important;
+}
+body.dark-mode .flash-discount-card {
+  background-color: #374151 !important;
+  border-color: #6b7280 !important;
+}
+
+/* Flash Sale dark mode */
+body.dark-mode .flash-sale-hero {
+  background-image: linear-gradient(
+    135deg,
+    #111827,
+    #1f2937,
+    #111827
+  ) !important;
+  background-color: #111827 !important;
+}
+
+body.dark-mode .flash-countdown {
+  background-image: linear-gradient(
+    135deg,
+    #374151,
+    #4b5563,
+    #1f2937
+  ) !important;
+  background-color: #374151 !important;
 }

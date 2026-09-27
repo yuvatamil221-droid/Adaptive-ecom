@@ -1,6 +1,6 @@
 const cta = {
   dealHunter: {
-    product: "Grab Deal",
+    product: "Add to Cart",
     hero: "Grab Deal",
   },
 
@@ -10,7 +10,7 @@ const cta = {
   },
 
   frequentShopper: {
-    product: "Reorder",
+    product: "Buy Now",
     hero: "Reorder Now",
   },
 

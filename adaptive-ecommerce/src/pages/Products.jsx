@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../components/header";
 import ExperienceSwitcher from "../components/experienceSwitcher";
@@ -9,10 +9,37 @@ import PremiumBrands from "./PremiumBrands";
 
 import products from "../data/products";
 
-function Products({ navigate, goBack, filters }) {
+function Products({ navigate, goBack, filters, selectedProfile }) {
   const [sortBy, setSortBy] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+  hours: 2,
+  minutes: 45,
+  seconds: 18,
+});
 
+useEffect(() => {
+  const timer = setInterval(() => {
+    setTimeLeft((current) => {
+      let { hours, minutes, seconds } = current;
+
+      if (seconds > 0) {
+        seconds -= 1;
+      } else if (minutes > 0) {
+        minutes -= 1;
+        seconds = 59;
+      } else if (hours > 0) {
+        hours -= 1;
+        minutes = 59;
+        seconds = 59;
+      }
+
+      return { hours, minutes, seconds };
+    });
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, []);
   const [category, setCategory] = useState(filters?.category || "all");
 
   const [maxPrice, setMaxPrice] = useState(filters?.maxPrice || 50000);
@@ -304,7 +331,7 @@ if (filters?.brands) {
             </button>
 
             {/* FLASH SALE HERO */}
-            <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-50 via-white to-orange-50 p-6 shadow-sm sm:p-8">
+            <section className="flash-sale-hero relative overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-red-50 p-6 shadow-sm sm:p-8">
               {/* Decorative shapes */}
               <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-red-100" />
 
@@ -326,6 +353,38 @@ if (filters?.brands) {
                   Grab your favourite products with special flash sale
                   discounts.
                 </p>
+                <div className="mt-6 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-gray-700 via-gray-600 to-gray-800 px-5 py-4 shadow-lg">
+  <div className="text-center">
+    <p className="text-2xl font-black text-white">
+      {String(timeLeft.hours).padStart(2, "0")}
+    </p>
+    <p className="text-[10px] font-bold uppercase text-gray-300">
+      Hours
+    </p>
+  </div>
+
+  <span className="text-2xl font-black text-white">:</span>
+
+  <div className="text-center">
+    <p className="text-2xl font-black text-white">
+      {String(timeLeft.minutes).padStart(2, "0")}
+    </p>
+    <p className="text-[10px] font-bold uppercase text-gray-300">
+      Min
+    </p>
+  </div>
+
+  <span className="text-2xl font-black text-white">:</span>
+
+  <div className="text-center">
+    <p className="text-2xl font-black text-white">
+      {String(timeLeft.seconds).padStart(2, "0")}
+    </p>
+    <p className="text-[10px] font-bold uppercase text-gray-300">
+      Sec
+    </p>
+  </div>
+</div>
 
                 {/* DISCOUNT CARDS */}
                 <div className="mt-7 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">

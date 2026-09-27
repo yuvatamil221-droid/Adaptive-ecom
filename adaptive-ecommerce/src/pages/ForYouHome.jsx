@@ -1,6 +1,6 @@
 import products from "../data/products";
 
-function ForYouHome({ navigate }) {
+function ForYouHome({ navigate, goBack , selectedProfile,}) {
   const pickedForYou = products
     .filter((product) => product.rating >= 4.5)
     .slice(0, 4);
@@ -22,6 +22,7 @@ function ForYouHome({ navigate }) {
     .slice(12, 16);
 
   const ProductCard = ({ product }) => {
+    
     return (
       <div className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
         
@@ -94,7 +95,13 @@ function ForYouHome({ navigate }) {
 
   return (
     <main className="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-
+     <button
+  onClick={goBack}
+  className="mb-5 ml-4 text-2xl font-bold text-gray-700 hover:text-black dark:text-white"
+  aria-label="Go back"
+>
+  ←
+</button>
       {/* ================= HERO ================= */}
       <section className="mx-auto max-w-7xl px-3 pt-6 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-gradient-to-r from-blue-100 via-white to-purple-100 px-6 py-12 sm:px-10">

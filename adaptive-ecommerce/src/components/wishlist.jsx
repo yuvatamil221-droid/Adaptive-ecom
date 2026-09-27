@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
 
-function Wishlist({ navigate}) {
+function Wishlist({ navigate, goBack }) {
   const { wishlist, removeFromWishlist } = useContext(WishlistContext);
   const { addToCart } = useContext(CartContext);
 
@@ -11,7 +11,7 @@ function Wishlist({ navigate}) {
 
       {/* Back Button */}
       <button
-  onClick={() => navigate("profile")}
+  onClick={goBack}
   className="mb-5 font-bold text-gray-700 hover:text-gray-900"
 >
   ← Back

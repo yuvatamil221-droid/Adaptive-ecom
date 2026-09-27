@@ -4,7 +4,7 @@ import ExperienceSwitcher from "../components/experienceSwitcher";
 import WishlistComponent from "../components/wishlist";
 import Footer from "../components/footer";
 
-function Wishlist({ navigate }) {
+function Wishlist({ navigate, goBack }) {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <Header navigate={navigate} />
@@ -14,7 +14,10 @@ function Wishlist({ navigate }) {
       
 
       <main>
-        <WishlistComponent navigate={navigate} />
+        <WishlistComponent
+  navigate={navigate}
+  goBack={goBack}
+/>
       </main>
 
       

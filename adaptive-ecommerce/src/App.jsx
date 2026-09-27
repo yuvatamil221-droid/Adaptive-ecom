@@ -221,9 +221,11 @@ function App() {
     return (
       <AppWrapper>
         <Home
-          navigate={navigate}
-          selectedProfile={selectedProfile}
-        />
+  navigate={navigate}
+  currentPage={page}
+  currentData={data}
+  selectedProfile={selectedProfile}
+/>
       </AppWrapper>
     );
   }
@@ -231,11 +233,12 @@ function App() {
  if (page === "forYou") {
   return (
     <AppWrapper>
-      <Navigation navigate={navigate} />
+      
       <Header navigate={navigate} />
-
+      <Navigation navigate={navigate} />
       <ForYouHome
         navigate={navigate}
+        goBack={goBack}
         selectedProfile={selectedProfile}
       />
     </AppWrapper>
@@ -246,12 +249,14 @@ function App() {
 if (page === "products") {
   return (
     <AppWrapper>
-      <Products
-        navigate={navigate}
-        goBack={goBack}
-        filters={data}
-        selectedProfile={selectedProfile}
-      />
+     <Products
+  navigate={navigate}
+  goBack={goBack}
+  filters={data}
+  currentPage={page}
+  currentData={data}
+  selectedProfile={selectedProfile}
+/>
     </AppWrapper>
   );
 }
@@ -272,15 +277,16 @@ if (page === "products") {
 
 
   if (page === "wishlist") {
-    return (
-      <AppWrapper>
-        <Wishlist
-          navigate={navigate}
-          selectedProfile={selectedProfile}
-        />
-      </AppWrapper>
-    );
-  }
+  return (
+    <AppWrapper>
+      <Wishlist
+        navigate={navigate}
+        goBack={goBack}
+        selectedProfile={selectedProfile}
+      />
+    </AppWrapper>
+  );
+}
 
 
   if (page === "cart") {

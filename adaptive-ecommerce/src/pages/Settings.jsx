@@ -106,63 +106,8 @@ function Settings({ navigate }) {
 
         <section className="mt-5 overflow-hidden rounded-2xl border border-gray-200 bg-white">
 
-          {/* Notifications */}
-
-          <button
-            className="flex w-full items-center gap-4 border-b border-gray-100 px-5 py-5 text-left hover:bg-gray-50"
-          >
-
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100 text-xl">
-              🔔
-            </div>
-
-            <div className="flex-1">
-
-              <h3 className="font-bold">
-                Notifications
-              </h3>
-
-              <p className="mt-1 text-sm text-gray-500">
-                Manage your notification preferences
-              </p>
-
-            </div>
-
-            <span className="text-xl text-gray-400">
-              →
-            </span>
-
-          </button>
-
-
-          {/* Privacy */}
-
-          <button
-            className="flex w-full items-center gap-4 px-5 py-5 text-left hover:bg-gray-50"
-          >
-
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-100 text-xl">
-              🔒
-            </div>
-
-            <div className="flex-1">
-
-              <h3 className="font-bold">
-                Privacy
-              </h3>
-
-              <p className="mt-1 text-sm text-gray-500">
-                Manage your privacy settings
-              </p>
-
-            </div>
-
-            <span className="text-xl text-gray-400">
-              →
-            </span>
-
-          </button>
-
+        
+      
         </section>
 
       </main>

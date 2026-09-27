@@ -105,15 +105,10 @@ function DealHome({ navigate }) {
 
           <button
   onClick={() => {
-    sessionStorage.setItem(
-      "activeNavigation",
-      "Flash Sale"
-    );
-
-    navigate("products", {
-      flashSale: true,
-    });
-  }}
+  navigate("products", {
+    flashSale: true,
+  });
+}}
   className="shrink-0 text-sm font-bold text-red-600 hover:text-red-700"
 >
   View All →
@@ -176,15 +171,10 @@ function DealHome({ navigate }) {
 
             <button
   onClick={() => {
-    sessionStorage.setItem(
-      "activeNavigation",
-      "Deals"
-    );
-
-    navigate("products", {
-      deal: true,
-    });
-  }}
+  navigate("products", {
+    deal: true,
+  });
+}}
   className="shrink-0 text-sm font-bold text-red-600 hover:text-red-700"
 >
   View All →

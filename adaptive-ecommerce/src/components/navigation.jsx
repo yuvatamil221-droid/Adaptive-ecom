@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 
 import { UserContext } from "../context/UserContext";
 import { UIConfigContext } from "../context/UIConfigContext";
 
 import navigation from "../config/navigation";
-
-function Navigation({ navigate }) {
+function Navigation({ navigate, currentPage, currentData }) {
   const { userProfile } = useContext(UserContext);
 
   const {
@@ -27,35 +26,18 @@ function Navigation({ navigate }) {
   // ACTIVE NAVIGATION
   // --------------------------------
 
-  const [activeItem, setActiveItem] = useState("Home");
-
-  useEffect(() => {
-    const savedItem = sessionStorage.getItem(
-      "activeNavigation"
-    );
-
-    if (savedItem) {
-      setActiveItem(savedItem);
-    }
-  }, []);
+  
 
   // --------------------------------
   // HANDLE NAVIGATION
   // --------------------------------
 
-  const handleClick = (item) => {
-    setActiveItem(item.label);
-
-    sessionStorage.setItem(
-      "activeNavigation",
-      item.label
-    );
-
-    navigate(
-      item.page,
-      item.filters || null
-    );
-  };
+const handleClick = (item) => {
+  navigate(
+    item.page,
+    item.filters || null
+  );
+};
 
   // --------------------------------
   // LAYOUT
@@ -113,9 +95,14 @@ function Navigation({ navigate }) {
           >
 
             {currentNavigation.map((item) => {
-              const isActive =
-                activeItem === item.label;
-
+             const isActive =
+  item.page === currentPage &&
+  (
+    !item.filters ||
+    Object.keys(item.filters).every(
+      (key) => item.filters[key] === currentData?.[key]
+    )
+  );
               return (
                 <button
                   key={item.label}
@@ -188,7 +175,9 @@ function Navigation({ navigate }) {
 
           {mobileNavigation.map((item) => {
             const isActive =
-              activeItem === item.label;
+  item.page === currentPage &&
+  JSON.stringify(item.filters || null) ===
+    JSON.stringify(currentData || null);
 
             return (
               <button

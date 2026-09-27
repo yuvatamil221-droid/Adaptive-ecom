@@ -14,7 +14,12 @@ import AccessibilityHome from "./AccessibilityHome";
 
 import { UserContext } from "../context/UserContext";
 
-function Home({ navigate, selectedProfile }) {
+function Home({
+  navigate,
+  selectedProfile,
+  currentPage,
+  currentData,
+}) {
   const { userProfile } = useContext(UserContext);
   const { darkMode } = useContext(ThemeContext);
 
@@ -36,8 +41,8 @@ function Home({ navigate, selectedProfile }) {
 
      <Navigation
   navigate={navigate}
-  currentPage="home"
-  currentData={null}
+  currentPage={currentPage}
+  currentData={currentData}
 />
 
       {userProfile === "dealHunter" && (
